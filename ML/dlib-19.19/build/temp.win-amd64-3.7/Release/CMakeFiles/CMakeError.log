@@ -1,0 +1,29 @@
+Determining if the function sgemm_ exists failed with the following output:
+Change Dir: C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_cb6a5.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && .NET Framework용 Microsoft (R) Build Engine 버전 16.1.76+g14b0a930a7
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Microsoft (R) C/C++ 최적화 컴파일러 버전 19.21.27702.2(x64)
+  CheckFunctionExists.c
+  Copyright (c) Microsoft Corporation. All rights reserved.
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=sgemm_ /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_cb6a5.dir\Debug\\" /Fd"cmTC_cb6a5.dir\Debug\vc142.pdb" /Gd /TC /errorReport:queue "C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CheckFunctionExists.c"
+CheckFunctionExists.obj : error LNK2019: sgemm_ 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다. [C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\CMakeTmp\cmTC_cb6a5.vcxproj]
+C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\CMakeTmp\Debug\cmTC_cb6a5.exe : fatal error LNK1120: 1개의 확인할 수 없는 외부 참조입니다. [C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\CMakeTmp\cmTC_cb6a5.vcxproj]
+
+
+
+Determining if the include file pthread.h exists failed with the following output:
+Change Dir: C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_c67fa.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && .NET Framework용 Microsoft (R) Build Engine 버전 16.1.76+g14b0a930a7
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Microsoft (R) C/C++ 최적화 컴파일러 버전 19.21.27702.2(x64)
+  CheckIncludeFile.c
+  Copyright (c) Microsoft Corporation. All rights reserved.
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_c67fa.dir\Debug\\" /Fd"cmTC_c67fa.dir\Debug\vc142.pdb" /Gd /TC /errorReport:queue "C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\CMakeTmp\CheckIncludeFile.c"
+C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\CMakeTmp\CheckIncludeFile.c(1,10): error C1083:  포함 파일을 열 수 없습니다. 'pthread.h': No such file or directory [C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\CMakeTmp\cmTC_c67fa.vcxproj]
+
+
+
