@@ -1,0 +1,10 @@
+^C:\USERS\JTM06\AGE_GENDER_ESTIMATION\DLIB-19.19\DLIB\CMAKE_UTILS\TEST_FOR_SSE4\CMAKELISTS.TXT
+setlocal
+C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\bin\cmake.exe -SC:/Users/jtm06/age_gender_estimation/dlib-19.19/dlib/cmake_utils/test_for_sse4 -BC:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release/dlib_build/sse4_test_build --check-stamp-file C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release/dlib_build/sse4_test_build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
