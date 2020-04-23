@@ -22,6 +22,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
 import com.jtmcompany.smartadvertisingboard.Http_Request_MyServerDB;
 import com.jtmcompany.smartadvertisingboard.LoginInfo;
+import com.jtmcompany.smartadvertisingboard.Network_Status_Check;
 import com.jtmcompany.smartadvertisingboard.R;
 
 public class Google_FirebaseAuth {
@@ -78,14 +79,19 @@ public class Google_FirebaseAuth {
 
                                 }
                                 Http_Request_MyServerDB http_request_myServerDB=new Http_Request_MyServerDB(name,email,null);
-                                http_request_myServerDB.execute();
+                                http_request_myServerDB.Request_Signup();
 
                             }
 
 
-                        } else{
+                        } else {
                             //실패
-                            Log.d("tak","로그인실패");
+                            Log.d("tak", "로그인실패");
+                            if (Network_Status_Check.getConnectivityStatus(mContext) == 3) {
+                                Toast.makeText(mContext, "네트워크 연결을 확인해주세요!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(mContext, "로그인 실패!", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }
                 });

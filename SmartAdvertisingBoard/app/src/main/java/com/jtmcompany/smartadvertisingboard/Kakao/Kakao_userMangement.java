@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.jtmcompany.smartadvertisingboard.Http_Request_MyServerDB;
 import com.jtmcompany.smartadvertisingboard.LoginInfo;
+import com.jtmcompany.smartadvertisingboard.Network_Status_Check;
 import com.kakao.auth.ApiErrorCode;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
@@ -42,9 +43,9 @@ public class Kakao_userMangement {
 
             @Override
             public void onSessionClosed(ErrorResult errorResult) {
-                //로그인 도중 세션이 비정상적인 이유로 닫혔을 때
-                Toast.makeText(mcontext, "세션이 닫혔습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
-                Log.d("tak","세션 닫힘");
+                    //로그인 도중 세션이 비정상적인 이유로 닫혔을 때
+                    Toast.makeText(mcontext, "세션이 닫혔습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                    Log.d("tak", "세션 닫힘");
 
             }
 
@@ -66,7 +67,7 @@ public class Kakao_userMangement {
                 String name=result.getNickname();
                 if(Bt_OK) {
                     Http_Request_MyServerDB http_request_myServerDB=new Http_Request_MyServerDB(name,"kakao",null);
-                    http_request_myServerDB.execute();
+                    http_request_myServerDB.Request_Signup();
                     Log.d("tak3","kkoLogin_Bt");
                     mcontext.startActivity(intent);
                     ((Activity) mcontext).finish();
