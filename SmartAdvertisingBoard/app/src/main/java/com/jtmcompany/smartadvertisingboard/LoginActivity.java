@@ -203,8 +203,12 @@ private int GOOGLE_RC_SIGN_IN=9001;
         }else if(v==custom_google_login_bt){
             google_firebaseAuth.signIn();
         }else if(v==email_login_bt){
-            Intent intent=new Intent(LoginActivity.this,LoginActivity_Email.class);
-            startActivity(intent);
+            if(Network_Status_Check.getConnectivityStatus(LoginActivity.this)==3){
+                Toast.makeText(LoginActivity.this, "네트워크 연결을 확인해주세요!", Toast.LENGTH_SHORT).show();
+            }else {
+                Intent intent = new Intent(LoginActivity.this, LoginActivity_Email.class);
+                startActivity(intent);
+            }
 
 
         }

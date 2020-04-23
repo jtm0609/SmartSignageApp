@@ -1,15 +1,20 @@
 package com.jtmcompany.smartadvertisingboard;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity_Email extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 TextView signup_bt;
@@ -30,6 +35,22 @@ Button email_login_bt;
         signup_bt=findViewById(R.id.email_signup);
         signup_bt.setOnClickListener(this);
     }
+        Handler handler=new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if(msg.what==1){
+                String response_value=String.valueOf(msg.obj);
+                Log.d("tak",response_value);
+                if(response_value.equals("로그인실패")){
+                    Toast.makeText(LoginActivity_Email.this, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    id_edit.setText("");
+                    pw_edit.setText("");
+                }
+
+            }
+        }
+    };
 
     @Override
     public void onClick(View view) {
@@ -38,8 +59,9 @@ Button email_login_bt;
         startActivity(intent);
         finish();
     }else if(view==email_login_bt){
-        Http_Request_MyServerDB http_request_myServerDB=new Http_Request_MyServerDB(null,id_edit.getText().toString(),pw_edit.getText().toString());
-        http_request_myServerDB.execute();
+        Http_Request_MyServerDB http_request_myServerDB=new Http_Request_MyServerDB(handler,id_edit.getText().toString(),pw_edit.getText().toString());
+       http_request_myServerDB.Request_Login();
+
     }
 
     }

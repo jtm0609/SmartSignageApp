@@ -7,6 +7,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -43,22 +45,13 @@ Button signup_bt;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
-
-
-
-            signup_bt.setOnClickListener(new View.OnClickListener() {
+        signup_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(pw_edit.getText().toString().equals(pw2_edit.getText().toString())){
 
-                    Http_Request_MyServerDB http_request_myServerDB=new Http_Request_MyServerDB(name_edit.getText().toString(),email_edit.getText().toString(),pw_edit.getText().toString());
-                    http_request_myServerDB.execute();
-
-                    Intent intent=new Intent(SignupActivity.this,LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                    Toast.makeText(SignupActivity.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                    Http_Request_MyServerDB http_request_myServerDB=new Http_Request_MyServerDB(handler,name_edit.getText().toString(),email_edit.getText().toString(),pw_edit.getText().toString());
+                    http_request_myServerDB.Request_Signup();
 
                 }else{
                     Toast.makeText(SignupActivity.this, "비밀번호와 비밀번호확인이 다릅니다.", Toast.LENGTH_SHORT).show();
@@ -68,6 +61,31 @@ Button signup_bt;
         });
 
     }
+
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if(msg.what==1){
+                String response_value=String.valueOf(msg.obj);
+                Log.d("tak",response_value);
+                if(response_value.equals("기존사용자")){
+                    Toast.makeText(SignupActivity.this, "입력하신 이메일로 가입한 사용자가있습니다.", Toast.LENGTH_SHORT).show();
+                    email_edit.setText("");
+                    pw_edit.setText("");
+                    pw2_edit.setText("");
+                    name_edit.setText("");
+                }else{
+                    Intent intent=new Intent(SignupActivity.this,LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                    Toast.makeText(SignupActivity.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }
+    };
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

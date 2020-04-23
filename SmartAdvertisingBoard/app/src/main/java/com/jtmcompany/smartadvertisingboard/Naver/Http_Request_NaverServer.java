@@ -49,7 +49,7 @@ public class Http_Request_NaverServer {
                     Log.d("tak5","name: "+name);
 
                     Http_Request_MyServerDB myServerDB=new Http_Request_MyServerDB(name,"email",null);
-                    myServerDB.execute();
+                    myServerDB.Request_Signup();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
