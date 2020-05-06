@@ -1,15 +1,22 @@
 package com.jtmcompany.smartadvertisingboard;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.kakao.auth.ApiResponseCallback;
 import com.kakao.auth.AuthService;
@@ -20,17 +27,44 @@ import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.UnLinkResponseCallback;
 import com.nhn.android.naverlogin.OAuthLogin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LoginInfo extends AppCompatActivity {
-    TextView name_tv;
-    TextView profile_tv;
-    Button kakao_logout_bt;
-    Button naver_logout_bt;
-    Button google_logout_bt;
-    OAuthLogin mOAuthLoginInstance;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_info);
+
+
+        final Home_fragment home_fragment = new Home_fragment();
+        final Create_fragment create_fragment = new Create_fragment();
+        final Mypage_fragment mypage_fragment = new Mypage_fragment();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, home_fragment).commit();
+        BottomNavigationView bottom_navigationview = findViewById(R.id.bottom_navigation);
+        bottom_navigationview.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.home:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, home_fragment).commit();
+                        return true;
+                    case R.id.create:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, create_fragment).commit();
+                        return true;
+                    case R.id.mypage:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, mypage_fragment).commit();
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
+        /*
         name_tv=findViewById(R.id.name);
         profile_tv=findViewById(R.id.profile);
         kakao_logout_bt=findViewById(R.id.kakao_logout);
@@ -142,5 +176,7 @@ public class LoginInfo extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+     */
 
 }

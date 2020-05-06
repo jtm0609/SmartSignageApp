@@ -22,6 +22,7 @@ public class Http_Request_MyServerDB  {
     private String mpw;
     private String SERVER_URL;
     private Handler mhandler;
+    //SNS 회원가입할때 요청됨
     public Http_Request_MyServerDB(String name, String email, String pw) {
         mName=name;
         mEmail=email;
