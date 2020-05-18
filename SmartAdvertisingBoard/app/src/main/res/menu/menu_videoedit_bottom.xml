@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/id_text"
+        android:title="텍스트"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/text"/>
+    <item android:id="@+id/id_music"
+        android:title="배경음악"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/music"/>
+
+    <item android:id="@+id/id_sticker"
+        android:title="스티커"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/sticker"/>
+    <item android:id="@+id/id_img"
+        android:title="이미지"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/gallery"/>
+
+
+
+</menu>

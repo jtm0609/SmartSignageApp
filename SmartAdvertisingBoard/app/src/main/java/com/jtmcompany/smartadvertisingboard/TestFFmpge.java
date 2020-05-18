@@ -2,14 +2,10 @@ package com.jtmcompany.smartadvertisingboard;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -31,12 +27,12 @@ import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
 import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
-import com.google.android.material.snackbar.Snackbar;
+import com.jtmcompany.smartadvertisingboard.VideoEdit.Music.MusicList;
+import com.jtmcompany.smartadvertisingboard.VideoEdit.VideoEditAtivity;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 import java.io.File;
-import java.io.IOException;
 
 public class TestFFmpge extends AppCompatActivity {
     private static final int REQUEST_TAKE_GALLERY_VIDEO = 100;
@@ -55,29 +51,19 @@ public class TestFFmpge extends AppCompatActivity {
 
         Button uploadBt=findViewById(R.id.uproad_bt);
         Button cutBt=findViewById(R.id.cut_bt);
+        Button musicBt=findViewById(R.id.music_bt);
+        Button testBt=findViewById(R.id.test_bt);
         videoView=findViewById(R.id.videoView);
         rangeSeekBar=findViewById(R.id.video_seekbar);
         seekvar_tvLeft=findViewById(R.id.tvLeft);
         seekbar_tvRight=findViewById(R.id.tvRight);
         loadFFMpegBinary();
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!=PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[]{
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE},100);
-        }
 
 
 
 
-        uploadBt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updoadVideo();
 
-            }
-        });
 
         cutBt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,15 +75,78 @@ public class TestFFmpge extends AppCompatActivity {
             }
         });
 
+        musicBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent =new Intent(TestFFmpge.this, MusicList.class);
+                startActivity(intent);
+            }
+        });
+
+        //동영상+오디오 합성
+        testBt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent=new Intent(TestFFmpge.this, VideoEditAtivity.class);
+                startActivity(intent);
+                /*String path=Environment.getExternalStorageDirectory()+"/Music";
+                File dir=new File(path);
+                if(dir.isDirectory()){
+                    Log.d("tak4","디렉터리 있음");
+                }else{
+                    Log.d("tak4","디렉터리 없음");
+                }
+                Log.d("tak4",path);
+                File file=new File(path,"darius.mp3");
+                if(!file.isFile()){
+                    Log.d("tak4","file이없음");
+                }
+                try {
+                    String filePath=file.getCanonicalPath();
+                    Log.d("tak4","filepath: "+filePath);
+                    //비디오 오디오합성
+                    String yourRealPath=getPath(TestFFmpge.this,selectVideoUri);
+                    Log.d("tak4","yourRealPath: "+yourRealPath);
+                    File moviesDir=Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
+                    String fileprefix="cut_videoo";
+                    String fileExtn=".mp4";
+                    File dest=new File(moviesDir,fileprefix+fileExtn);
+                    String filePath2=dest.getAbsolutePath();
+                    Log.d("tak4","filepath2: "+filePath2);
+                    //String[] complexCommand={"-i",yourRealPath,  "-i" ,filePath, "-c:v", "copy", "-c:a", "aac", "-map", "0:v:0", "-map", "1:a:0", "-shortest",filePath2};
+                    //텍스트추가
+                    String path3=Environment.getExternalStorageDirectory().getCanonicalPath();
+                    File file3=new File(path3,"text.ttf");
+                    if(!file3.isFile()){
+                        Log.d("tak6","file이 없음");
+                    }
+                    Log.d("tak6",path3);
+                    String[] complexCommand = new String[] {
+                            "-y", "-i", yourRealPath, "-vf", "drawtext=text='Title of this Video':fontfile=/storage/emulated/0/text.ttf: fontcolor=white: fontsize=24: box=1: boxcolor=black@0.5: boxborderw=5: x=20: y=20:enable='between(t,0,2)'", filePath2
+                    };
+                    execFFmpegBinary(complexCommand);
+
+
+
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+  */
+
+
+            }
+
+        });
+
+
+
 
     }
 
-    private void updoadVideo(){
-        Intent intent =new Intent();
-        intent.setType("video/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"Select Video"),REQUEST_TAKE_GALLERY_VIDEO);
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -126,7 +175,7 @@ public class TestFFmpge extends AppCompatActivity {
                         rangeSeekBar.setOnRangeSeekBarChangeListener(new RangeSeekBar.OnRangeSeekBarChangeListener() {
                             @Override
                             public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-                                
+
                                 videoView.seekTo((int) minValue * 1000);
                                 seekvar_tvLeft.setText(getTime((int)bar.getSelectedMinValue()));
                                 seekbar_tvRight.setText(getTime((int)bar.getSelectedMaxValue()));
@@ -238,6 +287,7 @@ public class TestFFmpge extends AppCompatActivity {
         String fileprefix="cut_video";
         String fileExtn=".mp4";
         String yourRealPath=getPath(TestFFmpge.this,selectVideoUri);
+        Log.d("tak2","tak2: "+selectVideoUri);
         File dest=new File(moviesDir,fileprefix+fileExtn);
         int fileNO=0;
         while(dest.exists()){
@@ -246,14 +296,17 @@ public class TestFFmpge extends AppCompatActivity {
         }
 
 
-        Log.d("tak", "startTrim: src: " + yourRealPath);
-        Log.d("tak", "startTrim: dest: " + dest.getAbsolutePath());
+        Log.d("tak5", "startTrim: src: " + yourRealPath);
+        Log.d("tak2", "startTrim: dest: " + dest.getAbsolutePath());
         Log.d("tak", "startTrim: startMs: " + startsMs);
         Log.d("tak", "startTrim: endMs: " + endMs);
         String filePath=dest.getAbsolutePath();
         String[] complexCommand = {"-ss", "" + startsMs / 1000, "-y", "-i", yourRealPath, "-t", "" + (endMs - startsMs) / 1000,"-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050", filePath};
         execFFmpegBinary(complexCommand);
+
     }
+
+    //content:// 형식으로 되있는 uri로부터 파일의 실제 경로 구하기
     private String getPath(final Context context, final Uri uri) {
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
         // DocumentProvider

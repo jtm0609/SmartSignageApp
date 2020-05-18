@@ -2,33 +2,11 @@ package com.jtmcompany.smartadvertisingboard;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.auth.FirebaseAuth;
-import com.kakao.auth.ApiResponseCallback;
-import com.kakao.auth.AuthService;
-import com.kakao.auth.network.response.AccessTokenInfoResponse;
-import com.kakao.network.ErrorResult;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
-import com.kakao.usermgmt.callback.UnLinkResponseCallback;
-import com.nhn.android.naverlogin.OAuthLogin;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LoginInfo extends AppCompatActivity {
 
@@ -40,9 +18,9 @@ public class LoginInfo extends AppCompatActivity {
         setContentView(R.layout.activity_login_info);
 
 
-        final Home_fragment home_fragment = new Home_fragment();
-        final Create_fragment create_fragment = new Create_fragment();
-        final Mypage_fragment mypage_fragment = new Mypage_fragment();
+        final Home_Fragment home_fragment = new Home_Fragment();
+        final Create_Fragment create_fragment = new Create_Fragment();
+        final Mypage_Fragment mypage_fragment = new Mypage_Fragment();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container, home_fragment).commit();
         BottomNavigationView bottom_navigationview = findViewById(R.id.bottom_navigation);
