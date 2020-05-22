@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':k4l-video-trimmer', 'video-trimmer', ':video-range-slider'
 rootProject.name='SmartAdvertisingBoard'

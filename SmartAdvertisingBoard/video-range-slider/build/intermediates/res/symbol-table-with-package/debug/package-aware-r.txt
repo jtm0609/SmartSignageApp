@@ -1,0 +1,11 @@
+com.waynell.videorangeslider
+attr leftThumbDrawable
+attr leftThumbIndex
+attr lineColor
+attr lineHeight
+attr maskColor
+attr rightThumbDrawable
+attr rightThumbIndex
+attr thumbWidth
+attr tickCount
+styleable RangeSlider leftThumbDrawable leftThumbIndex lineColor lineHeight maskColor rightThumbDrawable rightThumbIndex thumbWidth tickCount

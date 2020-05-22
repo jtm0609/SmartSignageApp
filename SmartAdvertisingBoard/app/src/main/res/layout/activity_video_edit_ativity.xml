@@ -6,52 +6,69 @@
     android:layout_height="match_parent"
     tools:context=".VideoEdit.VideoEditAtivity"
     android:id="@+id/con"
-    android:background="#4b687c">
+    android:background="@android:color/black"
+    >
 
-    <LinearLayout
-        android:id="@+id/video_edit_top"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@android:color/black"/>
     <FrameLayout
 
         android:id="@+id/video_eidt_container"
 
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/video_edit_top">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/video_edit_recycler"
+
+
+        >
 
         <VideoView
 
             android:id="@+id/video_eidt_video"
-            android:layout_width="match_parent"
-            android:layout_height="250dp" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </FrameLayout>
 
+    <ImageView
+        android:id="@+id/video_play"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/play"
+        app:layout_constraintTop_toBottomOf="@id/video_eidt_container"
 
-    <LinearLayout
-        android:id="@+id/video_edit_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/video_eidt_container" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"/>
+
+    <ImageView
+        android:id="@+id/video_stop"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/pause"
+        app:layout_constraintTop_toBottomOf="@id/video_eidt_container"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"/>
+
+
+
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/video_edit_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/video_edit_bottom"
+        app:layout_constraintBottom_toTopOf="@id/editor"
         android:background="#5e7e9b"
         />
     <LinearLayout
+        android:id="@+id/editor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/video_edit_recycler"
         app:layout_constraintBottom_toBottomOf="parent"
         android:gravity="center_horizontal"
         android:background="#4b687c">
@@ -59,6 +76,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:gravity="center"
             android:text="editor"
             android:textColor="@android:color/black"

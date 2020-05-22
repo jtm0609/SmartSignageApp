@@ -5,20 +5,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.MediaMetadataRetriever;
+import android.media.MediaPlayer;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Music.MusicList;
 import com.jtmcompany.smartadvertisingboard.R;
@@ -28,12 +40,16 @@ import com.jtmcompany.smartadvertisingboard.StickerView.StickerView;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.VideoEdit_RecyclerAdapter;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.VideoEdit_StickerBottomsheet_RecyclerAdapter;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.VideoEdit_TextBottomsheet_RecyclerAdapter;
+import com.waynell.videorangeslider.RangeSlider;
+
+import org.w3c.dom.Text;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_RecyclerAdapter.OnClickEditor_ModelListener, VideoEdit_TextBottomsheet_RecyclerAdapter.textClickListener, VideoEdit_StickerBottomsheet_RecyclerAdapter.stickerClickListener {
+
+public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_RecyclerAdapter.OnClickEditor_ModelListener, VideoEdit_TextBottomsheet_RecyclerAdapter.textClickListener, VideoEdit_StickerBottomsheet_RecyclerAdapter.stickerClickListener, View.OnClickListener {
 
     List<Editor_Model> list=new ArrayList<>();
     FrameLayout videoView_container;
@@ -41,17 +57,35 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     ImageView textexit_bt;
     ImageView stickerInsert_bt;
     ImageView stickerExit_bt;
+    ImageView video_play_bt;
+    ImageView video_stop_bt;
     BottomSheetDialog text_bottomsheet;
     BottomSheetDialog sticker_bottomsheet;
+
+    VideoView videoView;
 
     //현재 프레임레이아웃에 삽입된 스티커뷰
     List<StickerView> insertView=new ArrayList<>();
     private int REQUEST_CODE=100;
 
+    Uri select_Video_Uri;
+
+
+
+    private int mDuration;
+
+    static int trim_start;
+    static int trim_end;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_edit_ativity);
+
+        video_play_bt=findViewById(R.id.video_play);
+        video_stop_bt=findViewById(R.id.video_stop);
+        video_play_bt.setOnClickListener(this);
+        video_stop_bt.setOnClickListener(this);
+
         videoView_container=findViewById(R.id.video_eidt_container);
         videoView_container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,11 +97,32 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             }
         });
 
-        VideoView videoView=findViewById(R.id.video_eidt_video);
-        Uri select_Video_Uri=getIntent().getParcelableExtra("selectUri");
+        videoView=findViewById(R.id.video_eidt_video);
+        select_Video_Uri=getIntent().getParcelableExtra("selectUri");
         videoView.setVideoURI(select_Video_Uri);
 
-        videoView.start();
+
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+
+
+                mDuration=videoView.getDuration()/1000;
+
+
+
+
+            }
+        });
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                video_play_bt.setVisibility(View.VISIBLE);
+                video_stop_bt.setVisibility(View.GONE);
+            }
+        });
+
+
 
 
         RecyclerView recyclerView=findViewById(R.id.video_edit_recycler);
@@ -87,8 +142,10 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         //텍스트 바텀시트
         text_bottomsheet=new BottomSheetDialog(this);
 
-        //스티커 밭머시트
+        //스티커 바텀시트
         sticker_bottomsheet=new BottomSheetDialog(this);
+
+
 
     }
 
@@ -96,8 +153,18 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     @Override
     public void OnClickedEditor_Model(int position) {
         Log.d("tak4",""+position);
+
             //잘라내기
         if(position==0){
+
+            //trim됫다면
+            if(trim_start!=0 && trim_end!=0)
+            mDuration=trim_end-trim_start;
+
+            VideoTrimFragment videoTrimFragment= new VideoTrimFragment(mDuration,videoView,select_Video_Uri);
+            videoTrimFragment.show(getSupportFragmentManager(),"hi");
+
+
 
 
             //텍스트
@@ -107,6 +174,13 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             RecyclerView recyclerView=view.findViewById(R.id.text_bottomsheet_recycler);
             textInsert_bt=view.findViewById(R.id.text_check);
             textexit_bt=view.findViewById(R.id.text_exit);
+
+            textexit_bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    text_bottomsheet.cancel();
+                }
+            });
 
 
             LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
@@ -137,6 +211,12 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
             stickerInsert_bt=view.findViewById(R.id.sticker_insert);
             stickerExit_bt=view.findViewById(R.id.sticker_exit);
+            stickerExit_bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    sticker_bottomsheet.cancel();
+                }
+            });
 
             list.add(getResources().getDrawable(R.drawable.icon));
             list.add(getResources().getDrawable(R.drawable.advertise));
@@ -201,6 +281,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
         videoView_container.addView(stickerTextView);
 
+        // V버튼
         textInsert_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -256,7 +337,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
         prieveStickerView=curStickerView;
 
-
+        // V 버튼
         stickerInsert_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -264,6 +345,8 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
                 insertView.add(stickerImageView);
             }
         });
+
+
 
 
         //외부배경 눌렀을때 이벤트발생 (API17이상)
@@ -300,15 +383,33 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
                     videoView_container.addView(stickerImageView);
                     insertView.add(stickerImageView);
 
-
-
-
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    private String getTime(int seconds) {
+        int hr = seconds / 3600;
+        int rem = seconds % 3600;
+        int mn = rem / 60;
+        int sec = rem % 60;
+        return String.format("%02d", hr) + ":" + String.format("%02d", mn) + ":" + String.format("%02d", sec);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view==video_play_bt){
+            videoView.start();
+            video_stop_bt.setVisibility(View.VISIBLE);
+            video_play_bt.setVisibility(VideoView.GONE);
+
+        }else if(view==video_stop_bt){
+            videoView.pause();
+            video_play_bt.setVisibility(View.VISIBLE);
+            video_stop_bt.setVisibility(View.GONE);
+
         }
     }
 }
