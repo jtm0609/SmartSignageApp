@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VideoEdit.VideoMusicTrim_Fragment"
+
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+
+        >
+        <LinearLayout
+            android:id="@+id/music_play_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"  >
+    <Button
+        android:id="@+id/music_play_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="play"
+ />
+        <Button
+            android:layout_marginTop="15dp"
+            android:id="@+id/music_stop_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="stop"
+            android:visibility="gone"/>
+        </LinearLayout>
+    <org.florescu.android.rangeseekbar.RangeSeekBar
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/music_play_layout"
+        android:id="@+id/music_seekbar"
+        app:textAboveThumbsColor="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:activeColor="#ED1C24"
+
+
+
+        />
+        <TextView
+            android:id="@+id/tvLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="00:00"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toTopOf="@id/music_seekbar"/>
+
+        <TextView
+            android:id="@+id/tvRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="00:00"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toTopOf="@id/music_seekbar"/>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#4b687c"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/music_seekbar"
+            >
+            <ImageView
+                android:id="@+id/music_check"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:src="@drawable/check"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginRight="20dp"
+                android:clickable="true"/>
+            <TextView
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="텍스트"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                />
+            <ImageView
+                android:id="@+id/musio_exit"
+                android:layout_width="35dp"
+                android:layout_height="30dp"
+                android:src="@drawable/exit"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginLeft="20dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

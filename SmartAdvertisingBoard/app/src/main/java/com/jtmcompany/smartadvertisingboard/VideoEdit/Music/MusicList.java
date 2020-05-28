@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 
 public class MusicList extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
+    private static final int RESULT_OK_MUSIC = 300;
     ListView musicListView;
     MusicListViewAdapter adapter;
     ArrayList<MusicData> list=new ArrayList<>();
@@ -51,6 +54,18 @@ public class MusicList extends AppCompatActivity implements AdapterView.OnItemCl
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         Log.d("tak3","click");
         Toast.makeText(this, position+"번째", Toast.LENGTH_SHORT).show();
+        Uri musicURI = Uri.withAppendedPath(
+                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, "" + list.get(position).getMusicId());
+        //Log.d("tak4","uri: "+musicURI);
+        //MediaPlayer mediaPlayer=new MediaPlayer();
+        //mediaPlayer=MediaPlayer.create(this,musicURI);
+        //mediaPlayer.start();
+        Intent intent=new Intent();
+        intent.putExtra("musicUri",musicURI);
+        setResult(RESULT_OK_MUSIC,intent);
+        finish();
+
+
     }
 
     private void getMusicData(){
@@ -73,6 +88,8 @@ public class MusicList extends AppCompatActivity implements AdapterView.OnItemCl
         );
 
         if(cursor!=null){
+
+
 
             while(cursor.moveToNext()){
                 try{

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<RelativeLayout
+    android:background="#5e7e9b"
+    android:id="@+id/trim_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+
+    >
+    <TextView
+        android:id="@+id/trim_video_currentTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="10dp"/>
+    <Button
+        android:id="@+id/videoTrim_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="play"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:id="@+id/videoTrim_pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pause"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"/>
+
+
+    <TextView
+        android:id="@+id/trim_video_endTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_alignParentRight="true"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/range_rv_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:overScrollMode="never"
+                android:paddingLeft="@dimen/range_thumb_width"
+                android:paddingRight="@dimen/range_thumb_width"/>
+
+            <SeekBar
+                android:id="@+id/trim_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:thumb="@drawable/indicator"
+                android:secondaryProgress="0"
+                android:progressDrawable="@android:color/transparent"
+                android:paddingLeft="@dimen/range_thumb_width"
+                android:paddingRight="@dimen/range_thumb_width"
+
+                />
+            <com.waynell.videorangeslider.RangeSlider
+                app:lineHeight="3dp"
+                app:lineColor="@color/colorAccent"
+                app:thumbWidth="@dimen/range_thumb_width"
+                app:tickCount="200"
+                app:leftThumbIndex="0"
+                app:leftThumbDrawable="@drawable/thumb_drawable"
+                app:rightThumbDrawable="@drawable/thumb_drawable"
+                android:id="@+id/range_slider"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_alignLeft="@id/range_rv_recycler"
+                android:layout_alignRight="@id/range_rv_recycler"/>
+
+        </FrameLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/range_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/layout"
+
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#4b687c"
+        android:layout_below="@id/range_tv">
+        <ImageView
+            android:id="@+id/trim_check"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:src="@drawable/check"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="20dp"
+            android:clickable="true"/>
+        <TextView
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="텍스트"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            />
+        <ImageView
+            android:id="@+id/trim_exit"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:src="@drawable/exit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginLeft="20dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

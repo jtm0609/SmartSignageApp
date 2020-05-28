@@ -35,7 +35,7 @@ public class UploadActivity extends AppCompatActivity {
         Log.d("tak3","uploadvideo");
         Intent intent =new Intent();
         intent.setType("video/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
         startActivityForResult(Intent.createChooser(intent,"Select Video"),REQUEST_TAKE_GALLERY_VIDEO);
     }
 

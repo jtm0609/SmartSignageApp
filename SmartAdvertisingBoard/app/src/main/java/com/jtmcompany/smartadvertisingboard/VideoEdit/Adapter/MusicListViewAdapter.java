@@ -71,7 +71,6 @@ public class MusicListViewAdapter extends ArrayAdapter<MusicData> {
             holder.img=v.findViewById(R.id.imgMusic);
             holder.title=v.findViewById(R.id.txt_music_title);
             holder.name=v.findViewById(R.id.txt_singer_name);
-            holder.btn=v.findViewById(R.id.isMusic_click);
 
             v.setTag(holder);
         }else{
@@ -96,12 +95,7 @@ public class MusicListViewAdapter extends ArrayAdapter<MusicData> {
             Log.d("tak3","test"+data.getMusicTitle());
             holder.title.setText(data.getMusicTitle());
             holder.name.setText(data.getMusicSinger());
-            holder.btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(mContext, "클릭", Toast.LENGTH_SHORT).show();
-                }
-            });
+
         }
         return v;
     }
@@ -110,6 +104,5 @@ public class MusicListViewAdapter extends ArrayAdapter<MusicData> {
         ImageView img;
         TextView title;
         TextView name;
-        Button btn;
     }
 }

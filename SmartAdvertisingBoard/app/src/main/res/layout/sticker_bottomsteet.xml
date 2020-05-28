@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:id="@+id/sticker_bottomsheet_recycler"
         android:background="#5e7e9b"/>
     <androidx.constraintlayout.widget.ConstraintLayout
