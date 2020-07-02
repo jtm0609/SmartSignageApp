@@ -198,7 +198,7 @@ public abstract class StickerView extends FrameLayout implements DialogInterface
 
 
 
-    protected abstract View getMainView();
+    public abstract View getMainView();
 
 
     //터치이벤트
@@ -345,6 +345,9 @@ public abstract class StickerView extends FrameLayout implements DialogInterface
                         //setRotation((float) angle - 45);
                         setRotation((float) angle - 45);
                         Log.v(TAG, "getRotation(): " + getRotation());
+                        Log.d("tak12","getRotation: "+getRotation());
+                        //Log.d("tak12","rotate_orgX: "+rotate_orgX);
+                        //Log.d("tak12","rotate_orgY: "+rotate_orgY);
                         onRotating();
                         rotate_orgX = rotate_newX;
                         rotate_orgY = rotate_newY;
@@ -356,6 +359,7 @@ public abstract class StickerView extends FrameLayout implements DialogInterface
 
                     case MotionEvent.ACTION_UP:
                         Log.v(TAG, "iv_scale action up");
+                        Log.d("tak12","view width: "+StickerView.this.getMainView().getWidth());
                         break;
 
                 }

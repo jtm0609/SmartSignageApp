@@ -45,7 +45,7 @@ public class Http_Request_MyServerDB  {
 
     public String Request_Signup() {
                 try{
-                    SERVER_URL="http://52.79.242.45/index.php";
+                    SERVER_URL="http://15.164.163.214/index.php";
                     Log.d("tak5","1");
                     URL url=new URL(SERVER_URL);
                     String posData = "name=" + URLEncoder.encode(mName, "UTF-8") + "&" + "email=" + mEmail+ "&" + "pw="+mpw;
@@ -62,7 +62,7 @@ public class Http_Request_MyServerDB  {
     }
 
     public String Request_Login(){
-        SERVER_URL="http://52.79.242.45/login.php";
+        SERVER_URL="http://15.164.163.214/login.php";
         Log.d("tak5","1");
         try {
             URL url=new URL(SERVER_URL);

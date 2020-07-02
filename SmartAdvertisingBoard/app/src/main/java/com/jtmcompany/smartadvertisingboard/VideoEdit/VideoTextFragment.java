@@ -1,14 +1,12 @@
 package com.jtmcompany.smartadvertisingboard.VideoEdit;
 
 
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,13 +16,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerTextView;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.VideoEdit_TextBottomsheet_RecyclerAdapter;
@@ -139,14 +134,14 @@ public class VideoTextFragment extends Fragment implements VideoEdit_TextBottoms
                 FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().remove(VideoTextFragment.this).commit();
 
-                //fragmentManager.beginTransaction().replace(R.id.text_container,selectTextLocation_fragment).commit();
+                //fragmentManager.beginTransaction().replace(R.id.text_container,selectLocation_fragment).commit();
                // VideoTrimFragment videoTrimFragment=new VideoTrimFragment(mVideoview);
 
                 //VideoEditAtivity.insertView.add(curTextView);
 
                 //int duration=VideoEditAtivity.trim_end-VideoEditAtivity.trim_start;
-                SelectTextLocation_Fragment selectTextLocation_fragment=new SelectTextLocation_Fragment(mVideoview,mVideoSelectUri,mlist,curTextView,videoView_container);
-                fragmentManager.beginTransaction().add(R.id.con,selectTextLocation_fragment).commit();
+                SelectLocation_Fragment selectLocation_fragment =new SelectLocation_Fragment(mVideoview,mVideoSelectUri,mlist,curTextView,videoView_container);
+                fragmentManager.beginTransaction().add(R.id.con, selectLocation_fragment).commit();
 
 
             }

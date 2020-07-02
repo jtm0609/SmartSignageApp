@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jtmcompany.smartadvertisingboard.LoginInfo;
 import com.jtmcompany.smartadvertisingboard.R;
 
 public class LoginActivity_Email extends AppCompatActivity implements View.OnClickListener, TextWatcher {
@@ -48,6 +49,12 @@ Button email_login_bt;
                     Toast.makeText(LoginActivity_Email.this, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show();
                     id_edit.setText("");
                     pw_edit.setText("");
+                }else{
+                    Toast.makeText(LoginActivity_Email.this, "로그인성공", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(LoginActivity_Email.this, LoginInfo.class);
+                    startActivity(intent);
+                    finish();
+
                 }
 
             }

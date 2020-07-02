@@ -1,7 +1,6 @@
 package com.jtmcompany.smartadvertisingboard.VideoEdit;
 
 
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -20,7 +19,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerImageView;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.VideoEdit_StickerBottomsheet_RecyclerAdapter;
@@ -119,8 +117,8 @@ public class VideoStickerFragment extends Fragment implements VideoEdit_StickerB
                 fragmentManager.beginTransaction().remove(VideoStickerFragment.this).commit();
 
                 int duration=VideoEditAtivity.trim_end-VideoEditAtivity.trim_start;
-                SelectTextLocation_Fragment selectTextLocation_fragment=new SelectTextLocation_Fragment(mVideoview,mVideoSelectUri,mlist,curStickerView,videoView_container);
-                fragmentManager.beginTransaction().add(R.id.con,selectTextLocation_fragment).commit();
+                SelectLocation_Fragment selectLocation_fragment =new SelectLocation_Fragment(mVideoview,mVideoSelectUri,mlist,curStickerView,videoView_container);
+                fragmentManager.beginTransaction().add(R.id.con, selectLocation_fragment).commit();
 
                 //InsertStickerView_Model insert_model=new InsertStickerView_Model(stickerImageView);
                 //VideoEditAtivity.insertView.add(insert_model);

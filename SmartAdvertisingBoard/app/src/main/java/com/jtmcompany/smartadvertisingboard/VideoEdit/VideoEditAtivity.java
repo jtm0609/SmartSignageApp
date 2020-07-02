@@ -12,6 +12,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -24,17 +27,20 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.jtmcompany.smartadvertisingboard.StickerView.StickerTextView;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Music.MusicList;
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerImageView;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerView;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.VideoEdit_RecyclerAdapter;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +48,7 @@ import java.util.List;
 
 public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_RecyclerAdapter.OnClickEditor_ModelListener, View.OnClickListener, MediaPlayer.OnPreparedListener {
 
+    Button complete_bt;
     private static final int REQUEST_CODE_MUSIC =200 ;
     private static final int RESULT_OK_MUSIC = 300;
     List<Editor_Model> list=new ArrayList<>();
@@ -82,6 +89,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
     MediaPlayer musicPlayer;
     Music_Play_Thread music_play_thread;
+    String videoPath;
 
 
 
@@ -92,8 +100,10 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         isFragmentClose=true;
         video_play_bt=findViewById(R.id.video_play);
         video_stop_bt=findViewById(R.id.video_stop);
+        complete_bt=findViewById(R.id.video_complete_bt);
         video_play_bt.setOnClickListener(this);
         video_stop_bt.setOnClickListener(this);
+        complete_bt.setOnClickListener(this);
         videoView_container=findViewById(R.id.video_eidt_container);
         videoView_container.setOnClickListener(this);
         videoView=findViewById(R.id.video_eidt_video);
@@ -149,7 +159,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             }
         },1000);
 
-        String videoPath = getPath(this,select_Video_Uri);
+        videoPath = getPath(this,select_Video_Uri);
         mediaMetadataRetriever = new MediaMetadataRetriever();
         mediaMetadataRetriever.setDataSource(videoPath);
 
@@ -303,7 +313,9 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         super.onDestroy();
         if(videoHandler!=null)
         videoHandler.removeMessages(0);
-        Log.d("tak3","onDestroy");
+        if(insertView!=null)
+        insertView.clear();
+        Log.d("tak12","onDestroy");
     }
 
     //갤러리에서 이미지를골랐을때 비디오콘테이너에 추가한다.
@@ -321,8 +333,8 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
                     galleryImageView.setImageBitmap(img);
                     videoView_container.addView(galleryImageView);
 
-                    SelectTextLocation_Fragment selectTextLocation_fragment=new SelectTextLocation_Fragment(videoView,select_Video_Uri,thumnail_list,galleryImageView,videoView_container);
-                    fragmentManager.beginTransaction().add(R.id.con,selectTextLocation_fragment).commit();
+                    SelectLocation_Fragment selectLocation_fragment =new SelectLocation_Fragment(videoView,select_Video_Uri,thumnail_list,galleryImageView,videoView_container);
+                    fragmentManager.beginTransaction().add(R.id.con, selectLocation_fragment).commit();
                     //InsertStickerView_Model insert_model=new InsertStickerView_Model(galleryImageView);
                     //insertView.add(insert_model);
 
@@ -377,6 +389,60 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
             }
 
+        }else if(view==complete_bt){
+            String musicPath = getPath(this, select_Music_Uri);
+            FFmpeg_Task ffmpeg_task=new FFmpeg_Task(this,videoPath,musicPath);
+            ffmpeg_task.loadFFMpegBinary();
+            ffmpeg_task.executeCutVideoCommand(trim_start, trim_end);
+
+            for(int i=0; i<insertView.size(); i++){
+                    View v=insertView.get(i).getmStickerView().getMainView();
+                    int v_width=insertView.get(i).getWidth();
+                    int v_height=insertView.get(i).getHeight();
+                    float v_rotation=insertView.get(i).getRotatation();
+                    Matrix rotateMatrix = new Matrix();
+                    rotateMatrix.postRotate(v_rotation);
+                    //v.setDrawingCacheEnabled(true);
+                    //v.buildDrawingCache();
+
+                    Log.d("tak12","width: "+v_width);
+                    Log.d("tak12","height: "+v_height);
+                    Log.d("tak12","rotation: "+v_rotation);
+
+                    //뷰 -> 비트맵으로 변환
+                    Bitmap be= Bitmap.createBitmap(v_width,v_height,
+                            Bitmap.Config.ARGB_8888);
+                    Canvas c=new Canvas(be);
+                    v.draw(c);
+
+                    Bitmap b=Bitmap.createBitmap(be,0,0,v_width,v_height,rotateMatrix,false);
+                    //Canvas c2=new Canvas(b);
+                    //v.draw(c2);
+
+
+                    //쓰기
+                    try {
+                        File moviesDir= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
+                        String fileName="insert"+i+".png";
+                        File tempFile=new File(moviesDir,fileName);
+                        tempFile.createNewFile();
+
+                        Log.d("tak12","진행중");
+
+
+                        FileOutputStream fos = new FileOutputStream(tempFile);
+                        b.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                        fos.flush();
+                        fos.close();
+                    }catch (Exception e){
+                        Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+                    }
+
+            }
+
+
+
+
         }
     }
 
@@ -398,6 +464,9 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
                     e.printStackTrace();
                 }
             }
+
+            if(!videoView.isPlaying())
+                musicPlayer.pause();
         }
 
 
@@ -529,5 +598,6 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         return null;
 
     }
+
 
 }

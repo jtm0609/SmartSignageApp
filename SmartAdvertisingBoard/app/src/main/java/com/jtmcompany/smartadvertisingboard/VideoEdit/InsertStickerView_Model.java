@@ -6,6 +6,34 @@ public class InsertStickerView_Model {
 private StickerView mStickerView;
 private int insert_start_time;
 private int insert_end_time;
+private int width;
+private int height;
+private float rotatation;
+
+    public float getRotatation() {
+        return rotatation;
+    }
+
+    public void setRotatation(float rotatation) {
+        this.rotatation = rotatation;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
 
     public InsertStickerView_Model(StickerView mStickerView) {
         this.mStickerView = mStickerView;
