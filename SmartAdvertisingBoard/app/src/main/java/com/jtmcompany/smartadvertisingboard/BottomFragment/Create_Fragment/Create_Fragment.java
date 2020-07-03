@@ -1,4 +1,4 @@
-package com.jtmcompany.smartadvertisingboard;
+package com.jtmcompany.smartadvertisingboard.BottomFragment.Create_Fragment;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.jtmcompany.smartadvertisingboard.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,8 +47,8 @@ public class Create_Fragment extends Fragment {
         public MypagerAdapter(@NonNull FragmentManager fm) {
             super(fm);
             Log.d("tak","생성자");
-            fragments.add(new Create_Fragment_createAdvertise_fragment());
-            fragments.add(new Create_Fragment_myAdvertise_fragment());
+            fragments.add(new Create_Fragment_createAdvertise());
+            fragments.add(new Create_Fragment_myAdvertise());
 
         }
 

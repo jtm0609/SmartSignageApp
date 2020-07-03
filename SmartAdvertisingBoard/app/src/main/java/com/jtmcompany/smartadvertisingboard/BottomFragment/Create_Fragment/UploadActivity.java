@@ -1,4 +1,4 @@
-package com.jtmcompany.smartadvertisingboard;
+package com.jtmcompany.smartadvertisingboard.BottomFragment.Create_Fragment;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VideoEditAtivity;
 
 import org.florescu.android.rangeseekbar.RangeSeekBar;

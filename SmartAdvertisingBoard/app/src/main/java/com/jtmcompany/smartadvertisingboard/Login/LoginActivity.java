@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.jtmcompany.smartadvertisingboard.Login.Google.Google_FirebaseAuth;
 import com.jtmcompany.smartadvertisingboard.Login.Kakao.Kakao_sessionCallback;
-import com.jtmcompany.smartadvertisingboard.LoginInfo;
+import com.jtmcompany.smartadvertisingboard.LoginInfo_Activity;
 import com.jtmcompany.smartadvertisingboard.Login.Naver.NaverOAuthLoginHandler;
 import com.jtmcompany.smartadvertisingboard.Login.Naver.Naver_AuthInfo;
 import com.jtmcompany.smartadvertisingboard.Login.Naver.Naver_RefreshTokenTask;
@@ -72,7 +72,7 @@ private int GOOGLE_RC_SIGN_IN=9001;
 
         if(mAuthUser!=null){
             Log.d("tak4","userOK");
-            Intent intent=new Intent(LoginActivity.this, LoginInfo.class);
+            Intent intent=new Intent(LoginActivity.this, LoginInfo_Activity.class);
             startActivity(intent);
             finish();
         }else{
@@ -106,7 +106,7 @@ private int GOOGLE_RC_SIGN_IN=9001;
         if(OAuthLoginState.OK.equals(mOAuthLoginModule.getState(this))){
             Log.d("tak3","naverLogin");
             Log.d("tak2","state: "+mOAuthLoginModule.getState(this));
-            Intent intent=new Intent(LoginActivity.this,LoginInfo.class);
+            Intent intent=new Intent(LoginActivity.this, LoginInfo_Activity.class);
             startActivity(intent);
             finish();
 
@@ -135,7 +135,7 @@ private int GOOGLE_RC_SIGN_IN=9001;
             editor.putBoolean("Bt_OK",false);
             editor.commit();
             Log.d("tak3","kkoLogin");
-            Intent intent=new Intent(LoginActivity.this,LoginInfo.class);
+            Intent intent=new Intent(LoginActivity.this, LoginInfo_Activity.class);
             startActivity(intent);
             finish();
 

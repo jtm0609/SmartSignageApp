@@ -1,14 +1,12 @@
-package com.jtmcompany.smartadvertisingboard;
+package com.jtmcompany.smartadvertisingboard.BottomFragment.Create_Fragment;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -17,9 +15,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.jtmcompany.smartadvertisingboard.VideoEdit.VideoEditAtivity;
+import com.jtmcompany.smartadvertisingboard.R;
 
-public class Create_Fragment_createAdvertise_fragment extends Fragment {
+public class Create_Fragment_createAdvertise extends Fragment {
     View view;
     @Nullable
     @Override

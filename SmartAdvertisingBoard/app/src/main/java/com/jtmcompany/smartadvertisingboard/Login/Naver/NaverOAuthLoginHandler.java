@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.jtmcompany.smartadvertisingboard.LoginInfo;
+import com.jtmcompany.smartadvertisingboard.LoginInfo_Activity;
 import com.nhn.android.naverlogin.OAuthLogin;
 
 public class NaverOAuthLoginHandler extends com.nhn.android.naverlogin.OAuthLoginHandler {
@@ -34,7 +34,7 @@ private Http_Request_NaverServer naverHttp;
                 Log.d("tak","OAuthState: "+mOAuthLoginModule.getState(mcontext));
                 if((mOAuthLoginModule.getState(mcontext).toString().equals("OK"))){
                     Log.d("tak3","naverhandler");
-                    Intent intent=new Intent(mcontext,LoginInfo.class);
+                    Intent intent=new Intent(mcontext, LoginInfo_Activity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mcontext.startActivity(intent);
 

@@ -1,4 +1,4 @@
-package com.jtmcompany.smartadvertisingboard;
+package com.jtmcompany.smartadvertisingboard.BottomFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.jtmcompany.smartadvertisingboard.Login.LoginActivity;
+import com.jtmcompany.smartadvertisingboard.R;
 import com.kakao.auth.ApiResponseCallback;
 import com.kakao.auth.AuthService;
 import com.kakao.auth.network.response.AccessTokenInfoResponse;

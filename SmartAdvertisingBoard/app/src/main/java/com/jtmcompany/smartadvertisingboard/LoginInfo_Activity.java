@@ -3,26 +3,15 @@ package com.jtmcompany.smartadvertisingboard;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.jtmcompany.smartadvertisingboard.Login.LoginActivity;
-import com.kakao.auth.ApiResponseCallback;
-import com.kakao.auth.AuthService;
-import com.kakao.auth.network.response.AccessTokenInfoResponse;
-import com.kakao.network.ErrorResult;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
-import com.kakao.usermgmt.callback.UnLinkResponseCallback;
-import com.nhn.android.naverlogin.OAuthLogin;
+import com.jtmcompany.smartadvertisingboard.BottomFragment.Create_Fragment.Create_Fragment;
+import com.jtmcompany.smartadvertisingboard.BottomFragment.Home_Fragment;
+import com.jtmcompany.smartadvertisingboard.BottomFragment.Mypage_Fragment;
 
-public class LoginInfo extends AppCompatActivity {
+public class LoginInfo_Activity extends AppCompatActivity {
 
 
 

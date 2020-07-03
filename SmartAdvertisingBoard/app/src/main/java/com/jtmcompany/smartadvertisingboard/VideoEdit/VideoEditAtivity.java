@@ -1,6 +1,7 @@
 package com.jtmcompany.smartadvertisingboard.VideoEdit;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -28,6 +30,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -390,58 +393,81 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             }
 
         }else if(view==complete_bt){
-            String musicPath = getPath(this, select_Music_Uri);
-            FFmpeg_Task ffmpeg_task=new FFmpeg_Task(this,videoPath,musicPath);
-            ffmpeg_task.loadFFMpegBinary();
-            ffmpeg_task.executeCutVideoCommand(trim_start, trim_end);
+            EditText titleText=new EditText(this);
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setTitle("광고 제작");
+            builder.setMessage("광고 제목 입력");
+            builder.setView(titleText);
+            titleText.setHint("제목을 입력하세요.");
+            //다이어로그 완료버튼
+            //광고제목, 광고제작날짜, 광고썸네일, 동영상파일을 DB에저장하게구현할것.
+            builder.setPositiveButton("광고 제작하기", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int j) {
+                    String musicPath = getPath(VideoEditAtivity.this, select_Music_Uri);
+                    FFmpeg_Task ffmpeg_task=new FFmpeg_Task(VideoEditAtivity.this,videoPath,musicPath);
+                    ffmpeg_task.loadFFMpegBinary();
+                    ffmpeg_task.executeCutVideoCommand(trim_start, trim_end);
 
-            for(int i=0; i<insertView.size(); i++){
-                    View v=insertView.get(i).getmStickerView().getMainView();
-                    int v_width=insertView.get(i).getWidth();
-                    int v_height=insertView.get(i).getHeight();
-                    float v_rotation=insertView.get(i).getRotatation();
-                    Matrix rotateMatrix = new Matrix();
-                    rotateMatrix.postRotate(v_rotation);
-                    //v.setDrawingCacheEnabled(true);
-                    //v.buildDrawingCache();
+                    for(int i=0; i<insertView.size(); i++){
+                        View v=insertView.get(i).getmStickerView().getMainView();
+                        int v_width=insertView.get(i).getWidth();
+                        int v_height=insertView.get(i).getHeight();
+                        float v_rotation=insertView.get(i).getRotatation();
+                        Matrix rotateMatrix = new Matrix();
+                        rotateMatrix.postRotate(v_rotation);
+                        //v.setDrawingCacheEnabled(true);
+                        //v.buildDrawingCache();
 
-                    Log.d("tak12","width: "+v_width);
-                    Log.d("tak12","height: "+v_height);
-                    Log.d("tak12","rotation: "+v_rotation);
+                        Log.d("tak12","width: "+v_width);
+                        Log.d("tak12","height: "+v_height);
+                        Log.d("tak12","rotation: "+v_rotation);
 
-                    //뷰 -> 비트맵으로 변환
-                    Bitmap be= Bitmap.createBitmap(v_width,v_height,
-                            Bitmap.Config.ARGB_8888);
-                    Canvas c=new Canvas(be);
-                    v.draw(c);
+                        //뷰 -> 비트맵으로 변환
+                        Bitmap be= Bitmap.createBitmap(v_width,v_height,
+                                Bitmap.Config.ARGB_8888);
+                        Canvas c=new Canvas(be);
+                        v.draw(c);
 
-                    Bitmap b=Bitmap.createBitmap(be,0,0,v_width,v_height,rotateMatrix,false);
-                    //Canvas c2=new Canvas(b);
-                    //v.draw(c2);
-
-
-                    //쓰기
-                    try {
-                        File moviesDir= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
-                        String fileName="insert"+i+".png";
-                        File tempFile=new File(moviesDir,fileName);
-                        tempFile.createNewFile();
-
-                        Log.d("tak12","진행중");
+                        Bitmap b=Bitmap.createBitmap(be,0,0,v_width,v_height,rotateMatrix,false);
+                        //Canvas c2=new Canvas(b);
+                        //v.draw(c2);
 
 
-                        FileOutputStream fos = new FileOutputStream(tempFile);
-                        b.compress(Bitmap.CompressFormat.PNG, 100, fos);
-                        fos.flush();
-                        fos.close();
-                    }catch (Exception e){
-                        Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+                        //쓰기
+                        try {
+                            File moviesDir= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
+                            String fileName="insert"+i+".png";
+                            File tempFile=new File(moviesDir,fileName);
+                            tempFile.createNewFile();
+
+                            Log.d("tak12","진행중");
+
+
+                            FileOutputStream fos = new FileOutputStream(tempFile);
+                            b.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                            fos.flush();
+                            fos.close();
+                        }catch (Exception e){
+                            Toast.makeText(VideoEditAtivity.this, "error", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
-            }
+
+                }
+            });
+            //다디어로그 취소버튼
+            builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
 
 
 
+        builder.show();
 
         }
     }

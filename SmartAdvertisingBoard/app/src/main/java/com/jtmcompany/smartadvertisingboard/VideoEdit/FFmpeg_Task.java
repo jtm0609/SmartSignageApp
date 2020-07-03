@@ -1,7 +1,6 @@
 package com.jtmcompany.smartadvertisingboard.VideoEdit;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.util.Log;
@@ -11,10 +10,8 @@ import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
 import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
-import com.jtmcompany.smartadvertisingboard.TestFFmpge;
 
 import java.io.File;
-import java.io.IOException;
 
 public class FFmpeg_Task {
     FFmpeg fFmpeg;
@@ -133,25 +130,33 @@ public class FFmpeg_Task {
 
 
     //4. 이미지오버레이(최초)
-    public void executeImageVideoCommand(){
-        int insert_img_size=VideoEditAtivity.insertView.size();
-        File img_dest=new File(moviesDir,"insert"+insert_img_position+".png");
-        String imgPath=img_dest.getAbsolutePath();
-        File img_video_dest=new File(moviesDir,"imgVideo0.mp4");
-        imageVideoPath=img_video_dest.getAbsolutePath();
-        if(img_video_dest.exists()){
+    public void executeImageVideoCommand() {
+        int insert_img_size = VideoEditAtivity.insertView.size();
+        File img_dest = new File(moviesDir, "insert" + insert_img_position + ".png");
+        String imgPath = img_dest.getAbsolutePath();
+        File img_video_dest = new File(moviesDir, "imgVideo0.mp4");
+        imageVideoPath = img_video_dest.getAbsolutePath();
+        if (img_video_dest.exists()) {
             img_video_dest.delete();
         }
         //String[] complexCommand={"-i",musicVideoPath,"-i", imgPath, "-preset", "ultrafast", "-strict", "-2", "-filter_complex" ,"overlay=x=200:y=400:enable='between(t,0,6)",imageVideoPath};
         //execFFmpegBinary(complexCommand);
         //img_Ok=true;
-        String[] complexCommand={"-i",musicVideoPath,"-i", imgPath, "-preset", "ultrafast", "-strict", "-2", "-filter_complex" ,"overlay=x=200:y=400:enable=" +
-                "'between(t,"+VideoEditAtivity.insertView.get(insert_img_position).getInsert_start_time()+","+VideoEditAtivity.insertView.get(insert_img_position).getInsert_end_time()+")",imageVideoPath};
+        String[] complexCommand = {"-i", musicVideoPath, "-i", imgPath, "-preset", "ultrafast", "-strict", "-2", "-filter_complex", "overlay=x=200:y=400:enable=" +
+                "'between(t," + (VideoEditAtivity.insertView.get(insert_img_position).getInsert_start_time()-VideoEditAtivity.trim_start) + "," + (VideoEditAtivity.insertView.get(insert_img_position).getInsert_end_time()-VideoEditAtivity.trim_start) + ")", imageVideoPath};
         execFFmpegBinary(complexCommand);
+        Log.d("tak20", "img_start: "+VideoEditAtivity.insertView.get(insert_img_position).getInsert_start_time()); //2
+        Log.d("tak20", "img_end: "+VideoEditAtivity.insertView.get(insert_img_position).getInsert_end_time()); //5
+        Log.d("tak20", "trim_start: "+VideoEditAtivity.trim_start); //1
+        Log.d("tak20", "trim_end: "+VideoEditAtivity.trim_end); //6
+
 
         insert_img_position++;
-        
-            img_Ok=true;
+        img_Ok = true;
+        if (insert_img_position >= insert_img_size) {
+
+            final_OK = true;
+        }
     }
 
     //4. 이미지오버레이
@@ -174,7 +179,7 @@ public class FFmpeg_Task {
         //img_Ok=true;
 
         String[] complexCommand={"-i",imageVideoPath,"-i", imgPath, "-preset", "ultrafast", "-strict", "-2", "-filter_complex" ,"overlay=x=200:y=400:enable=" +
-                "'between(t,"+VideoEditAtivity.insertView.get(insert_img_position).getInsert_start_time()+","+VideoEditAtivity.insertView.get(insert_img_position).getInsert_end_time()+")",imageVideoPath2};
+                "'between(t,"+(VideoEditAtivity.insertView.get(insert_img_position).getInsert_start_time()-VideoEditAtivity.trim_start) + "," + (VideoEditAtivity.insertView.get(insert_img_position).getInsert_end_time()-VideoEditAtivity.trim_start)+")",imageVideoPath2};
         execFFmpegBinary(complexCommand);
 
 

@@ -17,20 +17,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UploadActivity"></activity>
+        <activity android:name=".BottomFragment.Create_Fragment.UploadActivity"></activity>
         <activity android:name=".VideoEdit.VideoEditAtivity" />
         <activity android:name=".VideoEdit.Music.MusicList" />
-        <activity android:name=".TestFFmpge">
-
-
-        </activity>
-        <activity android:name=".Create_Advertise_Activity" />
         <activity
             android:name=".Login.SignupActivity"
             android:label=""
             android:theme="@style/SignUp" />
         <activity android:name=".Login.LoginActivity_Email" />
-        <activity android:name=".LoginInfo" />
+        <activity android:name=".LoginInfo_Activity" />
         <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
