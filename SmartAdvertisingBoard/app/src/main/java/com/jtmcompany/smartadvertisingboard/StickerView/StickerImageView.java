@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,9 +17,21 @@ public class StickerImageView extends StickerView {
 
     private ImageView iv_main;
 
+    private Uri uri;
+
     public StickerImageView(Context context) {
 
         super(context);
+
+    }
+
+    public Uri getUri() {
+        return uri;
+    }
+
+    public StickerImageView(Context context, Uri uri) {
+        super(context);
+        this.uri=uri;
 
     }
 

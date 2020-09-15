@@ -18,11 +18,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.innovattic.rangeseekbar.RangeSeekBar;
 import com.jtmcompany.smartadvertisingboard.R;
 
-import org.florescu.android.rangeseekbar.RangeSeekBar;
+import java.text.SimpleDateFormat;
 
-public class VideoMusicTrim_Fragment extends Fragment implements RangeSeekBar.OnRangeSeekBarChangeListener, View.OnClickListener {
+
+public class VideoMusicTrim_Fragment extends Fragment implements RangeSeekBar.SeekBarChangeListener, View.OnClickListener {
 Uri selectMusicUri;
 RangeSeekBar rangeSeekBar;
 MediaPlayer mediaPlayer;
@@ -57,12 +59,17 @@ FragmentManager fragmentManager;
         mediaPlayer=MediaPlayer.create(getContext(),selectMusicUri);
         int duration=mediaPlayer.getDuration()/1000;
         rangeSeekBar=view.findViewById(R.id.music_seekbar);
-        rangeSeekBar.setOnRangeSeekBarChangeListener(this);
+        rangeSeekBar.setSeekBarChangeListener(this);
+        //rangeSeekBar.setOnRangeSeekBarChangeListener(this);
 
+        Log.d("tak20","duration: "+duration);
+        rangeSeekBar.setMaxThumbValue(duration);
+        rangeSeekBar.setMinThumbValue(0);
+        rangeSeekBar.setMax(duration);
 
-        rangeSeekBar.setSelectedMaxValue(duration);
-        rangeSeekBar.setSelectedMinValue(0);
-        rangeSeekBar.setRangeValues(0,duration);
+        //rangeSeekBar.setSelectedMaxValue(duration);
+        //rangeSeekBar.setSelectedMinValue(0);
+        //rangeSeekBar.setRangeValues(0,duration);
 
         //mediaPlayer.getDuration()/1000;
         handler.postDelayed(r=new Runnable() {
@@ -70,8 +77,8 @@ FragmentManager fragmentManager;
             public void run() {
 
                 Log.d("tak4","music_trim_handler");
-                if(mediaPlayer.getCurrentPosition()>= rangeSeekBar.getSelectedMaxValue().intValue()*1000) {
-                    mediaPlayer.seekTo(rangeSeekBar.getSelectedMinValue().intValue() * 1000);
+                if(mediaPlayer.getCurrentPosition()>= rangeSeekBar.getMaxThumbValue()*1000) {
+                    mediaPlayer.seekTo(rangeSeekBar.getMinThumbValue() * 1000);
                     mediaPlayer.pause();
                     Log.d("tak","test");
                 }
@@ -94,11 +101,25 @@ FragmentManager fragmentManager;
     }
 
     @Override
+    public void onValueChanged(int i, int i1) {
+        mediaPlayer.seekTo((int)i*1000);
+        Log.d("tak20","min: "+i);
+        Log.d("tak20","max: "+i1);
+        seekvar_tvLeft.setText(toTime(i));
+        seekbar_tvRight.setText(toTime(i1));
+
+        Log.d("tak20","getminValue: "+rangeSeekBar.getMinThumbValue());
+        Log.d("tak20","getMaxValue: "+rangeSeekBar.getMaxThumbValue());
+    }
+    /*
+    @Override
     public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
         mediaPlayer.seekTo((int)minValue*1000);
         seekvar_tvLeft.setText(getTime((int)bar.getSelectedMinValue()));
         seekbar_tvRight.setText(getTime((int)bar.getSelectedMaxValue()));
     }
+
+     */
 
 
     @Override
@@ -111,10 +132,10 @@ FragmentManager fragmentManager;
 
         else if(view==music_check_bt){
             int videoDuration=VideoEditAtivity.trim_end-VideoEditAtivity.trim_start;
-            int musicDuration=rangeSeekBar.getSelectedMaxValue().intValue()-rangeSeekBar.getSelectedMinValue().intValue();
+            int musicDuration=rangeSeekBar.getMaxThumbValue()-rangeSeekBar.getMinThumbValue();
             if(videoDuration>=musicDuration) {
-                VideoEditAtivity.music_trim_start = rangeSeekBar.getSelectedMinValue().intValue();
-                VideoEditAtivity.music_trim_end = rangeSeekBar.getSelectedMaxValue().intValue();
+                VideoEditAtivity.music_trim_start = rangeSeekBar.getMinThumbValue();
+                VideoEditAtivity.music_trim_end = rangeSeekBar.getMaxThumbValue();
 
                 VideoEditAtivity.isMusicCheck=true;
                 fragmentManager.beginTransaction().remove(VideoMusicTrim_Fragment.this).commit();
@@ -141,5 +162,28 @@ FragmentManager fragmentManager;
         super.onDetach();
         handler.removeMessages(0);
         mediaPlayer.pause();
+    }
+
+
+    @Override
+    public void onStartedSeeking() {
+
+    }
+
+    @Override
+    public void onStoppedSeeking() {
+
+    }
+
+    public String toTime(int second){
+        int m=second/60;
+        int s=second%60;
+        String mn=String.format("%02d",m);
+        String sec=String.format("%02d",s);
+        return mn+":"+sec;
+
+
+
+
     }
 }

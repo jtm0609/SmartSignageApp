@@ -93,6 +93,7 @@ public class VideoStickerFragment extends Fragment implements VideoEdit_StickerB
         final StickerImageView stickerImageView=new StickerImageView(getContext());
         stickerImageView.setImageDrawable(drawable);
 
+
         Boolean flag=false;
         for(int i=0; i<VideoEditAtivity.insertView.size(); i++) {
             if (VideoEditAtivity.insertView.get(i).getmStickerView() == curStickerView) {

@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".BottomFragment.Create_Fragment.UploadActivity"></activity>
+        <activity android:name=".PhotoEdit.PhotoEditActivity"></activity>
+        <activity android:name=".BottomFragment.Create_Fragment.UploadActivity" />
         <activity android:name=".VideoEdit.VideoEditAtivity" />
         <activity android:name=".VideoEdit.Music.MusicList" />
         <activity
@@ -25,7 +26,9 @@
             android:label=""
             android:theme="@style/SignUp" />
         <activity android:name=".Login.LoginActivity_Email" />
-        <activity android:name=".LoginInfo_Activity" />
+        <activity
+            android:name=".LoginInfo_Activity"
+            android:theme="@style/AppTheme" />
         <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -51,7 +51,7 @@ import java.util.List;
 
 public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_RecyclerAdapter.OnClickEditor_ModelListener, View.OnClickListener, MediaPlayer.OnPreparedListener {
 
-    Button complete_bt;
+    ImageView complete_bt;
     private static final int REQUEST_CODE_MUSIC =200 ;
     private static final int RESULT_OK_MUSIC = 300;
     List<Editor_Model> list=new ArrayList<>();
@@ -253,7 +253,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
             //스티커
         }else if(position==2){
-            VideoStickerFragment videoStickerFragment=new VideoStickerFragment(videoView_container,videoView,select_Video_Uri,thumnail_list);
+            VideoStickerFragment videoStickerFragment=new VideoStickerFragment(videoView_container,videoView, select_Video_Uri, thumnail_list);
             fragmentManager.beginTransaction().add(R.id.con,videoStickerFragment).commit();
 
 

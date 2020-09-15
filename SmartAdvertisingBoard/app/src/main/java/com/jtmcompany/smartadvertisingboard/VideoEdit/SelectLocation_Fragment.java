@@ -45,7 +45,7 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
         VideoEditAtivity.isFragmentClose=false;
         mVideoview.seekTo(VideoEditAtivity.trim_start*1000);
 
-        View view= inflater.inflate(R.layout.fragment_select_text_location_, container, false);
+        View view= inflater.inflate(R.layout.fragment_select_location_, container, false);
         trim_OK_bt=view.findViewById(R.id.trim_check);
         trim_EXIT_bt=view.findViewById(R.id.trim_exit);
         videoPlay_bt = view.findViewById(R.id.videoTrim_play);

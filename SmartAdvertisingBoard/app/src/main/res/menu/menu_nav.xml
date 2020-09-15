@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuitem1"
+        android:title="나의 비디오"
+        android:icon="@drawable/advertise_menu"/>
+
+
+
+    <item
+        android:id="@+id/menuitem2"
+        android:title="설정"
+        android:icon="@drawable/setting_menu"/>
+
+    <item
+        android:id="@+id/menuitem3"
+        android:title="로그아웃"
+        android:icon="@drawable/logout_menu" />
+</menu>

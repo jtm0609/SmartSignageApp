@@ -15,4 +15,21 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
+
+
+    </style>
+
+    <style name="NavDrawerTextStyle" parent="Base.TextAppearance.AppCompat">
+
+        <item name="android:textSize">18sp</item>
+
+    </style>
+
+    <style name="TextVerticalSpaceStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="listPreferredItemHeightSmall">108dp</item>
+    </style>
+
 </resources>

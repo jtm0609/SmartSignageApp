@@ -6,7 +6,7 @@
     android:id="@+id/trim_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5e7e9b"
+    android:background="#292929"
     >
     <TextView
         android:id="@+id/trim_video_currentTime"
@@ -69,7 +69,7 @@
             />
     <com.waynell.videorangeslider.RangeSlider
         app:lineHeight="3dp"
-        app:lineColor="@color/colorAccent"
+        app:lineColor="#292929"
         app:thumbWidth="@dimen/range_thumb_width"
         app:tickCount="200"
         app:leftThumbIndex="0"
@@ -96,7 +96,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#4b687c"
+        android:background="#292929"
         android:layout_below="@id/range_tv">
         <ImageView
             android:id="@+id/trim_check"
@@ -117,7 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="텍스트"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="18sp"
             />
         <ImageView

@@ -14,14 +14,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEditActivity;
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VideoEditAtivity;
 
-import org.florescu.android.rangeseekbar.RangeSeekBar;
 
 public class UploadActivity extends AppCompatActivity {
 
     private static final int REQUEST_TAKE_GALLERY_VIDEO = 100;
+    private static final int REQUEST_TAKE_GALLERY_PHOTO = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +30,15 @@ public class UploadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_upload);
 
         Log.d("tak3","oncreate");
-        updoadVideo();
+        Intent intent=getIntent();
+        String data=intent.getStringExtra("upload");
+        if(data.equals("video"))
+            updoadVideo();
+        else if(data.equals("photo"))
+            uploadPhoto();
     }
+
+
 
     private void updoadVideo(){
         Log.d("tak3","uploadvideo");
@@ -40,13 +48,20 @@ public class UploadActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent,"Select Video"),REQUEST_TAKE_GALLERY_VIDEO);
     }
 
-    @Override
+    private void uploadPhoto() {
+        Log.d("tak3","uploadvideo2");
+        Intent intent =new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,REQUEST_TAKE_GALLERY_PHOTO);
+    }
+
+
+        @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d("tak3","onActivity");
         if(resultCode==RESULT_OK){
-            Log.d("tak3","result_ok");
-            Log.d("tak","result_ok");
             if(requestCode==REQUEST_TAKE_GALLERY_VIDEO){
                 Log.d("tak","resultcode_ok");
                 Uri selectVideoUri=data.getData();
@@ -55,9 +70,17 @@ public class UploadActivity extends AppCompatActivity {
                intent.putExtra("selectUri",selectVideoUri);
                startActivity(intent);
                finish();
+            }else if(requestCode==REQUEST_TAKE_GALLERY_PHOTO){
+                Uri selectedImageUri=data.getData();
+                Intent intent=new Intent(this,PhotoEditActivity.class);
+                intent.putExtra("selectUri",selectedImageUri);
+                startActivity(intent);
+                finish();
 
 
             }
+
+
         }else if(resultCode==RESULT_CANCELED){
             Log.d("tak3","result_cancel");
             finish();

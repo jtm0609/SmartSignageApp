@@ -8,11 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/sticker_bottomsheet_recycler"
-        android:background="#5e7e9b"/>
+        android:background="#292929"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#4b687c">
+        android:background="#292929">
         <ImageView
             android:id="@+id/sticker_insert"
             android:layout_width="35dp"
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="스티커"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="18sp"
             />
         <ImageView
