@@ -17,11 +17,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jtmcompany.smartadvertisingboard.CustomDialog;
 import com.jtmcompany.smartadvertisingboard.FFmpeg_Task;
 import com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEdit_BottomFragment.Effect.EffectFragment;
 import com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEdit_BottomFragment.MotionSticker.MotionFragment;
@@ -48,6 +50,9 @@ public class PhotoEditActivity extends AppCompatActivity {
     private ImageView complete_bt;
     private int photoWidth;
     private int photoHeight;
+    private CustomDialog customDialog;
+    private View.OnClickListener positiveLisener;
+    private View.OnClickListener negativeLisener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +99,8 @@ public class PhotoEditActivity extends AppCompatActivity {
         complete_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
                 //레이아웃 자식의 개수
                 int count=photoEdit_frameLayout.getChildCount();
 
@@ -182,9 +189,6 @@ public class PhotoEditActivity extends AppCompatActivity {
 
                 }
 
-                FFmpeg_Task ffmpeg_task=new FFmpeg_Task(PhotoEditActivity.this,select_Photo_Path, selectItem_List,photoWidth,photoHeight,"3","3");
-                ffmpeg_task.loadFFMpegBinary();
-                ffmpeg_task.PhotoToVideoCommand();
 
 
 
@@ -193,8 +197,41 @@ public class PhotoEditActivity extends AppCompatActivity {
                 //리스트 초기화
                 //selectItem_List.clear();
 
+                //다이얼로그 저장버튼을 눌렀을때,
+                positiveLisener=new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String videoTitle=customDialog.getTitleET().getText().toString();
+                        String videoTime=customDialog.getTimeET().getText().toString();
+                        if(videoTime.equals("") || videoTitle.equals("")){
+                            Toast.makeText(PhotoEditActivity.this, "빈칸을 채워주세요.", Toast.LENGTH_SHORT).show();
+                        }else {
+                            FFmpeg_Task ffmpeg_task = new FFmpeg_Task(PhotoEditActivity.this, select_Photo_Path, selectItem_List, photoWidth, photoHeight, videoTitle, videoTime);
+                            ffmpeg_task.loadFFMpegBinary();
+                            ffmpeg_task.PhotoToVideoCommand();
+                            finish();
+                        }
+
+                    }
+                };
+                //다이얼로그 취소버튼을 눌렀을때
+                negativeLisener=new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        customDialog.dismiss();
+                    }
+                };
+
+                if(count==1){
+                    Toast.makeText(PhotoEditActivity.this, "포토에 아이템을 추가하세요.", Toast.LENGTH_SHORT).show();
+                }else {
+                    customDialog = new CustomDialog(PhotoEditActivity.this, positiveLisener, negativeLisener);
+                    customDialog.show();
+                }
 
             }
+
+
         });
     }
 
