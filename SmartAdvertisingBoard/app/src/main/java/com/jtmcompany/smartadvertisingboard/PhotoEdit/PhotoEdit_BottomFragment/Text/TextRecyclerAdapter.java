@@ -1,7 +1,6 @@
 package com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEdit_BottomFragment.Text;
 
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

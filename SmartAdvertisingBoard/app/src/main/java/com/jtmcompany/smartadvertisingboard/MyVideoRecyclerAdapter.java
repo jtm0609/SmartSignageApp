@@ -1,4 +1,4 @@
-package com.jtmcompany.smartadvertisingboard.BottomFragment.Create_Fragment;
+package com.jtmcompany.smartadvertisingboard;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,18 +9,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jtmcompany.smartadvertisingboard.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class myAdvertise_RecyclerAdapter extends RecyclerView.Adapter<myAdvertise_RecyclerAdapter.myViewHolder> {
-    List<myAdvertise_Model> list=new ArrayList<>();
+public class MyVideoRecyclerAdapter extends RecyclerView.Adapter<MyVideoRecyclerAdapter.myViewHolder> {
+    List<MyVideo_Model> list=new ArrayList<>();
+    myVideoClickListener listener;
 
-    public myAdvertise_RecyclerAdapter(List<myAdvertise_Model> list) {
-        this.list = list;
+    interface myVideoClickListener{
+        void onClick(String path);
     }
 
+    public void setMyVieoListener(myVideoClickListener myVideoClickListener){
+        this.listener=myVideoClickListener;
+    }
+
+    public MyVideoRecyclerAdapter(List<MyVideo_Model> list) {
+        this.list = list;
+    }
 
     @NonNull
     @Override
@@ -30,10 +36,19 @@ public class myAdvertise_RecyclerAdapter extends RecyclerView.Adapter<myAdvertis
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
-        myAdvertise_Model model=list.get(position);
-        holder.image.setImageDrawable(model.getImg());
+    public void onBindViewHolder(@NonNull myViewHolder holder, final int position) {
+        final MyVideo_Model model=list.get(position);
+        holder.image.setImageBitmap(model.getImg());
         holder.title.setText(model.getTitle());
+
+        holder.play_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClick(model.getPath());
+            }
+        });
+
+
 
     }
 
@@ -45,12 +60,13 @@ public class myAdvertise_RecyclerAdapter extends RecyclerView.Adapter<myAdvertis
     class myViewHolder extends RecyclerView.ViewHolder{
         ImageView image;
         TextView title;
-        TextView date;
+        ImageView play_bt;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             image=itemView.findViewById(R.id.advertise_img);
             title=itemView.findViewById(R.id.advertise_title);
+            play_bt=itemView.findViewById(R.id.myVideoPlay);
         }
     }
 

@@ -1,6 +1,5 @@
 package com.jtmcompany.smartadvertisingboard.VideoEdit.Music;
 
-import android.media.Image;
 import android.net.Uri;
 
 public class MusicData {

@@ -22,13 +22,13 @@ import java.util.List;
 
 
 public class SelectLocation_Fragment extends ThumnailView implements View.OnClickListener {
-    ImageView trim_OK_bt;
-    ImageView trim_EXIT_bt;
-    Progress_Thtead progress_thtead;
-    InsertStickerView_Model mInsertText_model;
-    StickerView mInsertTv;
-    FragmentManager fragmentManager;
-    FrameLayout mVideo_container;
+    private ImageView trim_OK_bt;
+    private ImageView trim_EXIT_bt;
+    private Progress_Thtead progress_thtead;
+    private InsertStickerView_Model mInsertText_model;
+    private StickerView mInsertTv;
+    private FragmentManager fragmentManager;
+    private FrameLayout mVideo_container;
 
     protected SelectLocation_Fragment(VideoView videoview, Uri selectVideoUri, List list, StickerView tv, FrameLayout container) {
         super(videoview, selectVideoUri, list);

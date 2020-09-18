@@ -5,14 +5,12 @@ import android.graphics.drawable.Drawable;
 public class myAdvertise_Model {
     private Drawable img;
 
-    public myAdvertise_Model(Drawable img, String title, String date) {
+    public myAdvertise_Model(Drawable img, String title) {
         this.img = img;
         this.title = title;
-        this.date = date;
     }
 
     private String title;
-    private String date;
 
     public Drawable getImg() {
         return img;
@@ -24,9 +22,6 @@ public class myAdvertise_Model {
     }
 
 
-    public String getDate() {
-        return date;
-    }
 
 
 

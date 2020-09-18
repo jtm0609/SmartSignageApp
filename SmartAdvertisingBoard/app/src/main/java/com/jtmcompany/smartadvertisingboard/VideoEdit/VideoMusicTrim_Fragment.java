@@ -21,8 +21,6 @@ import android.widget.Toast;
 import com.innovattic.rangeseekbar.RangeSeekBar;
 import com.jtmcompany.smartadvertisingboard.R;
 
-import java.text.SimpleDateFormat;
-
 
 public class VideoMusicTrim_Fragment extends Fragment implements RangeSeekBar.SeekBarChangeListener, View.OnClickListener {
 Uri selectMusicUri;

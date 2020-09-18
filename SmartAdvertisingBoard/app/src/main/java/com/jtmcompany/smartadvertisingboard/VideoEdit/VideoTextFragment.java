@@ -28,12 +28,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VideoTextFragment extends Fragment implements VideoEdit_TextBottomsheet_RecyclerAdapter.textClickListener {
-    ImageView textInsert_bt;
-    ImageView textexit_bt;
-    FrameLayout videoView_container;
-    VideoView mVideoview;
-    Uri mVideoSelectUri;
-    List<Bitmap> mlist=new ArrayList<>();
+    private ImageView textInsert_bt;
+    private ImageView textexit_bt;
+    private FrameLayout videoView_container;
+    private VideoView mVideoview;
+    private Uri mVideoSelectUri;
+    private List<Bitmap> mlist=new ArrayList<>();
     public VideoTextFragment(FrameLayout videoView_container, VideoView videoView, Uri uri, List list) {
         this.videoView_container = videoView_container;
         mVideoview=videoView;

@@ -4,7 +4,6 @@ package com.jtmcompany.smartadvertisingboard.VideoEdit;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;

@@ -14,7 +14,6 @@ import com.jtmcompany.smartadvertisingboard.VideoEdit.Editor_Model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class VideoEdit_RecyclerAdapter extends RecyclerView.Adapter<VideoEdit_RecyclerAdapter.ViewHolder>{
     List<Editor_Model> editor_list=new ArrayList<>();

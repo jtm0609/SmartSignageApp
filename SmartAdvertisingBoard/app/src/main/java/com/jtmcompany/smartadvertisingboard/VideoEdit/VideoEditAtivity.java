@@ -1,12 +1,5 @@
 package com.jtmcompany.smartadvertisingboard.VideoEdit;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,7 +8,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
@@ -29,18 +21,25 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.jtmcompany.smartadvertisingboard.VideoEdit.Music.MusicList;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.jtmcompany.smartadvertisingboard.FFmpeg_Task;
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerImageView;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerView;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.VideoEdit_RecyclerAdapter;
+import com.jtmcompany.smartadvertisingboard.VideoEdit.Music.MusicList;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -139,24 +138,24 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             public void run() {
                 if (isFragmentClose) {
                     //Log.d("tak3","trim_end: "+trim_end);
-                        Log.d("tak3", "videoHandler");
-                        Log.d("tak3",""+trim_start);
-                        if (videoView.getCurrentPosition() / 1000 >= trim_end) {
-                            videoView.seekTo(trim_start * 1000);
-                            videoView.pause();
-                            Log.d("tak3","sibar");
-                        }
-                        if (!videoView.isPlaying()) {
-                            video_stop_bt.setVisibility(View.GONE);
-                            video_play_bt.setVisibility(View.VISIBLE);
-                        }
+                    Log.d("tak3", "videoHandler");
+                    Log.d("tak3",""+trim_start);
+                    if (videoView.getCurrentPosition() / 1000 >= trim_end) {
+                        videoView.seekTo(trim_start * 1000);
+                        videoView.pause();
+                        Log.d("tak3","sibar");
+                    }
+                    if (!videoView.isPlaying()) {
+                        video_stop_bt.setVisibility(View.GONE);
+                        video_play_bt.setVisibility(View.VISIBLE);
+                    }
 
-                        for(int i=0; i<insertView.size(); i++){
-                            int start_time=insertView.get(i).getInsert_start_time();
-                            int end_time=insertView.get(i).getInsert_end_time();
-                            Insert_View_appear(start_time,end_time,insertView.get(i).getmStickerView());
+                    for(int i=0; i<insertView.size(); i++){
+                        int start_time=insertView.get(i).getInsert_start_time();
+                        int end_time=insertView.get(i).getInsert_end_time();
+                        Insert_View_appear(start_time,end_time,insertView.get(i).getmStickerView());
 
-                        }
+                    }
                 }
                 videoHandler.postDelayed(r, 1000);
             }
@@ -175,7 +174,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     public void onPrepared(MediaPlayer mediaPlayer) {
 
         if(isMusicSelected)
-        mediaPlayer.setVolume(0,0);
+            mediaPlayer.setVolume(0,0);
 
         Log.d("tak3","setOnPRE");
         if(!VideoRestart) {
@@ -232,10 +231,10 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     public void OnClickedEditor_Model(int position) {
         Log.d("tak4",""+position);
 
-            //잘라내기
+        //잘라내기
         if(position==0){
 
-           videoTrimFragment =new VideoTrimFragment(videoView,select_Video_Uri,thumnail_list);
+            videoTrimFragment =new VideoTrimFragment(videoView,select_Video_Uri,thumnail_list);
             //videoTrimFragment.show(getSupportFragmentManager(),"hi");
 
             fragmentManager.beginTransaction().add(R.id.con,videoTrimFragment).commit();
@@ -315,9 +314,9 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     protected void onDestroy() {
         super.onDestroy();
         if(videoHandler!=null)
-        videoHandler.removeMessages(0);
+            videoHandler.removeMessages(0);
         if(insertView!=null)
-        insertView.clear();
+            insertView.clear();
         Log.d("tak12","onDestroy");
     }
 
@@ -379,7 +378,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         }else if(view==video_stop_bt){
             videoView.pause();
             if(musicPlayer!=null)
-            musicPlayer.pause();
+                musicPlayer.pause();
             video_play_bt.setVisibility(View.VISIBLE);
             video_stop_bt.setVisibility(View.GONE);
             if(music_play_thread!=null)
@@ -467,7 +466,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
 
 
-        builder.show();
+            builder.show();
 
         }
     }
@@ -496,7 +495,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         }
 
 
-        }
+    }
 
 
 

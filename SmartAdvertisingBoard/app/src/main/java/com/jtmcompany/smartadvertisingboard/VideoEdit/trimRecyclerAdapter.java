@@ -1,7 +1,6 @@
 package com.jtmcompany.smartadvertisingboard.VideoEdit;
 
 import android.graphics.Bitmap;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jtmcompany.smartadvertisingboard.R;
-import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.VideoEdit_RecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class trimRecyclerAdapter extends RecyclerView.Adapter<trimRecyclerAdapter.Viewholder> {
     List<Bitmap> mbitmaps=new ArrayList<>();

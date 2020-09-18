@@ -1,9 +1,7 @@
 package com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEdit_BottomFragment.Text;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,7 +15,6 @@ import android.widget.FrameLayout;
 
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerTextView;
-import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.Text_RecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

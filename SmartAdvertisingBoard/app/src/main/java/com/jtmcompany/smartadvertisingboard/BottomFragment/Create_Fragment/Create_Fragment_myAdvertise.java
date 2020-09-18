@@ -28,8 +28,7 @@ public class Create_Fragment_myAdvertise extends Fragment {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         //DB에서 사용자가 저장한 동영상제목, 이미지, 날짜, 파일을 리싸이클러뷰를이용하여 불러와서 표시하게구현할것.
-        list.add(new myAdvertise_Model(getResources().getDrawable(R.drawable.sticker),"테스트 제목","날짜"));
-        list.add(new myAdvertise_Model(getResources().getDrawable(R.drawable.gallery),"테스트 제목2","날짜2"));
+
         recyclerAdapter=new myAdvertise_RecyclerAdapter(list);
 
 

@@ -1,6 +1,5 @@
 package com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEdit_BottomFragment.Effect;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 

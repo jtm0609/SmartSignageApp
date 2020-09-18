@@ -1,16 +1,11 @@
 package com.jtmcompany.smartadvertisingboard.PhotoEdit;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,35 +13,28 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Display;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.jtmcompany.smartadvertisingboard.FFmpeg_Task;
 import com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEdit_BottomFragment.Effect.EffectFragment;
 import com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEdit_BottomFragment.MotionSticker.MotionFragment;
 import com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEdit_BottomFragment.Text.TextFragment;
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerImageView;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerTextView;
-import com.jtmcompany.smartadvertisingboard.StickerView.StickerView;
-import com.jtmcompany.smartadvertisingboard.VideoEdit.FFmpeg_Task;
-
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,12 +42,12 @@ public class PhotoEditActivity extends AppCompatActivity {
     private ImageView imageView;
     private Uri select_Photo_Uri;
     private String select_Photo_Path;
-    private List<String> selectItem_PathList=new ArrayList<>();
+    private List<ItemInfo> selectItem_List=new ArrayList<>();
     private BottomNavigationView bottomNavigationView;
     private FrameLayout photoEdit_frameLayout;
     private ImageView complete_bt;
-    private int photo_x;
-    private int photo_y;
+    private int photoWidth;
+    private int photoHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,9 +97,28 @@ public class PhotoEditActivity extends AppCompatActivity {
                 //레이아웃 자식의 개수
                 int count=photoEdit_frameLayout.getChildCount();
 
-                //메인 사진의 해상도구하기 x,y
-                photo_x=findPhotoPixel().outWidth;
-                photo_y=findPhotoPixel().outHeight;
+                //xml에서 fitXY와 matchparent로 고정된 이미지크기를 나타나게했음 922x1084
+                int imageWidth=imageView.getWidth();
+                int imageHeight=imageView.getHeight();
+                //922x1084는 ffmpeg라이브리에서 scale을 922, 1084로해줌(포토에디터의 좌표와 일치시키기위해)
+                //고정된크기로한이유: 이미지마다 크기가다르므로, 포토에디터에서 사진의 크기가 다르게나타남
+                Log.d("tak14","이미지 width: "+imageWidth); //922
+                Log.d("tak14","이미지 height:" +imageHeight); //1084
+
+                //이미지의 x,y좌표를구함(추가된 아이템의 상대좌표를 구하기위해)
+                int []location=new int[2];
+                imageView.getLocationOnScreen(location);
+                int photoX=location[0];
+                int photoY=location[1];
+                Log.d("tak14","이미지 x: "+photoX);
+                Log.d("tak14","이미지 y:" +photoY);
+
+
+
+
+                //이미지의 해상도구하기 x,y( 해상도가큰 카메라사진은 ffmpeg를통해 동영상으로 만들면 회전이되었음, 이를 해결하기위해 해상도를 파악함)
+                photoWidth=findPhotoPixel().outWidth;
+                photoHeight=findPhotoPixel().outHeight;
 
 
                 //현재 프레임레이아웃에 추가된 gif수 만큼 반복문 실행(이미지뷰는 제외하므로 1부터시작)
@@ -120,12 +127,12 @@ public class PhotoEditActivity extends AppCompatActivity {
                     String path="";
 
                     //추가할 gif의 넓이, 높이, x좌표, y좌표
-                    int width;
-                    int height;
-                    int rotation;
-                    double x;
-                    double y;
-                    int []location=new int[2];
+                    //회전이랑 flip은 못하였음
+                    int itemWidth;
+                    int itemHeight;
+                    double itemX;
+                    double itemY;
+
 
 
                     //gif라면
@@ -140,8 +147,9 @@ public class PhotoEditActivity extends AppCompatActivity {
                         iv.getLocationOnScreen(location);
                         Log.d("tak13","Uri: "+uri);
 
-                        width=iv.getWidth();
-                        height=iv.getHeight();
+                        itemWidth=iv.getWidth();
+                        itemHeight=iv.getHeight();
+
 
                     }
                     //텍스트라면
@@ -151,41 +159,39 @@ public class PhotoEditActivity extends AppCompatActivity {
                         View tv=stickerTextView.getMainView();
                         path=saveText(tv);
                         tv.getLocationOnScreen(location);
-                        width=tv.getWidth();
-                        height=tv.getHeight();
+                        itemWidth=tv.getWidth();
+                        itemHeight=tv.getHeight();
+
 
                     }
 
-                    x=location[0];
-                    y=location[1];
+                    //부모뷰안에 자식뷰의 좌표를 구하기위해 부모뷰의 x,y좌표를 빼줌
+                    itemX=location[0]-photoX;
+                    itemY=location[1]-photoY;
 
                     //리스트에 저장
-                    selectItem_PathList.add(path);
+                    selectItem_List.add(new ItemInfo(path,itemWidth,itemHeight,itemX,itemY));
 
 
-                    Log.d("tak13","Path: "+path);
-                    Log.d("tak12","width: "+width);
-                    Log.d("tak12","height: "+height);
-                    Log.d("tak12","X: "+x);
-                    Log.d("tak12","Y: "+y);
+                    Log.d("tak14","Path: "+path);
+                    Log.d("tak14","width: "+itemWidth);
+                    Log.d("tak14","height: "+itemHeight);
+                    Log.d("tak14","ItemX: "+itemX);
+                    Log.d("tak14","ItemY: "+itemY);
+
 
                 }
 
-                FFmpeg_Task ffmpeg_task=new FFmpeg_Task(PhotoEditActivity.this,select_Photo_Path, selectItem_PathList,photo_x,photo_y);
+                FFmpeg_Task ffmpeg_task=new FFmpeg_Task(PhotoEditActivity.this,select_Photo_Path, selectItem_List,photoWidth,photoHeight,"3","3");
                 ffmpeg_task.loadFFMpegBinary();
                 ffmpeg_task.PhotoToVideoCommand();
-                Display display= getWindowManager().getDefaultDisplay();
-                Point size=new Point();
-                display.getRealSize(size);
-                int width=size.x;
-                int height=size.y;
-                Log.d("tak13","스마트폰 x: "+width);
-                Log.d("tak13","스마트폰 y:" +height);
+
+
 
                 //저장소에 저장된 리스트의 gif파일들 모두 삭제
                 //deleteAllGif();
                 //리스트 초기화
-                selectItem_PathList.clear();
+                //selectItem_List.clear();
 
 
             }
@@ -272,12 +278,7 @@ public class PhotoEditActivity extends AppCompatActivity {
         return outputFilePath;
     }
 
-    private void deleteAllGif(){
-        for(int i=0; i<selectItem_PathList.size(); i++){
-            File file= new File(selectItem_PathList.get(i));
-            file.delete();
-        }
-    }
+
 
 
     //content:// 형식으로 되있는 uri로부터 파일의 실제 경로 구하기

@@ -1,8 +1,7 @@
-package com.jtmcompany.smartadvertisingboard.VideoEdit;
+package com.jtmcompany.smartadvertisingboard;
 
 import android.content.Context;
 import android.os.Environment;
-import android.os.SystemClock;
 import android.util.Log;
 
 import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
@@ -10,10 +9,14 @@ import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
 import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
+import com.jtmcompany.smartadvertisingboard.DB.MyVideoDB;
+import com.jtmcompany.smartadvertisingboard.PhotoEdit.ItemInfo;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.Realm;
 
 public class FFmpeg_Task {
     FFmpeg fFmpeg;
@@ -35,10 +38,15 @@ public class FFmpeg_Task {
     int insert_img_position=0;
     String imageVideoPath2;
 
+    //포토에디터 매개변수
     private String selectPhotoPath;
-    private List<String> selectItem_PathList;
+    private String finalVideoPath;
+    private List<ItemInfo> selectItemList;
     private int photo_x;
     private int photo_y;
+    private  boolean flag=false;
+    private String videoTitle;
+    private String videoTime;
 
 
 
@@ -50,12 +58,16 @@ public class FFmpeg_Task {
     }
 
     //포토
-    public FFmpeg_Task(Context mContext,String selectPhotoPath, List<String> selectGif_PathList, int x, int y) {
+    public FFmpeg_Task(Context mContext,String selectPhotoPath, List<ItemInfo> selectItemhList, int x, int y, String videoTitle, String videoTime) {
         this.mContext=mContext;
         this.selectPhotoPath=selectPhotoPath;
-        this.selectItem_PathList=selectGif_PathList;
+        this.selectItemList=selectItemhList;
         this.photo_x=x;
         this.photo_y=y;
+        this.videoTitle=videoTitle;
+        this.videoTime=videoTime;
+
+
     }
 
     //ffmpeg load
@@ -142,7 +154,7 @@ public class FFmpeg_Task {
         music_Ok=true;
     }
 
-
+/*
 
     //4. 이미지오버레이(최초)
     public void executeImageVideoCommand() {
@@ -173,6 +185,7 @@ public class FFmpeg_Task {
             final_OK = true;
         }
     }
+
 
     //4. 이미지오버레이
     public void executeImageVideoCommand2(){
@@ -205,13 +218,21 @@ public class FFmpeg_Task {
             final_OK=true;
     }
 
+ */
+
 
     //포토에디터 1. 이미지->동영상
     public void PhotoToVideoCommand(){
+        Log.d("tak15","1: "+flag);
         Log.d("tak12","-----시작 -----");
         moviesDir= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
         File photo_Video_dest=new File(moviesDir,"photoVideo"+".mp4");
         String Photo_VideoPath=photo_Video_dest.getAbsolutePath();
+
+        //파일삭제(input비디오파일)+ //추후 gif까지 된파일은 db저장후 삭제할예정
+        if(photo_Video_dest.exists()){
+            photo_Video_dest.delete();
+        }
 
         //scale= 화질 , t= 초
         //transpose 회전
@@ -219,29 +240,34 @@ public class FFmpeg_Task {
         String[] complexCommand;
         //카메라사진
         if(photo_x>1080 && photo_y>2280)
-            complexCommand= new String[]{"-loop", "1", "-i", selectPhotoPath, "-vcodec", "mpeg4", "-vf", "scale=1280:720,transpose=1", "-t", "3", Photo_VideoPath};
-        //스크린샷이나 해상도가낮은파일
+            complexCommand= new String[]{"-loop", "1", "-i", selectPhotoPath, "-vcodec", "mpeg4", "-vf", "scale=922:1084,transpose=1", "-t", videoTime, Photo_VideoPath};
+            //스크린샷이나 해상도가낮은파일
         else
-            complexCommand= new String[]{"-loop", "1", "-i", selectPhotoPath, "-vcodec", "mpeg4", "-vf", "scale=1280:720", "-t", "3", Photo_VideoPath};
+            complexCommand= new String[]{"-loop", "1", "-i", selectPhotoPath, "-vcodec", "mpeg4", "-vf", "scale=922:1084", "-t", videoTime, Photo_VideoPath};
 
+
+        Log.d("tak15","2: "+flag);
         execFFmpegBinary(complexCommand);
+        Log.d("tak15","3: "+flag);
 
-        if(selectItem_PathList.size()!=0)
-         gifOverlayCommand(Photo_VideoPath);
+        //추가한 아이템이 없다면
+        if(selectItemList.size()!=0)
+            gifOverlayCommand(Photo_VideoPath);
+
 
     }
 
     //포토에디터 2. gif, png(텍스트)오버레이
     public void gifOverlayCommand(String input_VideoPath){
 
+        Log.d("tak15","4: "+flag);
         int count = 1;
         File photo_VideoPath_dest = new File(moviesDir, "photoVideo_Result1" + ".mp4");
         while (photo_VideoPath_dest.exists()) {
             count++;
             photo_VideoPath_dest = new File(moviesDir, "photoVideo_Result" + count + ".mp4");
         }
-        String photo_VideoPath = photo_VideoPath_dest.getAbsolutePath();
-        String itemPath = "";
+        finalVideoPath = photo_VideoPath_dest.getAbsolutePath();
 
         //gif는 ignore_loop를해줘야 gif형식으로 오버레이가되고, shortest=1를 해야 무한루프에 빠지지않음
         //[0]은 첫번째 인풋값, [1]은 두번째 인풋값을 말함
@@ -262,15 +288,15 @@ public class FFmpeg_Task {
 
         //scale과 overlay 명령어 설정
         //video의 해상도설정
-        String scale_str="[0:v]scale=1280:720[p1]";
+        String scale_str="[0:v]scale=922:1084[p1]";
         String overlay_str="";
         String filterComplex_info="";
 
         //리스트에 추가된 gif파일이나 png파일을 꺼내서 각 명령어에맞게 더한다.
-        for(int i=0; i<selectItem_PathList.size(); i++){
+        for(int i=0; i<selectItemList.size(); i++){
             //gif파일인지 png파일인지 확인하기 위해 마지막 3글자를 추출한다.
-            String str=selectItem_PathList.get(i);
-            String file_validation=str.substring(str.length()-3,str.length());
+            String itemPath=selectItemList.get(i).getPath();
+            String file_validation=itemPath.substring(itemPath.length()-3,itemPath.length());
 
             //<입력부분>
             //gif파일이면 ignore명령어를 넣어준다.
@@ -280,26 +306,27 @@ public class FFmpeg_Task {
             }
 
             inputList.add("-i");
-            itemPath= selectItem_PathList.get(i);
             inputList.add(itemPath);
+            Log.d("tak115","X:" +selectItemList.get(i).getX());
+            Log.d("tak115","Y:" +selectItemList.get(i).getY());
 
             //<삽입할 아이템의 크기 조정 부분>
-            scale_str+=";["+(i+1)+":v]scale="+100+":"+100+"[i"+(i+1)+"]"; //gif 크기
+            scale_str+=";["+(i+1)+":v]scale="+selectItemList.get(i).getWidth()+":"+selectItemList.get(i).getHeight()+"[i"+(i+1)+"]";
             //<삽입할 아이템의 위치 조정 부분>
-            overlay_str+=";[p"+(i+1)+"][i"+(i+1)+"]overlay="+0+":"+0; //gif x,y 좌표
+            overlay_str+=";[p"+(i+1)+"][i"+(i+1)+"]overlay="+selectItemList.get(i).getX()+":"+selectItemList.get(i).getY();
             //gif파일이면 ignore_loop랑 매치가되기위해 shortest를 넣어줘야함
             if(file_validation.equals("gif"))
                 overlay_str+=":shortest=1";
 
             //마지막부분이면 마지막에 변수를넣어줄필요강벗음
-            if(i!=selectItem_PathList.size()-1)
+            if(i!=selectItemList.size()-1)
                 overlay_str+="[p"+(i+2)+"]";
         }
         //명령어(string부분)을 합치고 setting 리스트에넣어준다.
         filterComplex_info=scale_str+overlay_str;
         settingList.add(filterComplex_info);
         //출력할 비디오 경로추가
-        settingList.add(photo_VideoPath);
+        settingList.add(finalVideoPath);
 
         //input 리스트와 setting 리스트를 합친다
         List<String> complexCommandList=new ArrayList<>();
@@ -309,17 +336,16 @@ public class FFmpeg_Task {
         //명령어 리스트를 String 배열로 변환
         String[] complexCommand=complexCommandList.toArray(new String[complexCommandList.size()]);
 
+        Log.d("tak15","5: "+flag);
         execFFmpegBinary(complexCommand);
-
+        Log.d("tak15","6: "+flag);
         //명령어 전체부분을 출력(확인용)
         for(int i=0; i<complexCommand.length; i++)
             Log.d("tak13",complexCommand[i]);
 
-        //파일삭제(input비디오파일)+ //추후 gif까지 된파일은 db저장후 삭제할예정
-        File input_VideoFile=new File(input_VideoPath);
-        if(input_VideoFile.exists()){
-            input_VideoFile.delete();
-        }
+
+
+
 
 
     }
@@ -360,13 +386,34 @@ public class FFmpeg_Task {
                     super.onFinish();
                     Log.d("tak12","Finish command: ffmpeg:  "+command);
                     //SystemClock.sleep(3000);
+                    Log.d("tak12","리스트사이즈: "+selectItemList.size());
+                    Log.d("tak12","testPath: "+finalVideoPath);
 
-                    //비동기로인해 클래스가종료되어 list size가 0으로 됨 따라서, 완료되면 엑티비티로 정보를 알려줘야함-> 브로캐스트 리시버사용
-                    Log.d("tak12","리스트사이즈: "+selectItem_PathList.size());
+                    Log.d("tak12","flag: "+flag);
+                    //포토광고 제작
+                    //비동기로인해 started-> started -> progress -> success ->finish-> progress-> success-> finish 로 진행됨
+                    //따라서  flag를 멤버변수로 false로해두고, 첫번째의 execcommand가끝나면 falg를 true로해주고 다음 exec실행되면
+                    //최종비디오가 생성된것이므로, 아이템을 지우고, 서버에 파일업로드를 함
+                    if(flag) {
+                        deleteAllGif();
+                        //db저장
+                        Realm.init(mContext);
+                        Realm mRealm=Realm.getDefaultInstance();
+                        mRealm.executeTransaction(new Realm.Transaction() {
+                            @Override
+                            public void execute(Realm realm) {
+                                MyVideoDB myVideoDB=realm.createObject(MyVideoDB.class);
+                                myVideoDB.videoName=videoTitle;
+                                myVideoDB.videoPath=finalVideoPath;
+                            }
+                        });
 
+                    }
 
+                    flag=true;
 
-
+/*
+                    //비디오 광고제작
                     if(final_OK)
                         System.exit(0);
 
@@ -381,6 +428,8 @@ public class FFmpeg_Task {
 
                     else if(video_Trim_Ok)
                         executeCutMusicCommand();
+
+ */
                 }
             });
         }catch (FFmpegCommandAlreadyRunningException e){
@@ -388,6 +437,13 @@ public class FFmpeg_Task {
 
         }
 
+    }
+
+    private void deleteAllGif(){
+        for(int i=0; i<selectItemList.size(); i++){
+            File file= new File(selectItemList.get(i).getPath());
+            file.delete();
+        }
     }
 
 }

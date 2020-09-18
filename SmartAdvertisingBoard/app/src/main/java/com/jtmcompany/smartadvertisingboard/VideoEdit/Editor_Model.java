@@ -1,8 +1,6 @@
 package com.jtmcompany.smartadvertisingboard.VideoEdit;
 
 import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class Editor_Model {
     private Drawable image;

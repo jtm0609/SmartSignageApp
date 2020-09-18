@@ -1,5 +1,16 @@
 package com.jtmcompany.smartadvertisingboard;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -9,25 +20,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
-import android.media.Image;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toolbar;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.jtmcompany.smartadvertisingboard.BottomFragment.Create_Fragment.Create_Fragment;
 import com.jtmcompany.smartadvertisingboard.BottomFragment.Create_Fragment.UploadActivity;
@@ -90,6 +85,16 @@ public class LoginInfo_Activity extends AppCompatActivity implements View.OnClic
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id=item.getItemId();
+                if(id==R.id.menuitem1){ //내 비디오함
+                    Intent intent=new Intent(LoginInfo_Activity.this,MyVideoActivity.class);
+                    startActivity(intent);
+
+                }else if(id==R.id.menuitem2){ //설정
+                    Toast.makeText(LoginInfo_Activity.this, "클릭2", Toast.LENGTH_SHORT).show();
+                }else if(id==R.id.menuitem3){ //로그아웃
+                    Toast.makeText(LoginInfo_Activity.this, "클릭3", Toast.LENGTH_SHORT).show();
+                }
+
                 return false;
             }
         });

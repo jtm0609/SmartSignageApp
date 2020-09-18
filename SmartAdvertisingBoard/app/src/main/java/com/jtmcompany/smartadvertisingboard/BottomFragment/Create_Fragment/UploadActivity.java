@@ -2,16 +2,10 @@ package com.jtmcompany.smartadvertisingboard.BottomFragment.Create_Fragment;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEditActivity;

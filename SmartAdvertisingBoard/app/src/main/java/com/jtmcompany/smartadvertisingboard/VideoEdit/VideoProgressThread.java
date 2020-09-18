@@ -3,7 +3,6 @@ package com.jtmcompany.smartadvertisingboard.VideoEdit;
 import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 public class VideoProgressThread extends AsyncTask<Object,Integer,Void> {
     SeekBar mprogress;
