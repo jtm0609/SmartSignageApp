@@ -33,9 +33,11 @@ public class MyVideoActivity extends AppCompatActivity implements MyVideoRecycle
         for(int i=0; i<myVideos.size(); i++){
             MyVideoDB myVideo=myVideos.get(i);
             Log.d("tak3",myVideo.videoPath);
-            Bitmap bitmap= extractThumnail(myVideo.videoPath);
-            //썸네일, 비디오제목, 비디오경로
-            list.add(new MyVideo_Model(bitmap, myVideo.videoName, myVideo.videoPath));
+            if(myVideo.videoPath!=null) {
+                Bitmap bitmap = extractThumnail(myVideo.videoPath);
+                //썸네일, 비디오제목, 비디오경로
+                list.add(new MyVideo_Model(bitmap, myVideo.videoName, myVideo.videoPath));
+            }
         }
 
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false);
