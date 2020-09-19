@@ -10,14 +10,21 @@
     <application
         android:name=".Login.Kakao.GlobalApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@mipmap/ic_tv"
+        android:label="모두의 광고"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_tv_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".VideoWatchActivity"></activity>
+        <activity android:name=".SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".VideoWatchActivity" />
         <activity android:name=".MyVideoActivity" />
         <activity android:name=".PhotoEdit.PhotoEditActivity" />
         <activity android:name=".BottomFragment.Create_Fragment.UploadActivity" />
@@ -32,11 +39,7 @@
             android:name=".LoginInfo_Activity"
             android:theme="@style/AppTheme" />
         <activity android:name=".Login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data

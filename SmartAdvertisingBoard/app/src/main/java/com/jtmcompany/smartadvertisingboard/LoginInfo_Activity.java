@@ -5,11 +5,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -33,7 +36,7 @@ public class LoginInfo_Activity extends AppCompatActivity implements View.OnClic
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
-    ImageView video_advertise;
+    VideoView video_advertise;
     ImageView image_advertise;
     ImageView image_gif;
 
@@ -55,9 +58,21 @@ public class LoginInfo_Activity extends AppCompatActivity implements View.OnClic
         final Mypage_Fragment mypage_fragment = new Mypage_Fragment();
 
         //비디오이미지
-        video_advertise=findViewById(R.id.video_gif);
+        video_advertise=findViewById(R.id.video);
         video_advertise.setOnClickListener(this);
-        Glide.with(this).load(R.raw.video).apply(RequestOptions.bitmapTransform(new RoundedCorners(14))).into(video_advertise);
+        video_advertise.setVideoURI(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sample_video"));
+        video_advertise.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                video_advertise.start();
+            }
+        });
+        video_advertise.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                video_advertise.start();
+            }
+        });
 
         //모션이미지
         //이미지 모서리 둥글게

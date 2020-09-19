@@ -29,7 +29,7 @@
 
     <style name="TextVerticalSpaceStyle" parent="Theme.AppCompat.Light.DarkActionBar">
 
-        <item name="listPreferredItemHeightSmall">108dp</item>
+        <item name="listPreferredItemHeightSmall">70dp</item>
     </style>
 
 </resources>

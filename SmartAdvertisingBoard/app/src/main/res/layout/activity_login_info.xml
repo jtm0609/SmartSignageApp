@@ -9,7 +9,6 @@
     android:background="#292929"
 
 
-
     >
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,6 +22,7 @@
     android:id="@+id/navigation_toobar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     >
 
 
@@ -32,18 +32,42 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tv"
+               />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="모두의 광고"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"
+                android:gravity="center"
+                android:fontFamily="@font/font"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:orientation="vertical"
             android:layout_weight="1"
             android:paddingRight="20dp"
             android:paddingLeft="20dp">
-        <ImageView
-            android:id="@+id/video_gif"
+        <VideoView
+            android:id="@+id/video"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:src="@mipmap/ic_launcher_round"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_weight="2"
+            android:layout_weight="3"
 
 
             />
@@ -64,7 +88,8 @@
                     android:layout_gravity="right"
                     android:textSize="18dp"
                     android:textColor="@android:color/white"
-                    android:layout_marginRight="5dp"/>
+                    android:layout_marginRight="5dp"
+                    android:fontFamily="@font/bazzi"/>
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
@@ -76,7 +101,8 @@
             android:text="동영상 에디터를 통해 광고를 제작해보세요."
             android:layout_gravity="right"
             android:textColor="#E0E0E0"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/mapo"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -132,7 +158,8 @@
                     android:layout_gravity="right"
                     android:textSize="18dp"
                     android:textColor="@android:color/white"
-                    android:layout_marginRight="5dp"/>
+                    android:layout_marginRight="5dp"
+                    android:fontFamily="@font/bazzi"/>
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="18dp"
@@ -144,7 +171,8 @@
                 android:text="모션포토 에디터를 통해 광고를 제작해보세요."
                 android:layout_gravity="right"
                 android:textColor="#E0E0E0"
-                android:layout_marginRight="40dp"/>
+                android:layout_marginRight="40dp"
+                android:fontFamily="@font/mapo"/>
         </LinearLayout>
 
         </LinearLayout>
@@ -161,10 +189,10 @@
         android:layout_gravity="left"
         app:itemTextColor="@android:color/white"
         app:itemTextAppearance="@style/NavDrawerTextStyle"
-        android:paddingTop="20dp"
-        app:itemIconPadding="20dp"
+
         android:theme="@style/TextVerticalSpaceStyle"
         app:itemIconSize="30dp"
+        app:headerLayout="@layout/nav_header"
 
 
 

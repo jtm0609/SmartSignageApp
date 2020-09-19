@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Login.LoginActivity"
-    android:background="#a4c6">
+    android:background="#292929">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,20 +14,22 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/icon"
         android:textSize="40dp"
-        android:textColor="#000000"
+        android:textColor="@android:color/white"
         android:layout_marginTop="10dp"
-        android:fontFamily="@font/blackhansansregular"/>
+        android:fontFamily="@font/blackhansansregular" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon"
         android:layout_width="200dp"
         android:layout_height="150dp"
-        android:src="@drawable/advertise"
-        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/tv"
         app:layout_constraintBottom_toTopOf="@+id/email_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:id="@+id/icon"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/email_login"

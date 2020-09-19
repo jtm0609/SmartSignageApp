@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.jtmcompany.smartadvertisingboard.R;
 
@@ -245,7 +244,7 @@ public abstract class StickerView extends FrameLayout implements DialogInterface
                             if (view.getTag().equals("text")) {
                                 if (StickerView.this.iv_border.getVisibility() == View.VISIBLE) {
                                     Log.d("tak", "변함없음");
-                                    View dialogView = ((Activity) mContext).getLayoutInflater().inflate(R.layout.custom_dialog, null);
+                                    View dialogView = ((Activity) mContext).getLayoutInflater().inflate(R.layout.custom_dialog_text, null);
                                     textEdit = dialogView.findViewById(R.id.custom_edit);
                                     AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                                     builder.setView(dialogView);
