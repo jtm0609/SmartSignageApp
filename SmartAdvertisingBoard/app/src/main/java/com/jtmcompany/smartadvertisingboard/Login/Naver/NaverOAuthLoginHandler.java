@@ -2,11 +2,9 @@ package com.jtmcompany.smartadvertisingboard.Login.Naver;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.jtmcompany.smartadvertisingboard.LoginInfo_Activity;
 import com.nhn.android.naverlogin.OAuthLogin;
 
 public class NaverOAuthLoginHandler extends com.nhn.android.naverlogin.OAuthLoginHandler {
@@ -27,28 +25,27 @@ private Http_Request_NaverServer naverHttp;
                 String refreshToken=mOAuthLoginModule.getRefreshToken(mcontext);
                 long expiresAt=mOAuthLoginModule.getExpiresAt(mcontext);
                 String tokenType=mOAuthLoginModule.getTokenType(mcontext);
-                Log.d("tak","accessToken: "+accessToken);
-                Log.d("tak","refreshToken: "+refreshToken);
-                Log.d("tak","expires: : "+expiresAt);
-                Log.d("tak","TokenType: "+tokenType);
-                Log.d("tak","OAuthState: "+mOAuthLoginModule.getState(mcontext));
+                Log.d("login_naver","accessToken: "+accessToken);
+                Log.d("login_naver","refreshToken: "+refreshToken);
+                Log.d("login_naver","expires: : "+expiresAt);
+                Log.d("login_naver","TokenType: "+tokenType);
+                Log.d("login_naver","OAuthState: "+mOAuthLoginModule.getState(mcontext));
                 if((mOAuthLoginModule.getState(mcontext).toString().equals("OK"))){
-                    Log.d("tak3","naverhandler");
-                    Intent intent=new Intent(mcontext, LoginInfo_Activity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    mcontext.startActivity(intent);
+                    Log.d("login_naver","naverhandler");
 
-                    ((Activity)mcontext).finish();
-                    Log.d("tak","run");
+
+
+                    Log.d("login_naver","run");
 
                     naverHttp.naverMember_Info();
+
 
                 }
 
             }else{
                 String errorCode=mOAuthLoginModule.getLastErrorCode(mcontext).getCode();
                 String errorDsec=mOAuthLoginModule.getLastErrorDesc(mcontext);
-                Log.d("tak","error code: "+errorCode+" errorDsec: "+errorDsec);
+                Log.d("login_naver","error code: "+errorCode+" errorDsec: "+errorDsec);
                 Toast.makeText(mcontext, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
             }
         }

@@ -16,10 +16,10 @@ import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 
 public class Kakao_userMangement {
-    Context mcontext;
+    Context mContext;
 
     public Kakao_userMangement(Context mcontext) {
-        this.mcontext = mcontext;
+        this.mContext = mcontext;
     }
 
     public void requstme(){
@@ -32,10 +32,10 @@ public class Kakao_userMangement {
                 super.onFailure(errorResult);
                 int result=errorResult.getErrorCode();
                 if(result== ApiErrorCode.CLIENT_ERROR_CODE) {
-                    Toast.makeText(mcontext, "네트워크 연결이 불안정합니다. 다시시도해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "네트워크 연결이 불안정합니다. 다시시도해주세요.", Toast.LENGTH_SHORT).show();
                 } else{
                     Log.d("tak","로그인 도중 문제생김");
-                    Toast.makeText(mcontext, "로그인 도중에 문제가 생겼습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "로그인 도중에 문제가 생겼습니다.", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -43,7 +43,7 @@ public class Kakao_userMangement {
             @Override
             public void onSessionClosed(ErrorResult errorResult) {
                     //로그인 도중 세션이 비정상적인 이유로 닫혔을 때
-                    Toast.makeText(mcontext, "세션이 닫혔습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "세션이 닫혔습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
                     Log.d("tak", "세션 닫힘");
 
             }
@@ -55,21 +55,25 @@ public class Kakao_userMangement {
                 Log.d("tak","name: "+result.getNickname());
                 Log.d("tak","profile: "+result.getProfileImagePath());
                 Log.d("tak","id:  "+result.getId());
-                Intent intent=new Intent(mcontext, LoginInfo_Activity.class);
+                Intent intent=new Intent(mContext, LoginInfo_Activity.class);
                 intent.putExtra("name",result.getNickname());
                 intent.putExtra("profile",result.getProfileImagePath());
 
                 //자동로그인이아닌 버튼으로 로그인하는경우,
-                SharedPreferences sharedPreferences= mcontext.getSharedPreferences("kakaoBtLogin",mcontext.MODE_PRIVATE);
+                SharedPreferences sharedPreferences= mContext.getSharedPreferences("kakaoBtLogin",mContext.MODE_PRIVATE);
                 Boolean Bt_OK=sharedPreferences.getBoolean("Bt_OK",false);
                 Log.d("tak3","Bt_OK: "+Bt_OK);
                 String name=result.getNickname();
                 if(Bt_OK) {
+                    sharedPreferences=mContext.getSharedPreferences("loginUser",mContext.MODE_PRIVATE);
+                    SharedPreferences.Editor editor=sharedPreferences.edit();
+                    editor.putString("name",name+ "(카카오 로그인)");
+                    editor.commit();
                     Http_Request_MyServerDB http_request_myServerDB=new Http_Request_MyServerDB(name,"kakao",null);
                     http_request_myServerDB.Request_Signup();
                     Log.d("tak3","kkoLogin_Bt");
-                    mcontext.startActivity(intent);
-                    ((Activity) mcontext).finish();
+                    mContext.startActivity(intent);
+                    ((Activity) mContext).finish();
                 }
             }
         });

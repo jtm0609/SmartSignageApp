@@ -3,6 +3,7 @@ package com.jtmcompany.smartadvertisingboard.Login.Google;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,8 +22,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
 import com.jtmcompany.smartadvertisingboard.Login.Http_Request_MyServerDB;
-import com.jtmcompany.smartadvertisingboard.LoginInfo_Activity;
 import com.jtmcompany.smartadvertisingboard.Login.Network_Status_Check;
+import com.jtmcompany.smartadvertisingboard.LoginInfo_Activity;
 import com.jtmcompany.smartadvertisingboard.R;
 
 public class Google_FirebaseAuth {
@@ -78,6 +79,11 @@ public class Google_FirebaseAuth {
                                     Log.d("tak4", "uid: " + uid);
 
                                 }
+                                SharedPreferences sharedPreferences=mContext.getSharedPreferences("loginUser",mContext.MODE_PRIVATE);
+                                SharedPreferences.Editor editor=sharedPreferences.edit();
+                                editor.putString("name",name+"(구글 로그인)");
+                                editor.commit();
+
                                 Http_Request_MyServerDB http_request_myServerDB=new Http_Request_MyServerDB(name,email,null);
                                 http_request_myServerDB.Request_Signup();
 

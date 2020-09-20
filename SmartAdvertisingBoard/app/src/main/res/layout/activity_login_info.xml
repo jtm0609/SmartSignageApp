@@ -48,7 +48,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="30sp"
                 android:gravity="center"
-                android:fontFamily="@font/font"/>
+                android:fontFamily="@font/blackhansansregular"/>
 
 
         </LinearLayout>
@@ -59,7 +59,8 @@
             android:orientation="vertical"
             android:layout_weight="1"
             android:paddingRight="20dp"
-            android:paddingLeft="20dp">
+            android:paddingLeft="20dp"
+            android:gravity="center">
         <VideoView
             android:id="@+id/video"
             android:layout_width="match_parent"

@@ -1,8 +1,5 @@
 package com.jtmcompany.smartadvertisingboard.Login;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.GradientDrawable;
@@ -13,6 +10,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.api.ApiException;
@@ -21,10 +21,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.jtmcompany.smartadvertisingboard.Login.Google.Google_FirebaseAuth;
 import com.jtmcompany.smartadvertisingboard.Login.Kakao.Kakao_sessionCallback;
-import com.jtmcompany.smartadvertisingboard.LoginInfo_Activity;
 import com.jtmcompany.smartadvertisingboard.Login.Naver.NaverOAuthLoginHandler;
 import com.jtmcompany.smartadvertisingboard.Login.Naver.Naver_AuthInfo;
 import com.jtmcompany.smartadvertisingboard.Login.Naver.Naver_RefreshTokenTask;
+import com.jtmcompany.smartadvertisingboard.LoginInfo_Activity;
 import com.jtmcompany.smartadvertisingboard.R;
 import com.kakao.auth.Session;
 import com.kakao.usermgmt.LoginButton;
@@ -50,6 +50,7 @@ private FirebaseUser mAuthUser;
 
 private int GOOGLE_RC_SIGN_IN=9001;
 
+private long backClickTime=0;
 
 
     @Override
@@ -99,14 +100,17 @@ private int GOOGLE_RC_SIGN_IN=9001;
         //네이버 access토큰이 만료되면 갱신해줌
         if(OAuthLoginState.NEED_REFRESH_TOKEN.equals(mOAuthLoginModule.getState(this))){
             naver_refreshTokenTask.execute();
-            Log.d("tak","token: "+mOAuthLoginModule.getAccessToken(this));
+            Log.d("login_naver","token: "+mOAuthLoginModule.getAccessToken(this));
         }
 
         //네이버 access토큰이있는상태임
         if(OAuthLoginState.OK.equals(mOAuthLoginModule.getState(this))){
-            Log.d("tak3","naverLogin");
-            Log.d("tak2","state: "+mOAuthLoginModule.getState(this));
+            Log.d("login_naver","naverLogin");
+            Log.d("login_naver","state: "+mOAuthLoginModule.getState(this));
+
+
             Intent intent=new Intent(LoginActivity.this, LoginInfo_Activity.class);
+
             startActivity(intent);
             finish();
 

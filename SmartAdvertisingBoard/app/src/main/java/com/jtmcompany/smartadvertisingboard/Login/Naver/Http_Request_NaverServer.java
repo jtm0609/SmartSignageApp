@@ -1,9 +1,13 @@
 package com.jtmcompany.smartadvertisingboard.Login.Naver;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.jtmcompany.smartadvertisingboard.Login.Http_Request_MyServerDB;
+import com.jtmcompany.smartadvertisingboard.LoginInfo_Activity;
 import com.nhn.android.naverlogin.OAuthLogin;
 
 import org.json.JSONException;
@@ -31,7 +35,7 @@ public class Http_Request_NaverServer {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Log.d("tak","NaverMemberProfile");
+                Log.d("login_naver","NaverMemberProfile");
                 String token=mOAuthLoginModule.getAccessToken(mcontext);
                 String header="Bearer "+token;
 
@@ -40,15 +44,27 @@ public class Http_Request_NaverServer {
                 Map<String,String> requestHeaders=new HashMap<>();
                 requestHeaders.put("Authorization",header);
                 String responseBody=get(apiURL,requestHeaders);
-                Log.d("tak","responseBody: "+responseBody);
+                Log.d("login_naver","responseBody: "+responseBody);
                 try {
                     JSONObject root=new JSONObject(responseBody);
                     JSONObject response=root.getJSONObject("response");
                     String name=response.getString("name");
-                    Log.d("tak5","name: "+name);
+                    Log.d("login_naver","name: "+name);
+                    //로그인 API로부터 받은 JSON의 이름과 이미지 URI을 쉐어드프리퍼런스에 STRING값으로 저장함
+                    SharedPreferences sharedPreferences=mcontext.getSharedPreferences("loginUser",mcontext.MODE_PRIVATE);
+                    SharedPreferences.Editor editor=sharedPreferences.edit();
+                    editor.putString("name",name);
+                    editor.commit();
+
+
 
                     Http_Request_MyServerDB myServerDB=new Http_Request_MyServerDB(name,"email",null);
                     myServerDB.Request_Signup();
+
+                    ((Activity)mcontext).finish();
+                    Intent intent=new Intent(mcontext, LoginInfo_Activity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mcontext.startActivity(intent);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -65,15 +81,15 @@ public class Http_Request_NaverServer {
         try {
             URL url=new URL(apiUrl);
             con= (HttpURLConnection) url.openConnection();
-            Log.d("tak","con: "+con);
+            Log.d("login_naver","con: "+con);
             con.setRequestMethod("GET");
             for(Map.Entry<String,String> header: requestHeaders.entrySet()){
                 con.setRequestProperty(header.getKey(),header.getValue());
             }
             int responseCode=con.getResponseCode();
-            Log.d("tak","responseCode: "+responseCode);
+            Log.d("login_naver","responseCode: "+responseCode);
             if(responseCode==HttpURLConnection.HTTP_OK){
-                Log.d("tak","HTTP_OK");
+                Log.d("login_naver","HTTP_OK");
                 BufferedReader in= new BufferedReader(new InputStreamReader(con.getInputStream()));
                 StringBuffer responseBody=new StringBuffer();
                 String inputLine;
@@ -83,7 +99,7 @@ public class Http_Request_NaverServer {
                 return responseBody.toString();
 
             }else{
-                Log.d("tak","HTTP_NO");
+                Log.d("login_naver","HTTP_NO");
             }
         } catch (IOException e) {
             e.printStackTrace();
