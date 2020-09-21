@@ -4,10 +4,6 @@ package com.jtmcompany.smartadvertisingboard.VideoEdit;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,11 +14,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
 import com.innovattic.rangeseekbar.RangeSeekBar;
 import com.jtmcompany.smartadvertisingboard.R;
 
 
-public class VideoMusicTrim_Fragment extends Fragment implements RangeSeekBar.SeekBarChangeListener, View.OnClickListener {
+public class MusicTrim_Fragment extends Fragment implements RangeSeekBar.SeekBarChangeListener, View.OnClickListener {
 Uri selectMusicUri;
 RangeSeekBar rangeSeekBar;
 MediaPlayer mediaPlayer;
@@ -35,7 +34,7 @@ ImageView music_exit_bt;
 TextView seekvar_tvLeft;
 TextView seekbar_tvRight;
 FragmentManager fragmentManager;
-    public VideoMusicTrim_Fragment(Uri selectMusicUri) {
+    public MusicTrim_Fragment(Uri selectMusicUri) {
         this.selectMusicUri = selectMusicUri;
     }
 
@@ -44,36 +43,35 @@ FragmentManager fragmentManager;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_video_music_trim_, container, false);
+
+
         music_check_bt=view.findViewById(R.id.music_check);
         music_exit_bt=view.findViewById(R.id.musio_exit);
-        music_check_bt.setOnClickListener(this);
-        music_exit_bt.setOnClickListener(this);
         seekvar_tvLeft=view.findViewById(R.id.tvLeft);
         seekbar_tvRight=view.findViewById(R.id.tvRight);
         music_play_bt=view.findViewById(R.id.music_play_bt);
         music_stop_bt=view.findViewById(R.id.music_stop_bt);
+        rangeSeekBar=view.findViewById(R.id.music_seekbar);
+
+
+        music_check_bt.setOnClickListener(this);
+        music_exit_bt.setOnClickListener(this);
         music_play_bt.setOnClickListener(this);
         music_stop_bt.setOnClickListener(this);
+        rangeSeekBar.setSeekBarChangeListener(this);
+
+
         mediaPlayer=MediaPlayer.create(getContext(),selectMusicUri);
         int duration=mediaPlayer.getDuration()/1000;
-        rangeSeekBar=view.findViewById(R.id.music_seekbar);
-        rangeSeekBar.setSeekBarChangeListener(this);
-        //rangeSeekBar.setOnRangeSeekBarChangeListener(this);
 
-        Log.d("tak20","duration: "+duration);
         rangeSeekBar.setMaxThumbValue(duration);
         rangeSeekBar.setMinThumbValue(0);
         rangeSeekBar.setMax(duration);
 
-        //rangeSeekBar.setSelectedMaxValue(duration);
-        //rangeSeekBar.setSelectedMinValue(0);
-        //rangeSeekBar.setRangeValues(0,duration);
 
-        //mediaPlayer.getDuration()/1000;
         handler.postDelayed(r=new Runnable() {
             @Override
             public void run() {
-
                 Log.d("tak4","music_trim_handler");
                 if(mediaPlayer.getCurrentPosition()>= rangeSeekBar.getMaxThumbValue()*1000) {
                     mediaPlayer.seekTo(rangeSeekBar.getMinThumbValue() * 1000);
@@ -92,7 +90,6 @@ FragmentManager fragmentManager;
                 }
             }
         },1000);
-
         fragmentManager=getFragmentManager();
 
         return view;
@@ -101,24 +98,11 @@ FragmentManager fragmentManager;
     @Override
     public void onValueChanged(int i, int i1) {
         mediaPlayer.seekTo((int)i*1000);
-        Log.d("tak20","min: "+i);
-        Log.d("tak20","max: "+i1);
+
         seekvar_tvLeft.setText(toTime(i));
         seekbar_tvRight.setText(toTime(i1));
 
-        Log.d("tak20","getminValue: "+rangeSeekBar.getMinThumbValue());
-        Log.d("tak20","getMaxValue: "+rangeSeekBar.getMaxThumbValue());
     }
-    /*
-    @Override
-    public void onRangeSeekBarValuesChanged(RangeSeekBar bar, Object minValue, Object maxValue) {
-        mediaPlayer.seekTo((int)minValue*1000);
-        seekvar_tvLeft.setText(getTime((int)bar.getSelectedMinValue()));
-        seekbar_tvRight.setText(getTime((int)bar.getSelectedMaxValue()));
-    }
-
-     */
-
 
     @Override
     public void onClick(View view) {
@@ -132,27 +116,21 @@ FragmentManager fragmentManager;
             int videoDuration=VideoEditAtivity.trim_end-VideoEditAtivity.trim_start;
             int musicDuration=rangeSeekBar.getMaxThumbValue()-rangeSeekBar.getMinThumbValue();
             if(videoDuration>=musicDuration) {
+                Log.d("tak88","min: "+rangeSeekBar.getMinThumbValue());
+                Log.d("tak88","max: "+rangeSeekBar.getMaxThumbValue());
                 VideoEditAtivity.music_trim_start = rangeSeekBar.getMinThumbValue();
                 VideoEditAtivity.music_trim_end = rangeSeekBar.getMaxThumbValue();
 
                 VideoEditAtivity.isMusicCheck=true;
-                fragmentManager.beginTransaction().remove(VideoMusicTrim_Fragment.this).commit();
+                fragmentManager.beginTransaction().remove(MusicTrim_Fragment.this).commit();
             }else {
                 Toast.makeText(getContext(), "음악시간이 비디오시간보다 깁니다.", Toast.LENGTH_SHORT).show();
             }
 
         }
         else if(view==music_exit_bt){
-            fragmentManager.beginTransaction().remove(VideoMusicTrim_Fragment.this).commit();
+            fragmentManager.beginTransaction().remove(MusicTrim_Fragment.this).commit();
         }
-    }
-
-    private String getTime(int seconds) {
-        int hr = seconds / 3600;
-        int rem = seconds % 3600;
-        int mn = rem / 60;
-        int sec = rem % 60;
-        return String.format("%02d", hr) + ":" + String.format("%02d", mn) + ":" + String.format("%02d", sec);
     }
 
     @Override
@@ -162,26 +140,17 @@ FragmentManager fragmentManager;
         mediaPlayer.pause();
     }
 
-
-    @Override
-    public void onStartedSeeking() {
-
-    }
-
-    @Override
-    public void onStoppedSeeking() {
-
-    }
-
     public String toTime(int second){
         int m=second/60;
         int s=second%60;
         String mn=String.format("%02d",m);
         String sec=String.format("%02d",s);
         return mn+":"+sec;
-
-
-
-
     }
+
+    @Override
+    public void onStartedSeeking() { }
+    @Override
+    public void onStoppedSeeking() { }
+
 }

@@ -1,12 +1,12 @@
-package com.jtmcompany.smartadvertisingboard.VideoEdit;
+package com.jtmcompany.smartadvertisingboard.VideoEdit.VO;
 
 import android.graphics.drawable.Drawable;
 
-public class Editor_Model {
+public class EditorMenu_VO {
     private Drawable image;
     private String text;
 
-    public Editor_Model(Drawable image, String text) {
+    public EditorMenu_VO(Drawable image, String text) {
         this.image = image;
         this.text = text;
     }

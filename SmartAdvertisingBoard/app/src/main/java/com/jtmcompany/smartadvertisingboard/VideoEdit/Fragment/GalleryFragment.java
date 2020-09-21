@@ -1,18 +1,17 @@
-package com.jtmcompany.smartadvertisingboard.VideoEdit;
+package com.jtmcompany.smartadvertisingboard.VideoEdit.Fragment;
 
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
 import com.jtmcompany.smartadvertisingboard.R;
 
 
-public class VideoGalleryFragment extends Fragment {
+public class GalleryFragment extends Fragment {
 
 
     @Override

@@ -1,4 +1,4 @@
-package com.jtmcompany.smartadvertisingboard.VideoEdit;
+package com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter;
 
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -14,11 +14,11 @@ import com.jtmcompany.smartadvertisingboard.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class trimRecyclerAdapter extends RecyclerView.Adapter<trimRecyclerAdapter.Viewholder> {
+public class TrimRecyclerAdapter extends RecyclerView.Adapter<TrimRecyclerAdapter.Viewholder> {
     List<Bitmap> mbitmaps=new ArrayList<>();
     int mItemWidth;
 
-    public trimRecyclerAdapter(List<Bitmap> bitmaps, int itemwidth) {
+    public TrimRecyclerAdapter(List<Bitmap> bitmaps, int itemwidth) {
         this.mbitmaps = bitmaps;
         mItemWidth=itemwidth;
     }

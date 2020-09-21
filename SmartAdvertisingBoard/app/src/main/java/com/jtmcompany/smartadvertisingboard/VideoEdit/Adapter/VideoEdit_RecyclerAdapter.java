@@ -10,13 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jtmcompany.smartadvertisingboard.R;
-import com.jtmcompany.smartadvertisingboard.VideoEdit.Editor_Model;
+import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.EditorMenu_VO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VideoEdit_RecyclerAdapter extends RecyclerView.Adapter<VideoEdit_RecyclerAdapter.ViewHolder>{
-    List<Editor_Model> editor_list=new ArrayList<>();
+    List<EditorMenu_VO> editor_list=new ArrayList<>();
     OnClickEditor_ModelListener mListener;
     public interface OnClickEditor_ModelListener{
         public void OnClickedEditor_Model(int position);
@@ -27,7 +27,7 @@ public class VideoEdit_RecyclerAdapter extends RecyclerView.Adapter<VideoEdit_Re
     }
 
 
-    public VideoEdit_RecyclerAdapter(List<Editor_Model> editor_list) {
+    public VideoEdit_RecyclerAdapter(List<EditorMenu_VO> editor_list) {
         this.editor_list = editor_list;
     }
 
@@ -41,7 +41,7 @@ public class VideoEdit_RecyclerAdapter extends RecyclerView.Adapter<VideoEdit_Re
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Editor_Model editor_model=editor_list.get(position);
+        EditorMenu_VO editor_model=editor_list.get(position);
         holder.imageView.setImageDrawable(editor_model.getImage());
         holder.textView.setText(editor_model.getText());
     }

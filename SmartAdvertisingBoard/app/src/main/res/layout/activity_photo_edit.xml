@@ -99,7 +99,7 @@
         app:layout_constraintBottom_toTopOf="@id/editor"
         app:layout_constraintTop_toBottomOf="@id/gif_con"
         android:background="#292929"
-        app:menu="@menu/menu_bottom_nav"
+        app:menu="@menu/menu_photo_bottom"
         app:itemTextColor="@android:color/white"
 
         />

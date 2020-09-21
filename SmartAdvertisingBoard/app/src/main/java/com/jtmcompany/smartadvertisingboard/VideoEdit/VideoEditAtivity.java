@@ -2,13 +2,10 @@ package com.jtmcompany.smartadvertisingboard.VideoEdit;
 
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -21,28 +18,27 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jtmcompany.smartadvertisingboard.CustomDialog;
 import com.jtmcompany.smartadvertisingboard.FFmpeg_Task;
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerImageView;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerView;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.VideoEdit_RecyclerAdapter;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Music.MusicList;
+import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.EditorMenu_VO;
+import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.addItem_VO;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,19 +49,14 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     ImageView complete_bt;
     private static final int REQUEST_CODE_MUSIC =200 ;
     private static final int RESULT_OK_MUSIC = 300;
-    List<Editor_Model> list=new ArrayList<>();
+    List<EditorMenu_VO> list=new ArrayList<>();
     FrameLayout videoView_container;
-    ImageView video_play_bt;
-    ImageView video_stop_bt;
+    ImageView video_play_bt,video_stop_bt;
     VideoView videoView;
 
-    //현재 프레임레이아웃에 삽입된 스티커뷰
-    //static List<StickerView> insertView=new ArrayList<>();
-    static List<InsertStickerView_Model> insertView=new ArrayList<>();
-    static int trim_start;
-    static int trim_end;
-    static int music_trim_start=0;
-    static int music_trim_end=0;
+    public static int trim_start,trim_end;
+    public static int music_trim_start=0;
+    public static int music_trim_end=0;
     static boolean isFragmentClose;
     static boolean isMusicCheck=false;
     private int mDuration;
@@ -81,7 +72,6 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     Runnable r;
     Handler videoHandler;
     MediaMetadataRetriever mediaMetadataRetriever;
-    ThumnailView thumnailView;
     VideoTrimFragment videoTrimFragment;
     VideoTextFragment videoTextFragment;
     FragmentManager fragmentManager;
@@ -94,31 +84,47 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     String videoPath;
 
 
+    private CustomDialog customDialog;
+    private View.OnClickListener positiveLisener;
+    private View.OnClickListener negativeLisener;
+    private String musicPath;
+    public static List<addItem_VO> addItemList;
+    private int videoWidth, videoHeight;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_edit_ativity);
+        addItemList=new ArrayList<>();
         isFragmentClose=true;
+
         video_play_bt=findViewById(R.id.video_play);
         video_stop_bt=findViewById(R.id.video_stop);
         complete_bt=findViewById(R.id.video_complete_bt);
+        videoView_container=findViewById(R.id.video_eidt_container);
+
+
+        videoView=findViewById(R.id.video_eidt_video);
+
+
         video_play_bt.setOnClickListener(this);
         video_stop_bt.setOnClickListener(this);
         complete_bt.setOnClickListener(this);
-        videoView_container=findViewById(R.id.video_eidt_container);
         videoView_container.setOnClickListener(this);
-        videoView=findViewById(R.id.video_eidt_video);
+
         select_Video_Uri=getIntent().getParcelableExtra("selectUri");
         videoView.setVideoURI(select_Video_Uri);
 
 
+
         RecyclerView recyclerView=findViewById(R.id.video_edit_recycler);
-        list.add(new Editor_Model(getResources().getDrawable(R.drawable.trim),"잘라내기"));
-        list.add(new Editor_Model(getResources().getDrawable(R.drawable.text),"텍스트"));
-        list.add(new Editor_Model(getResources().getDrawable(R.drawable.sticker),"스티커"));
-        list.add(new Editor_Model(getResources().getDrawable(R.drawable.music),"음악"));
-        list.add(new Editor_Model(getResources().getDrawable(R.drawable.gallery),"사진"));
+        list.add(new EditorMenu_VO(getResources().getDrawable(R.drawable.trim),"잘라내기"));
+        list.add(new EditorMenu_VO(getResources().getDrawable(R.drawable.text),"텍스트"));
+        list.add(new EditorMenu_VO(getResources().getDrawable(R.drawable.sticker),"스티커"));
+        list.add(new EditorMenu_VO(getResources().getDrawable(R.drawable.music),"음악"));
+        list.add(new EditorMenu_VO(getResources().getDrawable(R.drawable.gallery),"사진"));
         VideoEdit_RecyclerAdapter recyclerAdapter=new VideoEdit_RecyclerAdapter(list);
         recyclerAdapter.setOnClickedListener(this);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
@@ -128,7 +134,6 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
 
         videoView.setOnPreparedListener(this);
-
 
         //비디오가 duration이 끝났는지 실시간으로 확인
         //끝났으면 중지버튼이아닌 실행버튼이나옴
@@ -150,10 +155,10 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
                         video_play_bt.setVisibility(View.VISIBLE);
                     }
 
-                    for(int i=0; i<insertView.size(); i++){
-                        int start_time=insertView.get(i).getInsert_start_time();
-                        int end_time=insertView.get(i).getInsert_end_time();
-                        Insert_View_appear(start_time,end_time,insertView.get(i).getmStickerView());
+                    for(int i=0; i<addItemList.size(); i++){
+                        int start_time=addItemList.get(i).getStart();
+                        int end_time=addItemList.get(i).getEnd();
+                        addView_appear(start_time,end_time,addItemList.get(i).getStickerView());
 
                     }
                 }
@@ -173,6 +178,11 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
 
+
+        Log.d("tak77","videoWidth: "+videoView.getWidth());
+        Log.d("tak77","videoHeight: "+videoView.getHeight());
+        Log.d("tak77","videoCWidth: "+videoView_container.getWidth());
+        Log.d("tak77","videoCHeight: "+videoView_container.getHeight());
         if(isMusicSelected)
             mediaPlayer.setVolume(0,0);
 
@@ -188,13 +198,6 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.d("tak3","onResume");
-
-
-
-        Log.d("tak5","uri: "+select_Video_Uri);
-
-
     }
 
     @Override
@@ -208,7 +211,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
 
 
-    public void Insert_View_appear(final int start_time, final int end_time, final StickerView insert_stickerView){
+    public void addView_appear(final int start_time, final int end_time, final StickerView insert_stickerView){
         Log.d("tak3","start: "+start_time);
         Log.d("tak3","end: "+end_time);
         if(videoView.isPlaying()) {
@@ -233,20 +236,12 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
         //잘라내기
         if(position==0){
-
             videoTrimFragment =new VideoTrimFragment(videoView,select_Video_Uri,thumnail_list);
-            //videoTrimFragment.show(getSupportFragmentManager(),"hi");
-
             fragmentManager.beginTransaction().add(R.id.con,videoTrimFragment).commit();
 
             //잘라내기아이콘을눌렀을때, 핸들러를종료함으로써, 다시 동영상처음부터 끝까지 시작하게한다.
-
-
-
-            //텍스트
         }else if(position==1){
             videoTextFragment=new VideoTextFragment(videoView_container,videoView,select_Video_Uri,thumnail_list);
-            //videoTextFragment.show(getSupportFragmentManager(),"hi2");
             fragmentManager.beginTransaction().add(R.id.con,videoTextFragment).commit();
 
 
@@ -261,8 +256,6 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
             Intent intent =new Intent(this, MusicList.class);
             startActivityForResult(intent,REQUEST_CODE_MUSIC);
-
-
 
 
             //사진
@@ -286,8 +279,6 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
                 SystemClock.sleep(1000);
                 plusTime = mDuration / 8.0;
                 for (int i = 0; i < 8; i++) {
-                    Log.d("tak2", "duration" + videoView.getDuration() );
-                    Log.d("tak2", "test: " + (videoView.getDuration() / 1000) / 10.0);
 
                     thumnail_list.add(mediaMetadataRetriever.getFrameAtTime((long) (time * 1000000), mediaMetadataRetriever.OPTION_CLOSEST));//?초 영상 추출)
                     time += plusTime;
@@ -315,8 +306,8 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         super.onDestroy();
         if(videoHandler!=null)
             videoHandler.removeMessages(0);
-        if(insertView!=null)
-            insertView.clear();
+        if(addItemList!=null)
+            addItemList.clear();
         Log.d("tak12","onDestroy");
     }
 
@@ -337,8 +328,6 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
                     SelectLocation_Fragment selectLocation_fragment =new SelectLocation_Fragment(videoView,select_Video_Uri,thumnail_list,galleryImageView,videoView_container);
                     fragmentManager.beginTransaction().add(R.id.con, selectLocation_fragment).commit();
-                    //InsertStickerView_Model insert_model=new InsertStickerView_Model(galleryImageView);
-                    //insertView.add(insert_model);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -348,13 +337,10 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             if(resultCode==RESULT_OK_MUSIC){
                 select_Music_Uri=data.getParcelableExtra("musicUri");
                 Log.d("tak4","Uri?: "+select_Music_Uri);
-                VideoMusicTrim_Fragment musicTrim_fragment=new VideoMusicTrim_Fragment(select_Music_Uri);
+                MusicTrim_Fragment musicTrim_fragment=new MusicTrim_Fragment(select_Music_Uri);
                 fragmentManager.beginTransaction().add(R.id.con,musicTrim_fragment).commit();
 
                 musicPlayer=MediaPlayer.create(this,select_Music_Uri);
-
-                //mediaPlayer.seekTo(5000);
-                //mediaPlayer.start();
             }
         }
     }
@@ -385,88 +371,40 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
                 music_play_thread.interrupt();
 
         }else if(view==videoView_container){
-            for(int position=0; position<insertView.size(); position++){
-                //insertView.get(position).hide_View();
-                insertView.get(position).getmStickerView().hide_View();
+            for(int position=0; position<addItemList.size(); position++){
+                addItemList.get(position).getStickerView().hide_View();
 
             }
 
         }else if(view==complete_bt){
-            EditText titleText=new EditText(this);
-            AlertDialog.Builder builder=new AlertDialog.Builder(this);
-            builder.setTitle("광고 제작");
-            builder.setMessage("광고 제목 입력");
-            builder.setView(titleText);
-            titleText.setHint("제목을 입력하세요.");
-            //다이어로그 완료버튼
-            //광고제목, 광고제작날짜, 광고썸네일, 동영상파일을 DB에저장하게구현할것.
-            builder.setPositiveButton("광고 제작하기", new DialogInterface.OnClickListener() {
+            if(select_Music_Uri!=null)
+            musicPath= getPath(VideoEditAtivity.this, select_Music_Uri);
+
+            positiveLisener=new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int j) {
-                    String musicPath = getPath(VideoEditAtivity.this, select_Music_Uri);
-                    FFmpeg_Task ffmpeg_task=new FFmpeg_Task(VideoEditAtivity.this,videoPath,musicPath);
-                    ffmpeg_task.loadFFMpegBinary();
-                    ffmpeg_task.executeCutVideoCommand(trim_start, trim_end);
+                public void onClick(View view) {
+                    String videoTitle=customDialog.getTitleET().getText().toString();
 
-                    for(int i=0; i<insertView.size(); i++){
-                        View v=insertView.get(i).getmStickerView().getMainView();
-                        int v_width=insertView.get(i).getWidth();
-                        int v_height=insertView.get(i).getHeight();
-                        float v_rotation=insertView.get(i).getRotatation();
-                        Matrix rotateMatrix = new Matrix();
-                        rotateMatrix.postRotate(v_rotation);
-                        //v.setDrawingCacheEnabled(true);
-                        //v.buildDrawingCache();
-
-                        Log.d("tak12","width: "+v_width);
-                        Log.d("tak12","height: "+v_height);
-                        Log.d("tak12","rotation: "+v_rotation);
-
-                        //뷰 -> 비트맵으로 변환
-                        Bitmap be= Bitmap.createBitmap(v_width,v_height,
-                                Bitmap.Config.ARGB_8888);
-                        Canvas c=new Canvas(be);
-                        v.draw(c);
-
-                        Bitmap b=Bitmap.createBitmap(be,0,0,v_width,v_height,rotateMatrix,false);
-                        //Canvas c2=new Canvas(b);
-                        //v.draw(c2);
-
-
-                        //쓰기
-                        try {
-                            File moviesDir= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
-                            String fileName="insert"+i+".png";
-                            File tempFile=new File(moviesDir,fileName);
-                            tempFile.createNewFile();
-
-                            Log.d("tak12","진행중");
-
-
-                            FileOutputStream fos = new FileOutputStream(tempFile);
-                            b.compress(Bitmap.CompressFormat.PNG, 100, fos);
-                            fos.flush();
-                            fos.close();
-                        }catch (Exception e){
-                            Toast.makeText(VideoEditAtivity.this, "error", Toast.LENGTH_SHORT).show();
-                        }
-
+                    if(videoTitle.equals(""))
+                        Toast.makeText(VideoEditAtivity.this, "빈칸을 채워주세요.", Toast.LENGTH_SHORT).show();
+                    else{
+                        FFmpeg_Task ffmpeg_task=new FFmpeg_Task(VideoEditAtivity.this,videoPath,musicPath,addItemList,videoWidth,videoHeight);
+                        ffmpeg_task.loadFFMpegBinary();
+                        ffmpeg_task.executeCutVideoCommand(trim_start, trim_end);
+                        finish();
                     }
-
-
                 }
-            });
-            //다디어로그 취소버튼
-            builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+            };
+
+            negativeLisener=new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
+                public void onClick(View view) {
+                    customDialog.dismiss();
                 }
-            });
-
-
-
-            builder.show();
+            };
+            customDialog=new CustomDialog(VideoEditAtivity.this,positiveLisener,negativeLisener);
+            customDialog.show();
+            customDialog.getTimeET().setVisibility(View.GONE);
 
         }
     }
@@ -496,9 +434,6 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
 
     }
-
-
-
 
 
 

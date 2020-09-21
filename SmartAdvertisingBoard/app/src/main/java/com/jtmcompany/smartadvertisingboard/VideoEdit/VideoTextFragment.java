@@ -6,12 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +13,11 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.VideoView;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerTextView;
@@ -34,6 +33,9 @@ public class VideoTextFragment extends Fragment implements VideoEdit_TextBottoms
     private VideoView mVideoview;
     private Uri mVideoSelectUri;
     private List<Bitmap> mlist=new ArrayList<>();
+
+    private StickerTextView addStickerView;
+    private boolean addFlag=false;
     public VideoTextFragment(FrameLayout videoView_container, VideoView videoView, Uri uri, List list) {
         this.videoView_container = videoView_container;
         mVideoview=videoView;
@@ -45,6 +47,9 @@ public class VideoTextFragment extends Fragment implements VideoEdit_TextBottoms
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        addStickerView=new StickerTextView(getContext());
+
         View view= inflater.inflate(R.layout.fragment_video_text, container, false);
         List<Drawable> list=new ArrayList<>();
         RecyclerView recyclerView=view.findViewById(R.id.text_item_recycler);
@@ -57,16 +62,10 @@ public class VideoTextFragment extends Fragment implements VideoEdit_TextBottoms
             public void onClick(View view) {
                 FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().remove(VideoTextFragment.this).commit();
-                Boolean flag=false;
-                Log.d("tak3","취소");
-                for(int i=0; i<VideoEditAtivity.insertView.size(); i++) {
-                    if (VideoEditAtivity.insertView.get(i).getmStickerView() == curTextView) {
-                        flag = true;
-                        break;
-                    }
-                }
-                if(flag!=true)
-                    videoView_container.removeView(curTextView);
+
+                //레이아웃에 아이템을 추가했다면
+                if(addFlag)
+                videoView_container.removeView(addStickerView);
             }
 
 
@@ -90,41 +89,21 @@ public class VideoTextFragment extends Fragment implements VideoEdit_TextBottoms
     }
 
 
-
-    StickerTextView prieveTextView;
-    StickerTextView curTextView;
-
-
-
     @Override
     public void textOnClick(int position) {
-        Log.d("tak3",""+position);
-
-        //삭제하는뷰가 삽입해져있는뷰랑 같다면 flag=true로 놓아 삭제를방지
-        Boolean flag=false;
-        for(int i=0; i<VideoEditAtivity.insertView.size(); i++) {
-            if (VideoEditAtivity.insertView.get(i).getmStickerView() == curTextView) {
-                flag = true;
-                break;
-            }
-        }
-        if(prieveTextView!=null && flag!=true)
-            videoView_container.removeView(prieveTextView);
-
-        final StickerTextView stickerTextView=new StickerTextView(getContext());
-        stickerTextView.setText("Hello");
-        curTextView=stickerTextView;
-
-
+        addStickerView.setText("Hello");
 
         if(position==0)
-            stickerTextView.tv_main.setTextColor(Color.WHITE);
+            addStickerView.tv_main.setTextColor(Color.WHITE);
         else if(position==1)
-            stickerTextView.tv_main.setTextColor(Color.BLACK);
+            addStickerView.tv_main.setTextColor(Color.BLACK);
         else if(position==2)
-            stickerTextView.tv_main.setTextColor(Color.BLUE);
+            addStickerView.tv_main.setTextColor(Color.BLUE);
 
-        videoView_container.addView(stickerTextView);
+        if(!addFlag)
+        videoView_container.addView(addStickerView);
+
+        addFlag=true;
 
         // V버튼
         textInsert_bt.setOnClickListener(new View.OnClickListener() {
@@ -134,44 +113,13 @@ public class VideoTextFragment extends Fragment implements VideoEdit_TextBottoms
                 FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().remove(VideoTextFragment.this).commit();
 
-                //fragmentManager.beginTransaction().replace(R.id.text_container,selectLocation_fragment).commit();
-               // VideoTrimFragment videoTrimFragment=new VideoTrimFragment(mVideoview);
-
-                //VideoEditAtivity.insertView.add(curTextView);
-
-                //int duration=VideoEditAtivity.trim_end-VideoEditAtivity.trim_start;
-                SelectLocation_Fragment selectLocation_fragment =new SelectLocation_Fragment(mVideoview,mVideoSelectUri,mlist,curTextView,videoView_container);
+                SelectLocation_Fragment selectLocation_fragment =new SelectLocation_Fragment(mVideoview,mVideoSelectUri,mlist,addStickerView,videoView_container);
                 fragmentManager.beginTransaction().add(R.id.con, selectLocation_fragment).commit();
-
 
             }
         });
 
-
-
-        prieveTextView=curTextView;
     }
-
-
-    //외부배경 눌렀을때 이벤트발생 (API17이상)
-    /*
-    @Override
-    public void onCancel(@NonNull DialogInterface dialog) {
-        super.onCancel(dialog);
-        Boolean flag=false;
-        Log.d("tak3","취소");
-        for(int i=0; i<VideoEditAtivity.insertView.size(); i++) {
-            if (VideoEditAtivity.insertView.get(i).getmStickerView() == curTextView) {
-                flag = true;
-                break;
-            }
-        }
-        if(flag!=true)
-            videoView_container.removeView(curTextView);
-    }
-
-     */
-
 
 
 }

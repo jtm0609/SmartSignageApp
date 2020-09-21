@@ -1,23 +1,31 @@
 package com.jtmcompany.smartadvertisingboard.VideoEdit;
 
 
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.FragmentManager;
-
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
+import androidx.fragment.app.FragmentManager;
+
 import com.jtmcompany.smartadvertisingboard.R;
+import com.jtmcompany.smartadvertisingboard.StickerView.StickerImageView;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerView;
+import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.addItem_VO;
 import com.waynell.videorangeslider.RangeSlider;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 
@@ -25,22 +33,32 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
     private ImageView trim_OK_bt;
     private ImageView trim_EXIT_bt;
     private Progress_Thtead progress_thtead;
-    private InsertStickerView_Model mInsertText_model;
-    private StickerView mInsertTv;
+    private StickerView addItem;
     private FragmentManager fragmentManager;
     private FrameLayout mVideo_container;
 
+    private VideoView videoView;
+    String itemPath;
+    int itemWidth,itemHeight,itemX,itemY,videoX,videoY,start,end;
+    int []location;
+
+
     protected SelectLocation_Fragment(VideoView videoview, Uri selectVideoUri, List list, StickerView tv, FrameLayout container) {
         super(videoview, selectVideoUri, list);
-        mInsertTv=tv;
+        this.videoView=videoview;
+        addItem=tv;
         mVideo_container=container;
-
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        location=new int[2];
+        videoView.getLocationOnScreen(location);
+        videoX=location[0];
+        videoY=location[1];
         // Inflate the layout for this fragment
         VideoEditAtivity.isFragmentClose=false;
         mVideoview.seekTo(VideoEditAtivity.trim_start*1000);
@@ -54,13 +72,11 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
         trim_OK_bt.setOnClickListener(this);
         videoPlay_bt.setOnClickListener(this);
         videoPause_bt.setOnClickListener(this);
-        Log.d("tak3","trim_end2: "+VideoEditAtivity.trim_end);
-        Log.d("tak3","trim_start2: "+VideoEditAtivity.trim_start);
         init(view);
-        Log.d("tak3","trim_end3: "+VideoEditAtivity.trim_end);
-        Log.d("tak3","trim_start3: "+VideoEditAtivity.trim_start);
+
         slider.setTickCount(VideoEditAtivity.trim_end-VideoEditAtivity.trim_start);
         indicator_seek.setMax(VideoEditAtivity.trim_end-VideoEditAtivity.trim_start);
+        //슬라이더가변하면 시작,끝 텍스트 변경
         slider.setRangeChangeListener(new RangeSlider.OnRangeChangeListener() {
             @Override
             public void onRangeChange(RangeSlider view, int leftPinIndex, int rightPinIndex) {
@@ -70,14 +86,11 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
                 indicator_seek.setProgress(leftPinIndex);
             }
         });
-        Compare_sliderRight();
-
+        videoHandleListener();
         fragmentManager=getActivity().getSupportFragmentManager();
-
-
-
         return view;
     }
+
     @Override
     public void onClick(View view) {
         if(view==videoPlay_bt){
@@ -102,39 +115,47 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
             isTrim_OK=true;
             if(progress_thtead!=null)
                 progress_thtead.interrupt();
-            //VideoEditAtivity.trim_start=slider.getLeftIndex();
-            //VideoEditAtivity.trim_end=slider.getRightIndex();
-            mInsertText_model=new InsertStickerView_Model(mInsertTv);
-            mInsertText_model.setInsert_start_time(slider.getLeftIndex()+VideoEditAtivity.trim_start);
-            mInsertText_model.setInsert_end_time(slider.getRightIndex()+VideoEditAtivity.trim_start);
-            //설정한크기만큼 너비, 높이설정값 저장
-            mInsertText_model.setWidth(mInsertTv.getMainView().getWidth());
-            mInsertText_model.setHeight(mInsertTv.getMainView().getHeight());
-            //로테이션설정
-            mInsertText_model.setRotatation(mInsertTv.getRotation());
-            Log.d("tak12","Rotation:  "+ mInsertTv.getRotation());
-            VideoEditAtivity.insertView.add(mInsertText_model);
 
 
+                float itemRotation;
+                if(addItem instanceof StickerImageView){
+                    ImageView iv= (ImageView) addItem.getMainView();
+                    itemWidth=iv.getWidth();
+                    itemHeight=iv.getHeight();
+                    iv.getLocationOnScreen(location);
 
-            //설정했으면 다시 비디오를 처음부터 시작
-            mVideoview.seekTo(VideoEditAtivity.trim_start*1000);
-            mVideoview.pause();
+                }else {
+                    View tv= (View) addItem.getMainView();
+                    itemWidth=tv.getWidth();
+                    itemHeight=tv.getHeight();
+                    tv.getLocationOnScreen(location);
 
-        }
+                }
+                itemX=location[0]-videoX;
+                itemY=location[1]-videoY;
+                itemRotation=addItem.getRotation();
+                Matrix rotateMatrix = new Matrix();
+                rotateMatrix.postRotate(itemRotation);
+                Log.d("tak12","width: "+itemWidth);
+                Log.d("tak12","height: "+itemHeight);
+                Log.d("tak12","rotation: "+itemRotation);
+                Bitmap bitmap=convertBitmap(addItem.getMainView(),itemWidth,itemHeight,rotateMatrix);
+                itemPath=saveImg(bitmap);
+
+
+                start=slider.getLeftIndex()+VideoEditAtivity.trim_start;
+                end=slider.getRightIndex()+VideoEditAtivity.trim_start;
+                VideoEditAtivity.addItemList.add(new addItem_VO(itemPath,itemWidth,itemHeight,start,end,addItem,itemX,itemY));
+                 //설정했으면 다시 비디오를 처음부터 시작
+                mVideoview.seekTo(VideoEditAtivity.trim_start*1000);
+                mVideoview.pause();
+
+            }
+
 
         else if(view==trim_EXIT_bt){
             fragmentManager.beginTransaction().remove(SelectLocation_Fragment.this).commit();
-            Boolean flag=false;
-            Log.d("tak3","취소");
-            for(int i=0; i<VideoEditAtivity.insertView.size(); i++) {
-                if (VideoEditAtivity.insertView.get(i).getmStickerView() == mInsertTv) {
-                    flag = true;
-                    break;
-                }
-            }
-            if(flag!=true)
-                mVideo_container.removeView(mInsertTv);
+            mVideo_container.removeView(addItem);
         }
 
     }
@@ -148,39 +169,29 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
 
         is_Running=false;
         VideoEditAtivity.isFragmentClose=true;
-
-
     }
 
 
     //슬라이더의 오른쪽이 바뀌었을때 현재비디오 위치가 바뀐오른쪽보다 커지면 다시 비디오를재시작
-    protected void Compare_sliderRight(){
+    //추가된 아이템이 정해진 시간이 되면 나타남
+    protected void videoHandleListener(){
         Log.d("tak5","handler!");
         handler.postDelayed(r=new Runnable() {
             @Override
             public void run() {
-                //VideoEditAtivity.isActivityFocus=false;
-                Log.d("tak3","trimThread");
-                Log.d("tak4","current: "+mVideoview.getCurrentPosition()/1000);
-                Log.d("tak4","getRightIndex: "+slider.getRightIndex());
-                Log.d("tak5","currentposition: "+slider.getRightIndex()+VideoEditAtivity.trim_start);
                 if(mVideoview.getCurrentPosition()/1000>=slider.getRightIndex()+VideoEditAtivity.trim_start){
-
                     mVideoview.seekTo((slider.getLeftIndex()+VideoEditAtivity.trim_start)*1000);
                     mVideoview.pause();
                     videoPause_bt.setVisibility(View.GONE);
                     videoPlay_bt.setVisibility(View.VISIBLE);
 
-                    //stop되면 스레드역시 종료
-                    // if(progress_thtead!=null)
-                    //progress_thtead.interrupt();
-
                 }
 
-                for(int i=0; i<VideoEditAtivity.insertView.size(); i++){
-                    int start_time=VideoEditAtivity.insertView.get(i).getInsert_start_time();
-                    int end_time=VideoEditAtivity.insertView.get(i).getInsert_end_time();
-                    Insert_View_appear(start_time,end_time,VideoEditAtivity.insertView.get(i).getmStickerView());
+                //추가한 아이템들도 정해진 시간이 되면 나타남
+                for(int i=0; i<VideoEditAtivity.addItemList.size(); i++){
+                    int start_time=VideoEditAtivity.addItemList.get(i).getStart();
+                    int end_time=VideoEditAtivity.addItemList.get(i).getEnd();
+                    addView_appear(start_time,end_time,VideoEditAtivity.addItemList.get(i).getStickerView());
 
                 }
 
@@ -191,22 +202,59 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
     }
 
 
-    public void Insert_View_appear(final int start_time, final int end_time, final StickerView insert_stickerView){
+    public void addView_appear(final int start_time, final int end_time, final StickerView addStickerView){
         Log.d("tak3","start: "+start_time);
         Log.d("tak3","end: "+end_time);
         if(mVideoview.isPlaying()) {
             if (mVideoview.getCurrentPosition() / 1000 == start_time) {
-                insert_stickerView.setVisibility(View.VISIBLE);
+                addStickerView.setVisibility(View.VISIBLE);
                 Log.d("tak3", "1");
             }
             if (mVideoview.getCurrentPosition() / 1000 > end_time || mVideoview.getCurrentPosition() / 1000 < start_time) {
-                insert_stickerView.setVisibility(View.GONE);
+                addStickerView.setVisibility(View.GONE);
                 Log.d("tak3", "2");
             }
         }else{
-            insert_stickerView.setVisibility(View.GONE);
+            addStickerView.setVisibility(View.GONE);
         }
 
+    }
+
+    //뷰 -> 비트맵으로 변환
+    private Bitmap convertBitmap (View v,int width,int height, Matrix rotateMatrix){
+
+        Bitmap be= Bitmap.createBitmap(width,height,
+                Bitmap.Config.ARGB_8888);
+        Canvas c=new Canvas(be);
+        v.draw(c);
+
+        Bitmap b=Bitmap.createBitmap(be,0,0,width,height,rotateMatrix,false);
+
+        return b;
+    }
+
+    //저장소에 쓰기
+    private String saveImg(Bitmap bitmap){
+        String path="";
+        try {
+            File moviesDir= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
+            File outputFile=new File(moviesDir,"add_1.png");
+            int num=1;
+            while(outputFile.exists()){
+                num++;
+                outputFile=new File(moviesDir,"add_"+num+".png");
+            }
+
+            FileOutputStream fos = new FileOutputStream(outputFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+            fos.close();
+
+            path=outputFile.getAbsolutePath();
+        }catch (Exception e){
+            Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
+        }
+        return path;
     }
 
 

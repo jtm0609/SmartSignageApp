@@ -3,15 +3,14 @@ package com.jtmcompany.smartadvertisingboard.VideoEdit;
 
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.FragmentManager;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.VideoView;
+
+import androidx.fragment.app.FragmentManager;
 
 import com.jtmcompany.smartadvertisingboard.R;
 import com.waynell.videorangeslider.RangeSlider;
@@ -32,7 +31,6 @@ Progress_Thtead progress_thtead;
                              Bundle savedInstanceState) {
         VideoEditAtivity.isFragmentClose=false;
         mVideoview.seekTo(0);
-        //VideoEditAtivity.trim_end=mVideoview.getDuration()/1000;
 
         View view=inflater.inflate(R.layout.fragment_trim_video, container, false);
         trim_OK_bt=view.findViewById(R.id.trim_check);
@@ -107,8 +105,8 @@ Progress_Thtead progress_thtead;
                 VideoEditAtivity.trim_end=slider.getRightIndex();
 
                 //트림을완료하면 기존에삽입했던 스티커뷰들 다초기화
-            if(VideoEditAtivity.insertView.size()!=0){
-                VideoEditAtivity.insertView.clear();
+            if(VideoEditAtivity.addItemList.size()!=0){
+                VideoEditAtivity.addItemList.clear();
             }
 
             }
@@ -137,11 +135,6 @@ Progress_Thtead progress_thtead;
                     mVideoview.pause();
                     videoPause_bt.setVisibility(View.GONE);
                     videoPlay_bt.setVisibility(View.VISIBLE);
-
-                    //stop되면 스레드역시 종료
-                    // if(progress_thtead!=null)
-                    //progress_thtead.interrupt();
-
                 }
 
 

@@ -48,8 +48,8 @@
 
         android:id="@+id/video_eidt_container"
         android:layout_marginTop="10dp"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="720px"
+        android:layout_height="1280px"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/videoEditor_top"
@@ -63,8 +63,8 @@
         <VideoView
 
             android:id="@+id/video_eidt_video"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="720px"
+            android:layout_height="1280px"
 
             android:layout_gravity="center"
 
