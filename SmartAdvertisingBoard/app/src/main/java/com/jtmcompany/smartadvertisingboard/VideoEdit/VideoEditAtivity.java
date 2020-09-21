@@ -1,21 +1,14 @@
 package com.jtmcompany.smartadvertisingboard.VideoEdit;
 
-import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -38,6 +31,7 @@ import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.VideoEdit_Recycler
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Music.MusicList;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.EditorMenu_VO;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.addItem_VO;
+import com.jtmcompany.smartadvertisingboard.getPathUtils;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -54,9 +48,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     ImageView video_play_bt,video_stop_bt;
     VideoView videoView;
 
-    public static int trim_start,trim_end;
-    public static int music_trim_start=0;
-    public static int music_trim_end=0;
+    public static int trim_start,trim_end,music_trim_start,music_trim_end;
     static boolean isFragmentClose;
     static boolean isMusicCheck=false;
     private int mDuration;
@@ -66,8 +58,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     //썸네일 시간, 시간을10으로 분할한 시간
     float time = 0;
     double plusTime;
-    Uri select_Video_Uri;
-    Uri select_Music_Uri;
+    private Uri select_Video_Uri,select_Music_Uri;
     List<Bitmap> thumnail_list=new ArrayList();
     Runnable r;
     Handler videoHandler;
@@ -85,11 +76,9 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
 
     private CustomDialog customDialog;
-    private View.OnClickListener positiveLisener;
-    private View.OnClickListener negativeLisener;
+    private View.OnClickListener positiveLisener,negativeLisener;
     private String musicPath;
     public static List<addItem_VO> addItemList;
-    private int videoWidth, videoHeight;
 
 
 
@@ -166,7 +155,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             }
         },1000);
 
-        videoPath = getPath(this,select_Video_Uri);
+        videoPath = getPathUtils.getPath(this, select_Video_Uri);
         mediaMetadataRetriever = new MediaMetadataRetriever();
         mediaMetadataRetriever.setDataSource(videoPath);
 
@@ -378,7 +367,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
         }else if(view==complete_bt){
             if(select_Music_Uri!=null)
-            musicPath= getPath(VideoEditAtivity.this, select_Music_Uri);
+            musicPath= getPathUtils.getPath(VideoEditAtivity.this, select_Music_Uri);
 
             positiveLisener=new View.OnClickListener() {
                 @Override
@@ -388,7 +377,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
                     if(videoTitle.equals(""))
                         Toast.makeText(VideoEditAtivity.this, "빈칸을 채워주세요.", Toast.LENGTH_SHORT).show();
                     else{
-                        FFmpeg_Task ffmpeg_task=new FFmpeg_Task(VideoEditAtivity.this,videoPath,musicPath,addItemList,videoWidth,videoHeight);
+                        FFmpeg_Task ffmpeg_task=new FFmpeg_Task(VideoEditAtivity.this,videoPath,musicPath,addItemList);
                         ffmpeg_task.loadFFMpegBinary();
                         ffmpeg_task.executeCutVideoCommand(trim_start, trim_end);
                         finish();
@@ -438,126 +427,6 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
 
 
-
-    //content:// 형식으로 되있는 uri로부터 파일의 실제 경로 구하기
-    private String getPath(final Context context, final Uri uri) {
-        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-        // DocumentProvider
-
-        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
-
-            // ExternalStorageProvider
-
-            if (isExternalStorageDocument(uri)) {
-
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-
-                if ("primary".equalsIgnoreCase(type)) {
-                    return Environment.getExternalStorageDirectory() + "/" + split[1];
-
-                }
-                // TODO handle non-primary volumes
-            }
-
-
-            // DownloadsProvider
-            else if (isDownloadsDocument(uri)) {
-
-                final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(
-
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
-                return getDataColumn(context, contentUri, null, null);
-
-            }
-
-            // MediaProvider
-            else if (isMediaDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-                Uri contentUri = null;
-                if ("image".equals(type)) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-
-                } else if ("video".equals(type)) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-
-                } else if ("audio".equals(type)) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-
-                }
-                final String selection = "_id=?";
-                final String[] selectionArgs = new String[]{
-                        split[1]
-                };
-                return getDataColumn(context, contentUri, selection, selectionArgs);
-            }
-        }
-
-        // MediaStore (and general)
-        else if ("content".equalsIgnoreCase(uri.getScheme())) {
-            return getDataColumn(context, uri, null, null);
-        }
-        // File
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
-        }
-        return null;
-
-    }
-
-    private boolean isExternalStorageDocument(Uri uri) {
-        return "com.android.externalstorage.documents".equals(uri.getAuthority());
-
-    }
-
-
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is DownloadsProvider.
-     */
-    private boolean isDownloadsDocument(Uri uri) {
-        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
-    }
-
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is MediaProvider.
-     */
-    private boolean isMediaDocument(Uri uri) {
-        return "com.android.providers.media.documents".equals(uri.getAuthority());
-    }
-
-    private String getDataColumn(Context context, Uri uri, String selection,
-
-                                 String[] selectionArgs) {
-        Cursor cursor = null;
-        final String column = "_data";
-        final String[] projection = {
-                column
-        };
-        try {
-            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
-                    null);
-            if (cursor != null && cursor.moveToFirst()) {
-                final int column_index = cursor.getColumnIndexOrThrow(column);
-                return cursor.getString(column_index);
-            }
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-
-        return null;
-
-    }
 
 
 }

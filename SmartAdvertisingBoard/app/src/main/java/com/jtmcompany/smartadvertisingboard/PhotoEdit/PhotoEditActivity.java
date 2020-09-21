@@ -1,17 +1,11 @@
 package com.jtmcompany.smartadvertisingboard.PhotoEdit;
 
-import android.content.ContentUris;
-import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +25,7 @@ import com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEdit_BottomFragment.T
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerImageView;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerTextView;
+import com.jtmcompany.smartadvertisingboard.getPathUtils;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -90,7 +85,7 @@ public class PhotoEditActivity extends AppCompatActivity {
         imageView=findViewById(R.id.photo_eidt_img);
         select_Photo_Uri=getIntent().getParcelableExtra("selectUri");
         imageView.setImageURI(select_Photo_Uri);
-        select_Photo_Path=getPath(this,select_Photo_Uri);
+        select_Photo_Path= getPathUtils.getPath(this, select_Photo_Uri);
         Log.d("tak12,","selectPhotoUri: "+select_Photo_Uri);
         Log.d("tak12,","selectPhotoPATH: "+select_Photo_Path);
 
@@ -120,9 +115,6 @@ public class PhotoEditActivity extends AppCompatActivity {
                 Log.d("tak14","이미지 x: "+photoX);
                 Log.d("tak14","이미지 y:" +photoY);
 
-
-
-
                 //이미지의 해상도구하기 x,y( 해상도가큰 카메라사진은 ffmpeg를통해 동영상으로 만들면 회전이되었음, 이를 해결하기위해 해상도를 파악함)
                 photoWidth=findPhotoPixel().outWidth;
                 photoHeight=findPhotoPixel().outHeight;
@@ -139,8 +131,6 @@ public class PhotoEditActivity extends AppCompatActivity {
                     int itemHeight;
                     double itemX;
                     double itemY;
-
-
 
                     //gif라면
                     if(v instanceof StickerImageView) {
@@ -171,7 +161,6 @@ public class PhotoEditActivity extends AppCompatActivity {
 
 
                     }
-
                     //부모뷰안에 자식뷰의 좌표를 구하기위해 부모뷰의 x,y좌표를 빼줌
                     itemX=location[0]-photoX;
                     itemY=location[1]-photoY;
@@ -188,9 +177,6 @@ public class PhotoEditActivity extends AppCompatActivity {
 
 
                 }
-
-
-
 
                 //저장소에 저장된 리스트의 gif파일들 모두 삭제
                 //deleteAllGif();
@@ -317,125 +303,5 @@ public class PhotoEditActivity extends AppCompatActivity {
 
 
 
-
-    //content:// 형식으로 되있는 uri로부터 파일의 실제 경로 구하기
-    private String getPath(final Context context, final Uri uri) {
-        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-        // DocumentProvider
-
-        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
-
-            // ExternalStorageProvider
-
-            if (isExternalStorageDocument(uri)) {
-
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-
-
-                if ("primary".equalsIgnoreCase(type)) {
-                    return Environment.getExternalStorageDirectory() + "/" + split[1];
-
-                }
-                // TODO handle non-primary volumes
-            }
-
-
-            // DownloadsProvider
-            else if (isDownloadsDocument(uri)) {
-
-                final String id = DocumentsContract.getDocumentId(uri);
-                final Uri contentUri = ContentUris.withAppendedId(
-
-                        Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
-                return getDataColumn(context, contentUri, null, null);
-
-            }
-
-            // MediaProvider
-            else if (isMediaDocument(uri)) {
-                final String docId = DocumentsContract.getDocumentId(uri);
-                final String[] split = docId.split(":");
-                final String type = split[0];
-                Uri contentUri = null;
-                if ("image".equals(type)) {
-                    contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-
-                } else if ("video".equals(type)) {
-                    contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-
-                } else if ("audio".equals(type)) {
-                    contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
-
-                }
-                final String selection = "_id=?";
-                final String[] selectionArgs = new String[]{
-                        split[1]
-                };
-                return getDataColumn(context, contentUri, selection, selectionArgs);
-            }
-        }
-
-        // MediaStore (and general)
-        else if ("content".equalsIgnoreCase(uri.getScheme())) {
-            return getDataColumn(context, uri, null, null);
-        }
-        // File
-        else if ("file".equalsIgnoreCase(uri.getScheme())) {
-            return uri.getPath();
-        }
-        return null;
-
-    }
-
-    private boolean isExternalStorageDocument(Uri uri) {
-        return "com.android.externalstorage.documents".equals(uri.getAuthority());
-
-    }
-
-
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is DownloadsProvider.
-     */
-    private boolean isDownloadsDocument(Uri uri) {
-        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
-    }
-
-
-    /**
-     * @param uri The Uri to check.
-     * @return Whether the Uri authority is MediaProvider.
-     */
-    private boolean isMediaDocument(Uri uri) {
-        return "com.android.providers.media.documents".equals(uri.getAuthority());
-    }
-
-    private String getDataColumn(Context context, Uri uri, String selection,
-
-                                 String[] selectionArgs) {
-        Cursor cursor = null;
-        final String column = "_data";
-        final String[] projection = {
-                column
-        };
-        try {
-            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
-                    null);
-            if (cursor != null && cursor.moveToFirst()) {
-                final int column_index = cursor.getColumnIndexOrThrow(column);
-                return cursor.getString(column_index);
-            }
-        } finally {
-            if (cursor != null)
-                cursor.close();
-        }
-
-        return null;
-
-    }
 
 }

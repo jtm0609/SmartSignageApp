@@ -41,19 +41,17 @@ public class FFmpeg_Task {
     private boolean photoWorking=false;
     private String videoTitle;
     private String videoTime;
-    private int videoWidth;
-    private int videoHeight;
+
 
 
 
     //비디오
-    public FFmpeg_Task(Context mContext, String selectVideoPath, String selectMusicPath, List<addItem_VO> list, int width, int height) {
+    public FFmpeg_Task(Context mContext, String selectVideoPath, String selectMusicPath, List<addItem_VO> list) {
         this.mContext = mContext;
         this.selectVideoPath=selectVideoPath;
         this.selectMusicPath=selectMusicPath;
         this.addItemList=list;
-        this.videoWidth=width;
-        this.videoHeight=height;
+
     }
 
     //포토
@@ -192,8 +190,7 @@ public class FFmpeg_Task {
         //video의 해상도설정
         //String scale_str="[0:v]scale=922:1084[p1]";
         String scale_str="[0:v]scale=720:1280[p1]";
-        Log.d("tak12","wwwwwwww"+videoWidth);
-        Log.d("tak12","hhhhhhhh"+videoHeight);
+
         String overlay_str="";
         String filterComplex_info="";
 
