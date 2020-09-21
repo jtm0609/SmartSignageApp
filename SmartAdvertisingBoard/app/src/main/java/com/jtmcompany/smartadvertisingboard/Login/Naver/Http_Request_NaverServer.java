@@ -53,7 +53,7 @@ public class Http_Request_NaverServer {
                     //로그인 API로부터 받은 JSON의 이름과 이미지 URI을 쉐어드프리퍼런스에 STRING값으로 저장함
                     SharedPreferences sharedPreferences=mcontext.getSharedPreferences("loginUser",mcontext.MODE_PRIVATE);
                     SharedPreferences.Editor editor=sharedPreferences.edit();
-                    editor.putString("name",name);
+                    editor.putString("name",name+"(네이버 로그인)");
                     editor.commit();
 
 

@@ -36,6 +36,7 @@ import com.jtmcompany.smartadvertisingboard.Login.LoginActivity;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.nhn.android.naverlogin.OAuthLogin;
+import com.nhn.android.naverlogin.data.OAuthLoginState;
 
 public class LoginInfo_Activity extends AppCompatActivity implements View.OnClickListener {
 
@@ -131,19 +132,19 @@ public class LoginInfo_Activity extends AppCompatActivity implements View.OnClic
                 }else if(id==R.id.menuitem2){ //설정
 
                 }else if(id==R.id.menuitem5){ //로그아웃
-                    if(mOAuthLoginInstance.getState(LoginInfo_Activity.this).toString().equals("OK")){
+                    if(OAuthLoginState.OK.equals(mOAuthLoginInstance.getState(LoginInfo_Activity.this))){
                         mOAuthLoginInstance.logout(LoginInfo_Activity.this);
-                        Log.d("tak88","네이버 로그아웃");
+                        Toast.makeText(LoginInfo_Activity.this, "네이버 로그아웃", Toast.LENGTH_SHORT).show();
                         redirect_login();
                     }
                     else if(FirebaseAuth.getInstance().getCurrentUser()!=null) {
                         FirebaseAuth.getInstance().signOut();
-                        Log.d("tak88","구글 로그아웃");
+                        Toast.makeText(LoginInfo_Activity.this, "구글 로그아웃", Toast.LENGTH_SHORT).show();
                         redirect_login();
                     }
                     else {
                         kakaoLogout();
-                        Log.d("tak88","카카오 로그아웃");
+                        Toast.makeText(LoginInfo_Activity.this, "카카오 로그아웃", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -203,13 +204,13 @@ public class LoginInfo_Activity extends AppCompatActivity implements View.OnClic
                 .requestLogout(new LogoutResponseCallback() {
                     @Override
                     public void onSuccess(Long result) {
-                        Toast.makeText(LoginInfo_Activity.this, "로그아웃 됬습니다.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginInfo_Activity.this, "로그아웃 됬습니다.", Toast.LENGTH_SHORT).show();
                         redirect_login();
                     }
 
                     @Override
                     public void onCompleteLogout() {
-                        Toast.makeText(LoginInfo_Activity.this, "로그아웃 됬습니다.2", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginInfo_Activity.this, "로그아웃 됬습니다.2", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
