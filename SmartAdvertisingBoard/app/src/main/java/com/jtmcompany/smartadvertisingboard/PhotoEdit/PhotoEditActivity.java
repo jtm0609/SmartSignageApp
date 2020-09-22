@@ -48,6 +48,7 @@ public class PhotoEditActivity extends AppCompatActivity {
     private CustomDialog customDialog;
     private View.OnClickListener positiveLisener;
     private View.OnClickListener negativeLisener;
+    private long backKeyClickTime=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -299,6 +300,18 @@ public class PhotoEditActivity extends AppCompatActivity {
         }
 
         return outputFilePath;
+    }
+
+    //뒤로가기 제어
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if (System.currentTimeMillis() > backKeyClickTime + 2000) {
+            backKeyClickTime = System.currentTimeMillis();
+            Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르면 종료 됩니다.", Toast.LENGTH_SHORT).show();
+        }else if(System.currentTimeMillis()<=backKeyClickTime+2000)
+            finish();
+
     }
 
 

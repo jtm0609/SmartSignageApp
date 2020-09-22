@@ -34,7 +34,6 @@ public class VideoStickerFragment extends Fragment implements VideoEdit_StickerB
     VideoView mVideoview;
     Uri mVideoSelectUri;
     List<Bitmap> mlist=new ArrayList<>();
-
     private boolean addFlag=false;
     private StickerImageView addStickerView;
 
@@ -84,7 +83,6 @@ public class VideoStickerFragment extends Fragment implements VideoEdit_StickerB
                 }
             }
         });
-
 
         return view;
     }

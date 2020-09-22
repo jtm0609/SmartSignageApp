@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -26,7 +28,6 @@ import com.jtmcompany.smartadvertisingboard.CustomDialog;
 import com.jtmcompany.smartadvertisingboard.FFmpeg_Task;
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerImageView;
-import com.jtmcompany.smartadvertisingboard.StickerView.StickerView;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.VideoEdit_RecyclerAdapter;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Music.MusicList;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.EditorMenu_VO;
@@ -38,15 +39,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_RecyclerAdapter.OnClickEditor_ModelListener, View.OnClickListener, MediaPlayer.OnPreparedListener {
-
-    ImageView complete_bt;
+public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_RecyclerAdapter.OnClickEditor_ModelListener, View.OnClickListener, MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
     private static final int REQUEST_CODE_MUSIC =200 ;
     private static final int RESULT_OK_MUSIC = 300;
-    List<EditorMenu_VO> list=new ArrayList<>();
-    FrameLayout videoView_container;
-    ImageView video_play_bt,video_stop_bt;
-    VideoView videoView;
+    private List<EditorMenu_VO> list=new ArrayList<>();
+    private FrameLayout videoView_container;
+    private ImageView complete_bt,video_play_bt,video_stop_bt;
+    private VideoView videoView;
 
     public static int trim_start,trim_end,music_trim_start,music_trim_end;
     static boolean isFragmentClose;
@@ -59,27 +58,28 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     float time = 0;
     double plusTime;
     private Uri select_Video_Uri,select_Music_Uri;
-    List<Bitmap> thumnail_list=new ArrayList();
-    Runnable r;
-    Handler videoHandler;
-    MediaMetadataRetriever mediaMetadataRetriever;
-    VideoTrimFragment videoTrimFragment;
-    VideoTextFragment videoTextFragment;
-    FragmentManager fragmentManager;
+    private List<Bitmap> thumnail_list=new ArrayList();
+    private Handler videoHandler;
+    private MediaMetadataRetriever mediaMetadataRetriever;
+    private VideoTrimFragment videoTrimFragment;
+    private VideoTextFragment videoTextFragment;
+    private FragmentManager fragmentManager;
 
-    Boolean VideoRestart=false;
-    Boolean isMusicSelected=false;
+    private Boolean VideoRestart=false;
+    private Boolean isMusicSelected=false;
 
-    MediaPlayer musicPlayer;
-    Music_Play_Thread music_play_thread;
-    String videoPath;
-
+    private MediaPlayer musicPlayer;
+    private MusicPlayerThread musicPlayerThread;
+    private String videoPath;
 
     private CustomDialog customDialog;
     private View.OnClickListener positiveLisener,negativeLisener;
     private String musicPath;
     public static List<addItem_VO> addItemList;
-
+    private ProgressBar progressBar;
+    private TextView progressBar_startTv;
+    private TextView progressBar_endTv;
+    private long backKeyClickTime=0;
 
 
     @Override
@@ -93,20 +93,20 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         video_stop_bt=findViewById(R.id.video_stop);
         complete_bt=findViewById(R.id.video_complete_bt);
         videoView_container=findViewById(R.id.video_eidt_container);
-
-
         videoView=findViewById(R.id.video_eidt_video);
-
+        progressBar=findViewById(R.id.video_progress);
+        progressBar_startTv=findViewById(R.id.progresstime_s);
+        progressBar_endTv=findViewById(R.id.progresstime_e);
 
         video_play_bt.setOnClickListener(this);
         video_stop_bt.setOnClickListener(this);
         complete_bt.setOnClickListener(this);
         videoView_container.setOnClickListener(this);
+        videoView.setOnPreparedListener(this);
+        videoView.setOnCompletionListener(this);
 
         select_Video_Uri=getIntent().getParcelableExtra("selectUri");
         videoView.setVideoURI(select_Video_Uri);
-
-
 
         RecyclerView recyclerView=findViewById(R.id.video_edit_recycler);
         list.add(new EditorMenu_VO(getResources().getDrawable(R.drawable.trim),"잘라내기"));
@@ -122,38 +122,11 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         recyclerView.setAdapter(recyclerAdapter);
 
 
-        videoView.setOnPreparedListener(this);
-
-        //비디오가 duration이 끝났는지 실시간으로 확인
+        //비디오가 duration이 끝났는지 실시간으로 감지
         //끝났으면 중지버튼이아닌 실행버튼이나옴
+        VideoEditThread videoEditThread=new VideoEditThread(videoView,video_play_bt,video_stop_bt,progressBar, progressBar_startTv,progressBar_endTv);
         videoHandler=new Handler();
-        videoHandler.postDelayed(r=new Runnable() {
-            @Override
-            public void run() {
-                if (isFragmentClose) {
-                    //Log.d("tak3","trim_end: "+trim_end);
-                    Log.d("tak3", "videoHandler");
-                    Log.d("tak3",""+trim_start);
-                    if (videoView.getCurrentPosition() / 1000 >= trim_end) {
-                        videoView.seekTo(trim_start * 1000);
-                        videoView.pause();
-                        Log.d("tak3","sibar");
-                    }
-                    if (!videoView.isPlaying()) {
-                        video_stop_bt.setVisibility(View.GONE);
-                        video_play_bt.setVisibility(View.VISIBLE);
-                    }
-
-                    for(int i=0; i<addItemList.size(); i++){
-                        int start_time=addItemList.get(i).getStart();
-                        int end_time=addItemList.get(i).getEnd();
-                        addView_appear(start_time,end_time,addItemList.get(i).getStickerView());
-
-                    }
-                }
-                videoHandler.postDelayed(r, 1000);
-            }
-        },1000);
+        videoHandler.post(videoEditThread);
 
         videoPath = getPathUtils.getPath(this, select_Video_Uri);
         mediaMetadataRetriever = new MediaMetadataRetriever();
@@ -166,16 +139,13 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
+        if(isMusicSelected) {
+            mediaPlayer.setVolume(0, 0);
+        }
+        //비디오 썸네일 설정
+        videoView.seekTo(trim_start*1000);
+        Log.d("tak99","prepare");
 
-
-        Log.d("tak77","videoWidth: "+videoView.getWidth());
-        Log.d("tak77","videoHeight: "+videoView.getHeight());
-        Log.d("tak77","videoCWidth: "+videoView_container.getWidth());
-        Log.d("tak77","videoCHeight: "+videoView_container.getHeight());
-        if(isMusicSelected)
-            mediaPlayer.setVolume(0,0);
-
-        Log.d("tak3","setOnPRE");
         if(!VideoRestart) {
             trim_end = videoView.getDuration() / 1000;
             mDuration = videoView.getDuration() / 1000;
@@ -185,38 +155,14 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d("tak3","onStop");
-        videoView.pause();
-        videoView.seekTo(trim_start*1000);
-        VideoRestart=true;
-    }
-
-
-
-    public void addView_appear(final int start_time, final int end_time, final StickerView insert_stickerView){
-        Log.d("tak3","start: "+start_time);
-        Log.d("tak3","end: "+end_time);
-        if(videoView.isPlaying()) {
-            if (videoView.getCurrentPosition() / 1000 == start_time) {
-                insert_stickerView.setVisibility(View.VISIBLE);
-                Log.d("tak3", "1");
-            }
-            if (videoView.getCurrentPosition() / 1000 > end_time || videoView.getCurrentPosition() / 1000 < start_time) {
-                insert_stickerView.setVisibility(View.GONE);
-                Log.d("tak3", "2");
-            }
-        }else{
-            insert_stickerView.setVisibility(View.GONE);
+    public void onCompletion(MediaPlayer mediaPlayer) {
+        //비디오가 끝나면 음악의현재위치를 음악을 자른부분으로 다시초기화
+        if(musicPlayer!=null &&musicPlayer.isPlaying()) {
+            musicPlayer.pause();
         }
 
     }
+
 
 
     @Override
@@ -233,19 +179,15 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             videoTextFragment=new VideoTextFragment(videoView_container,videoView,select_Video_Uri,thumnail_list);
             fragmentManager.beginTransaction().add(R.id.con,videoTextFragment).commit();
 
-
             //스티커
         }else if(position==2){
             VideoStickerFragment videoStickerFragment=new VideoStickerFragment(videoView_container,videoView, select_Video_Uri, thumnail_list);
             fragmentManager.beginTransaction().add(R.id.con,videoStickerFragment).commit();
 
-
             //음악
         }else if(position==3){
-
             Intent intent =new Intent(this, MusicList.class);
             startActivityForResult(intent,REQUEST_CODE_MUSIC);
-
 
             //사진
         }else if(position==4){
@@ -253,84 +195,6 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
             startActivityForResult(intent,REQUEST_CODE);
-
-        }
-
-    }
-
-    //썸네일추출
-    //프래그먼트에서 썸네일을 추출하면, 프래그먼트를킬때마다 로딩중이므로, 엑티비티에서 미리 list를 추출해서 프래그먼트가실행될때 바로뜨게한다.
-    public void extract_Thumnail(){
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                SystemClock.sleep(1000);
-                plusTime = mDuration / 8.0;
-                for (int i = 0; i < 8; i++) {
-
-                    thumnail_list.add(mediaMetadataRetriever.getFrameAtTime((long) (time * 1000000), mediaMetadataRetriever.OPTION_CLOSEST));//?초 영상 추출)
-                    time += plusTime;
-                    Log.d("tak2", "time" + time);
-
-                    //추출중에 trim아이콘을 눌렀을때, 리스트업데이트
-                    if(ThumnailView.thumnail_list!=null && ThumnailView.recyclerAdapter!=null){
-                        ThumnailView.thumnail_list=thumnail_list;
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ThumnailView.recyclerAdapter.notifyDataSetChanged();
-                            }
-                        });
-                    }
-
-                }
-            }
-        }).start();
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(videoHandler!=null)
-            videoHandler.removeMessages(0);
-        if(addItemList!=null)
-            addItemList.clear();
-        Log.d("tak12","onDestroy");
-    }
-
-    //갤러리에서 이미지를골랐을때 비디오콘테이너에 추가한다.
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUEST_CODE){
-            if(resultCode==RESULT_OK){
-                try{
-                    InputStream in=getContentResolver().openInputStream(data.getData());
-                    Bitmap img= BitmapFactory.decodeStream(in);
-                    in.close();
-                    StickerImageView galleryImageView=new StickerImageView(this);
-
-                    galleryImageView.setImageBitmap(img);
-                    videoView_container.addView(galleryImageView);
-
-                    SelectLocation_Fragment selectLocation_fragment =new SelectLocation_Fragment(videoView,select_Video_Uri,thumnail_list,galleryImageView,videoView_container);
-                    fragmentManager.beginTransaction().add(R.id.con, selectLocation_fragment).commit();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }else if(requestCode==REQUEST_CODE_MUSIC){
-            if(resultCode==RESULT_OK_MUSIC){
-                select_Music_Uri=data.getParcelableExtra("musicUri");
-                Log.d("tak4","Uri?: "+select_Music_Uri);
-                MusicTrim_Fragment musicTrim_fragment=new MusicTrim_Fragment(select_Music_Uri);
-                fragmentManager.beginTransaction().add(R.id.con,musicTrim_fragment).commit();
-
-                musicPlayer=MediaPlayer.create(this,select_Music_Uri);
-            }
         }
     }
 
@@ -343,31 +207,33 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             Log.d("tak3","music_start: "+music_trim_start);
             Log.d("tak3","music_end: "+music_trim_end);
             if(isMusicCheck){
-                musicPlayer.seekTo(music_trim_start*1000);
-                music_play_thread=new Music_Play_Thread();
+                //음악을 설정하고 최초로 play버튼을 누를때
+                if((musicPlayerThread==null)||
+                        musicPlayerThread.getState().equals(Thread.State.TERMINATED)) {
+                    musicPlayer.seekTo(music_trim_start*1000);
+                    musicPlayerThread = new MusicPlayerThread(videoView, musicPlayer);
+                    musicPlayerThread.start();
+                }
                 musicPlayer.start();
-                music_play_thread.start();
-
             }
 
         }else if(view==video_stop_bt){
             videoView.pause();
-            if(musicPlayer!=null)
+            if(musicPlayer!=null) {
                 musicPlayer.pause();
+            }
             video_play_bt.setVisibility(View.VISIBLE);
             video_stop_bt.setVisibility(View.GONE);
-            if(music_play_thread!=null)
-                music_play_thread.interrupt();
+
 
         }else if(view==videoView_container){
             for(int position=0; position<addItemList.size(); position++){
                 addItemList.get(position).getStickerView().hide_View();
-
             }
 
         }else if(view==complete_bt){
             if(select_Music_Uri!=null)
-            musicPath= getPathUtils.getPath(VideoEditAtivity.this, select_Music_Uri);
+                musicPath= getPathUtils.getPath(VideoEditAtivity.this, select_Music_Uri);
 
             positiveLisener=new View.OnClickListener() {
                 @Override
@@ -398,33 +264,96 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         }
     }
 
-    public class Music_Play_Thread extends Thread{
-        @Override
-        public void run() {
-            super.run();
-            while (videoView.isPlaying()) {
-                try {
+    //썸네일추출
+    //프래그먼트에서 썸네일을 추출하면, 프래그먼트를킬때마다 로딩중이므로, 엑티비티에서 미리 list를 추출해서 프래그먼트가실행될때 바로뜨게한다.
+    public void extract_Thumnail(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SystemClock.sleep(1000);
+                plusTime = mDuration / 8.0;
+                for (int i = 0; i < 8; i++) {
+                    thumnail_list.add(mediaMetadataRetriever.getFrameAtTime((long) (time * 1000000), mediaMetadataRetriever.OPTION_CLOSEST));//?초 영상 추출)
+                    time += plusTime;
+                    Log.d("tak2", "time" + time);
 
-                    Log.d("tak3", "Music_play_thread");
-                    if (musicPlayer.getCurrentPosition() / 1000 > music_trim_end) {
-                        musicPlayer.seekTo(trim_start * 1000);
-                        musicPlayer.pause();
-
+                    //추출중에 trim아이콘을 눌렀을때, 리스트업데이트
+                    if(ThumnailView.thumnail_list!=null && ThumnailView.recyclerAdapter!=null){
+                        ThumnailView.thumnail_list=thumnail_list;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                ThumnailView.recyclerAdapter.notifyDataSetChanged();
+                            }
+                        });
                     }
-                    sleep(1000);
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
-
-            if(!videoView.isPlaying())
-                musicPlayer.pause();
-        }
-
-
+        }).start();
     }
 
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("tak4","onStop");
+        videoView.pause();
+        videoView.seekTo(trim_start*1000);
+        VideoRestart=true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(videoHandler!=null)
+            videoHandler.removeMessages(0);
+        if(addItemList!=null)
+            addItemList.clear();
+        Log.d("tak12","onDestroy");
+    }
+
+    //갤러리에서 이미지를골랐을때 비디오콘테이너에 추가한다.
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==REQUEST_CODE){
+            if(resultCode==RESULT_OK){
+                try{
+                    InputStream in=getContentResolver().openInputStream(data.getData());
+                    Bitmap img= BitmapFactory.decodeStream(in);
+                    in.close();
+                    StickerImageView galleryImageView=new StickerImageView(this);
+
+                    galleryImageView.setImageBitmap(img);
+                    videoView_container.addView(galleryImageView);
+
+                    SelectLocation_Fragment selectLocation_fragment =new SelectLocation_Fragment(videoView,select_Video_Uri,thumnail_list,galleryImageView,videoView_container);
+                    fragmentManager.beginTransaction().add(R.id.con, selectLocation_fragment).commit();
+
+                } catch (Exception e) { e.printStackTrace(); }
+            }
+        }else if(requestCode==REQUEST_CODE_MUSIC){
+            if(resultCode==RESULT_OK_MUSIC){
+                select_Music_Uri=data.getParcelableExtra("musicUri");
+                Log.d("tak4","Uri?: "+select_Music_Uri);
+                MusicTrim_Fragment musicTrim_fragment=new MusicTrim_Fragment(select_Music_Uri);
+                fragmentManager.beginTransaction().add(R.id.con,musicTrim_fragment).commit();
+                musicPlayer=MediaPlayer.create(this,select_Music_Uri);
+            }
+        }
+    }
+
+    //뒤로가기 제어
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if (System.currentTimeMillis() > backKeyClickTime + 2000) {
+            backKeyClickTime = System.currentTimeMillis();
+            Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르면 종료 됩니다.", Toast.LENGTH_SHORT).show();
+        }else if(System.currentTimeMillis()<=backKeyClickTime+2000)
+            finish();
+
+    }
 
 
 

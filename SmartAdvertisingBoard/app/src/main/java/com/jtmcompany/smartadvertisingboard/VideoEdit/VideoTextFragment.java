@@ -27,8 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VideoTextFragment extends Fragment implements VideoEdit_TextBottomsheet_RecyclerAdapter.textClickListener {
-    private ImageView textInsert_bt;
-    private ImageView textexit_bt;
+    private ImageView textInsert_bt,textexit_bt;
     private FrameLayout videoView_container;
     private VideoView mVideoview;
     private Uri mVideoSelectUri;
@@ -46,8 +45,6 @@ public class VideoTextFragment extends Fragment implements VideoEdit_TextBottoms
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
         addStickerView=new StickerTextView(getContext());
 
         View view= inflater.inflate(R.layout.fragment_video_text, container, false);
@@ -70,8 +67,6 @@ public class VideoTextFragment extends Fragment implements VideoEdit_TextBottoms
 
 
         });
-
-
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -82,9 +77,6 @@ public class VideoTextFragment extends Fragment implements VideoEdit_TextBottoms
         VideoEdit_TextBottomsheet_RecyclerAdapter recyclerAdapter=new VideoEdit_TextBottomsheet_RecyclerAdapter(list);
         recyclerAdapter.setOnTextListener(this);
         recyclerView.setAdapter(recyclerAdapter);
-
-
-
         return view;
     }
 
@@ -115,11 +107,8 @@ public class VideoTextFragment extends Fragment implements VideoEdit_TextBottoms
 
                 SelectLocation_Fragment selectLocation_fragment =new SelectLocation_Fragment(mVideoview,mVideoSelectUri,mlist,addStickerView,videoView_container);
                 fragmentManager.beginTransaction().add(R.id.con, selectLocation_fragment).commit();
-
             }
         });
 
     }
-
-
 }
