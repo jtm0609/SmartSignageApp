@@ -42,7 +42,7 @@ public class PhotoEditActivity extends AppCompatActivity {
     private List<ItemInfo> selectItem_List=new ArrayList<>();
     private BottomNavigationView bottomNavigationView;
     private FrameLayout photoEdit_frameLayout;
-    private ImageView complete_bt;
+    private ImageView complete_bt,back_bt;
     private int photoWidth;
     private int photoHeight;
     private CustomDialog customDialog;
@@ -56,6 +56,7 @@ public class PhotoEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_photo_edit);
 
         complete_bt=findViewById(R.id.photo_complete_bt);
+        back_bt=findViewById(R.id.photo_back_bt);
         //프레임레이아웃
         photoEdit_frameLayout=findViewById(R.id.photo_edit_frame);
 
@@ -90,6 +91,12 @@ public class PhotoEditActivity extends AppCompatActivity {
         Log.d("tak12,","selectPhotoUri: "+select_Photo_Uri);
         Log.d("tak12,","selectPhotoPATH: "+select_Photo_Path);
 
+        back_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
         complete_bt.setOnClickListener(new View.OnClickListener() {

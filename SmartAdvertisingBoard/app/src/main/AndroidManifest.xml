@@ -27,7 +27,7 @@
         <activity android:name=".VideoWatchActivity" />
         <activity android:name=".MyVideoActivity" />
         <activity android:name=".PhotoEdit.PhotoEditActivity" />
-        <activity android:name=".BottomFragment.Create_Fragment.UploadActivity" />
+        <activity android:name=".UploadActivity" />
         <activity android:name=".VideoEdit.VideoEditAtivity" />
         <activity android:name=".VideoEdit.Music.MusicList" />
         <activity

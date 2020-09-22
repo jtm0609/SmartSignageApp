@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.jtmcompany.smartadvertisingboard.R;
+import com.jtmcompany.smartadvertisingboard.UploadActivity;
 
 public class Create_Fragment_createAdvertise extends Fragment {
     View view;

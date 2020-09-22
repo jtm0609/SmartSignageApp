@@ -31,7 +31,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.jtmcompany.smartadvertisingboard.BottomFragment.Create_Fragment.UploadActivity;
 import com.jtmcompany.smartadvertisingboard.Login.LoginActivity;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;

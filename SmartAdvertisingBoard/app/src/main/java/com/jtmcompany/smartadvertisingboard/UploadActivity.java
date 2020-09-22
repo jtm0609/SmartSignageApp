@@ -1,15 +1,14 @@
-package com.jtmcompany.smartadvertisingboard.BottomFragment.Create_Fragment;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+package com.jtmcompany.smartadvertisingboard;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEditActivity;
-import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VideoEditAtivity;
 
 

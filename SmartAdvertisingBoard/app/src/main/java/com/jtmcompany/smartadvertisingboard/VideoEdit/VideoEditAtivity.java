@@ -44,7 +44,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     private static final int RESULT_OK_MUSIC = 300;
     private List<EditorMenu_VO> list=new ArrayList<>();
     private FrameLayout videoView_container;
-    private ImageView complete_bt,video_play_bt,video_stop_bt;
+    private ImageView complete_bt,video_play_bt,video_stop_bt, back_bt;
     private VideoView videoView;
 
     public static int trim_start,trim_end,music_trim_start,music_trim_end;
@@ -80,6 +80,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     private TextView progressBar_startTv;
     private TextView progressBar_endTv;
     private long backKeyClickTime=0;
+    private VideoEditThread videoEditThread;
 
 
     @Override
@@ -92,6 +93,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         video_play_bt=findViewById(R.id.video_play);
         video_stop_bt=findViewById(R.id.video_stop);
         complete_bt=findViewById(R.id.video_complete_bt);
+        back_bt=findViewById(R.id.back_bt);
         videoView_container=findViewById(R.id.video_eidt_container);
         videoView=findViewById(R.id.video_eidt_video);
         progressBar=findViewById(R.id.video_progress);
@@ -101,6 +103,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         video_play_bt.setOnClickListener(this);
         video_stop_bt.setOnClickListener(this);
         complete_bt.setOnClickListener(this);
+        back_bt.setOnClickListener(this);
         videoView_container.setOnClickListener(this);
         videoView.setOnPreparedListener(this);
         videoView.setOnCompletionListener(this);
@@ -124,7 +127,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
 
         //비디오가 duration이 끝났는지 실시간으로 감지
         //끝났으면 중지버튼이아닌 실행버튼이나옴
-        VideoEditThread videoEditThread=new VideoEditThread(videoView,video_play_bt,video_stop_bt,progressBar, progressBar_startTv,progressBar_endTv);
+        videoEditThread=new VideoEditThread(videoView,video_play_bt,video_stop_bt,progressBar, progressBar_startTv,progressBar_endTv);
         videoHandler=new Handler();
         videoHandler.post(videoEditThread);
 
@@ -261,6 +264,8 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             customDialog.show();
             customDialog.getTimeET().setVisibility(View.GONE);
 
+        }else if(view==back_bt){
+            finish();
         }
     }
 
