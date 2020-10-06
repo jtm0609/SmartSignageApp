@@ -35,7 +35,7 @@ public class VideoEdit_StickerBottomsheet_RecyclerAdapter extends RecyclerView.A
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        View view=inflater.inflate(R.layout.sticker_item,null);
+        View view=inflater.inflate(R.layout.sticker_item,parent,false);
         return new ViewHolder(view);
     }
 

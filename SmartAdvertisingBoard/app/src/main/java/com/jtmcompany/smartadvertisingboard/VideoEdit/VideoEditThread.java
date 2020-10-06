@@ -18,6 +18,10 @@ public class VideoEditThread implements Runnable {
     TextView startTv;
     TextView endTv;
 
+    public Handler getHandler() {
+        return handler;
+    }
+
     public VideoEditThread(VideoView video, ImageView playBt, ImageView stopBt, ProgressBar progressBar, TextView startTv, TextView endTv) {
         this.video = video;
         this.playBt = playBt;
@@ -90,7 +94,7 @@ public class VideoEditThread implements Runnable {
 
     }
 
-    protected String getTime(int seconds) {
+    private String getTime(int seconds) {
         int hr = seconds / 3600;
         int rem = seconds % 3600;
         int mn = rem / 60;

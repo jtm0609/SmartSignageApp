@@ -21,12 +21,12 @@ import java.util.List;
 import io.realm.Realm;
 
 public class FFmpeg_Task {
-    FFmpeg fFmpeg;
-    Context mContext;
-    String selectVideoPath;
-    String selectMusicPath;
-    ExecuteBinaryResponseHandler handler;
-    String trimVideoPath,trimMusicPath,musicVideoPath,imageVideoPath;
+    private FFmpeg fFmpeg;
+    private Context mContext;
+    private String selectVideoPath;
+    private String selectMusicPath;
+    private ExecuteBinaryResponseHandler handler;
+    private String trimVideoPath,trimMusicPath,musicVideoPath,imageVideoPath;
     File moviesDir;
     private List<addItem_VO> addItemList;
 
@@ -39,6 +39,7 @@ public class FFmpeg_Task {
     private int photo_y;
     private  boolean flag=false;
     private boolean photoWorking=false;
+    private boolean videoWorking=false;
     private String videoTitle;
     private String videoTime;
 
@@ -46,12 +47,12 @@ public class FFmpeg_Task {
 
 
     //비디오
-    public FFmpeg_Task(Context mContext, String selectVideoPath, String selectMusicPath, List<addItem_VO> list) {
+    public FFmpeg_Task(Context mContext, String selectVideoPath, String selectMusicPath, List<addItem_VO> list ,String videoTitle) {
         this.mContext = mContext;
         this.selectVideoPath=selectVideoPath;
         this.selectMusicPath=selectMusicPath;
         this.addItemList=list;
-
+        this.videoTitle=videoTitle;
     }
 
     //포토
@@ -94,16 +95,14 @@ public class FFmpeg_Task {
 
 
 
-    //1. 비디오 trim
+    //1. 비디오에디터: trim
     public void executeCutVideoCommand(int startsMs, int endMs){
         Log.d("tak77","1");
         moviesDir= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
-        String fileprefix="trim_video";
-        String fileExtn=".mp4";
-        File dest=new File(moviesDir,fileprefix+fileExtn);
-        if(dest.exists()){
-            dest.delete();
-        }
+        videoWorking=true;
+
+        File dest=new File(moviesDir,"trimVideo.mp4");
+
 
         Log.d("tak15", "startTrim: src: " + selectVideoPath);
         Log.d("tak12", "startTrim: dest: " + dest.getAbsolutePath());
@@ -115,58 +114,65 @@ public class FFmpeg_Task {
         String[] complexCommand = {"-ss", "" + startsMs, "-y", "-i", selectVideoPath, "-t", "" + (endMs - startsMs), "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050","-vf","scale=720:1280" ,trimVideoPath};
         execFFmpegBinary(complexCommand);
 
+
         executeCutMusicCommand(trimVideoPath);
     }
 
 
 
-    //2. 음악trim
+    //2. 비디오에디터: 음악trim
     public void executeCutMusicCommand(String inputVideoPath){
         Log.d("tak77","2");
         if(selectMusicPath!=null) {
             File trim_music_dest = new File(moviesDir, "trimmusic.mp3");
             trimMusicPath = trim_music_dest.getAbsolutePath();
-            if (trim_music_dest.exists()) {
-                trim_music_dest.delete();
 
-            }
             Log.d("tak12","sssss"+VideoEditAtivity.trim_start);
             Log.d("tak12","eeeeee"+ VideoEditAtivity.trim_end);
             String[] complexCommand = {"-ss", "" + VideoEditAtivity.music_trim_start, "-t", "" + VideoEditAtivity.music_trim_end, "-i", selectMusicPath, "-acodec", "copy", trimMusicPath};
             execFFmpegBinary(complexCommand);
             executeMusicVideoCommand(inputVideoPath, trimMusicPath);
-        }else
+        }else if(!addItemList.isEmpty())
             executeImageVideoCommand(inputVideoPath);
+
+        //trim한 비디오가 최종비디오가됨
+        else
+        finalVideoPath=inputVideoPath;
 
     }
 
 
 
-    //3, 음악
+    //3, 비디오에디터: trim한 음악넣기
     public void executeMusicVideoCommand(String inputVideoPath, String inputMusicPath){
         Log.d("tak77","3");
         File music_dest = new File(moviesDir, "musicVideo.mp4");
+
+
         musicVideoPath = music_dest.getAbsolutePath();
-        if(music_dest.exists()){
-            music_dest.delete();
-        }
+
         String[] complexCommand = new String[]{"-i", inputVideoPath, "-i", inputMusicPath, "-c:v", "copy", "-c:a", "aac", "-map", "0:v:0", "-map", "1:a:0", "-shortest", musicVideoPath};
         execFFmpegBinary(complexCommand);
 
-
+        if(!addItemList.isEmpty())
         executeImageVideoCommand(musicVideoPath);
+
+        //trim+음악이들어간 비디오가 최종비디오가됨
+        else
+        finalVideoPath=musicVideoPath;
     }
 
 
 
-    //4. 이미지오버레이
+    //4. 비디오에디터: 동영상에 이미지오버레이
     public void executeImageVideoCommand(String inputVideoPath) {
         Log.d("tak77","4");
-        File img_video_dest = new File(moviesDir, "imgVideo.mp4");
+        File img_video_dest = new File(moviesDir, "imgVideo1.mp4");
+
+
+
         imageVideoPath = img_video_dest.getAbsolutePath();
-        if (img_video_dest.exists()) {
-            img_video_dest.delete();
-        }
+
         //String[] complexCommand={"-i",musicVideoPath,"-i", imgPath, "-preset", "ultrafast", "-strict", "-2", "-filter_complex" ,"overlay=x=200:y=400:enable='between(t,0,6)",imageVideoPath};
         //execFFmpegBinary(complexCommand);
         //img_Ok=true;
@@ -232,7 +238,7 @@ public class FFmpeg_Task {
         String[] complexCommand=complexCommandList.toArray(new String[complexCommandList.size()]);
         execFFmpegBinary(complexCommand);
 
-
+        finalVideoPath=imageVideoPath;
     }
 
 
@@ -283,10 +289,10 @@ public class FFmpeg_Task {
 
         Log.d("tak15","4: "+flag);
         int count = 1;
-        File photo_VideoPath_dest = new File(moviesDir, "photoVideo_Result1" + ".mp4");
+        File photo_VideoPath_dest = new File(moviesDir, "Video_Result1" + ".mp4");
         while (photo_VideoPath_dest.exists()) {
             count++;
-            photo_VideoPath_dest = new File(moviesDir, "photoVideo_Result" + count + ".mp4");
+            photo_VideoPath_dest = new File(moviesDir, "Video_Result" + count + ".mp4");
         }
         finalVideoPath = photo_VideoPath_dest.getAbsolutePath();
 
@@ -339,7 +345,7 @@ public class FFmpeg_Task {
             if(file_validation.equals("gif"))
                 overlay_str+=":shortest=1";
 
-            //마지막부분이면 마지막에 변수를넣어줄필요강벗음
+            //마지막부분이면 마지막에 변수를넣어줄필요가 없음
             if(i!=selectItemList.size()-1)
                 overlay_str+="[p"+(i+2)+"]";
         }
@@ -401,10 +407,10 @@ public class FFmpeg_Task {
                 @Override
                 public void onFinish() {
                     super.onFinish();
-                    Log.d("tak12","Finish command: ffmpeg:  "+command);
+                    Log.d("tak12", "Finish command: ffmpeg:  " + command);
                     //SystemClock.sleep(3000);
 
-                    if(photoWorking) {
+                    if (photoWorking) {
                         Log.d("tak12", "리스트사이즈: " + selectItemList.size());
                         Log.d("tak12", "testPath: " + finalVideoPath);
 
@@ -429,8 +435,61 @@ public class FFmpeg_Task {
                             });
                         }
                         flag = true;
-                    }
+                    } else if (videoWorking) {
+                        File file = new File(finalVideoPath);
+                        //파일 이름변경
+                        if (file.exists()){
+                            File renameFile=new File(moviesDir,"Video_Result1" + ".mp4");
+                            int count=1;
+                            while (renameFile.exists()) {
+                                count++;
+                                renameFile = new File(moviesDir, "Video_Result" + count + ".mp4");
+                            }
+                            file.renameTo(renameFile);
+                            finalVideoPath=renameFile.getAbsolutePath();
+                            //db저장
+                            Realm.init(mContext);
+                        Realm mRealm = Realm.getDefaultInstance();
+                        mRealm.executeTransaction(new Realm.Transaction() {
+                            @Override
+                            public void execute(Realm realm) {
+                                MyVideoDB myVideoDB = realm.createObject(MyVideoDB.class);
+                                myVideoDB.videoName = videoTitle;
+                                myVideoDB.videoPath = finalVideoPath;
+                            }
+                        });
 
+                        //작업했던 파일 삭제작업
+                           File deleteFile;
+                        if(trimVideoPath!=null) {
+                            deleteFile = new File(trimVideoPath);
+                            if (deleteFile.exists())
+                                deleteFile.delete();
+                        }
+
+                        if(trimMusicPath!=null) {
+                            deleteFile = new File(trimMusicPath);
+                            if (deleteFile.exists())
+                                deleteFile.delete();
+                        }
+
+                        if(musicVideoPath!=null) {
+                            deleteFile = new File(musicVideoPath);
+                            if (deleteFile.exists())
+                                deleteFile.delete();
+                        }
+
+                        if(imageVideoPath!=null) {
+                            deleteFile = new File(imageVideoPath);
+                            if (deleteFile.exists())
+                                deleteFile.delete();
+                        }
+
+                        deleteAllPNG();
+
+
+                    }
+                }
 
 
                 }
@@ -447,6 +506,18 @@ public class FFmpeg_Task {
             File file= new File(selectItemList.get(i).getPath());
             file.delete();
         }
+    }
+
+    //deleteAll gif처럼 리스트의 사이즈를 받아서 삭제하려고했지만, 사이즈가 자꾸 0이찍혀, 파일명을보고 삭제함
+    private void deleteAllPNG(){
+        Log.d("tak13","size: "+addItemList.size());
+            File file=new File(moviesDir,"add_1.png");
+            int count=1;
+            while(file.exists()){
+                file.delete();
+                count++;
+                file=new File(moviesDir,"add_"+count+".png");
+            }
     }
 
 }

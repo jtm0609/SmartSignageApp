@@ -3,7 +3,7 @@
 
     <item android:id="@+id/motion_sticker"
         android:title="모션스티커"
-        android:icon="@drawable/text" />
+        android:icon="@drawable/sticker" />
 
     <item android:id="@+id/text"
         android:title="텍스트"

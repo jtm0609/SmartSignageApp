@@ -155,6 +155,11 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         }
         Log.d("tak3","trim_end: "+trim_end);
         Log.d("tak3","trim_start: "+trim_start);
+        int curTime=videoView.getCurrentPosition()/1000-trim_start;
+        int maxTime=VideoEditAtivity.trim_end-trim_start-1;
+
+        progressBar_startTv.setText(getTime(curTime));
+        progressBar_endTv.setText(getTime(maxTime));
     }
 
     @Override
@@ -177,7 +182,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             videoTrimFragment =new VideoTrimFragment(videoView,select_Video_Uri,thumnail_list);
             fragmentManager.beginTransaction().add(R.id.con,videoTrimFragment).commit();
 
-            //잘라내기아이콘을눌렀을때, 핸들러를종료함으로써, 다시 동영상처음부터 끝까지 시작하게한다.
+            //텍스트
         }else if(position==1){
             videoTextFragment=new VideoTextFragment(videoView_container,videoView,select_Video_Uri,thumnail_list);
             fragmentManager.beginTransaction().add(R.id.con,videoTextFragment).commit();
@@ -246,7 +251,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
                     if(videoTitle.equals(""))
                         Toast.makeText(VideoEditAtivity.this, "빈칸을 채워주세요.", Toast.LENGTH_SHORT).show();
                     else{
-                        FFmpeg_Task ffmpeg_task=new FFmpeg_Task(VideoEditAtivity.this,videoPath,musicPath,addItemList);
+                        FFmpeg_Task ffmpeg_task=new FFmpeg_Task(VideoEditAtivity.this,videoPath,musicPath,addItemList,videoTitle);
                         ffmpeg_task.loadFFMpegBinary();
                         ffmpeg_task.executeCutVideoCommand(trim_start, trim_end);
                         finish();
@@ -310,8 +315,12 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(videoHandler!=null)
-            videoHandler.removeMessages(0);
+        if(videoHandler!=null) {
+            //videoHandler.removeMessages(0);
+            //핸들러종료
+            videoEditThread.getHandler().removeMessages(0);
+
+        }
         if(addItemList!=null)
             addItemList.clear();
         Log.d("tak12","onDestroy");
@@ -359,6 +368,15 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             finish();
 
     }
+
+    private String getTime(int seconds) {
+        int hr = seconds / 3600;
+        int rem = seconds % 3600;
+        int mn = rem / 60;
+        int sec = rem % 60;
+        return String.format("%02d", hr) + ":" + String.format("%02d", mn) + ":" + String.format("%02d", sec);
+    }
+
 
 
 

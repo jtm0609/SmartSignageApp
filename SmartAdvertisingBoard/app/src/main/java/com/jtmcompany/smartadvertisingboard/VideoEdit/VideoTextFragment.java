@@ -92,7 +92,9 @@ public class VideoTextFragment extends Fragment implements VideoEdit_TextBottoms
         else if(position==2)
             addStickerView.tv_main.setTextColor(Color.BLUE);
 
-        if(!addFlag)
+        //처음 아이템을 추가하였을때, 레이아웃에 아이템을추가
+        //또는 사용자가 삭제버튼을 눌러서, 스티커뷰가 보여지지않을때, 레이아웃에 추가
+        if(!addFlag || !addStickerView.isShown())
         videoView_container.addView(addStickerView);
 
         addFlag=true;

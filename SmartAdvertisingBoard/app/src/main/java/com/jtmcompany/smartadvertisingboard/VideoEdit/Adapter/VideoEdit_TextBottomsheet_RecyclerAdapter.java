@@ -39,7 +39,7 @@ public class VideoEdit_TextBottomsheet_RecyclerAdapter  extends RecyclerView.Ada
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater= LayoutInflater.from(parent.getContext());
-        View view=layoutInflater.inflate(R.layout.sticker_item,null);
+        View view=layoutInflater.inflate(R.layout.sticker_item,parent,false);
         return new ViewHolder(view);
     }
 

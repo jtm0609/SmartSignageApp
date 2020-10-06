@@ -58,10 +58,16 @@ public class VideoStickerFragment extends Fragment implements VideoEdit_StickerB
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
+        //GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),3);
+        //recyclerView.setLayoutManager(gridLayoutManager);
 
 
-        list.add(getResources().getDrawable(R.drawable.icon));
-        list.add(getResources().getDrawable(R.drawable.advertise));
+        list.add(getResources().getDrawable(R.drawable.character4));
+        list.add(getResources().getDrawable(R.drawable.character5));
+        list.add(getResources().getDrawable(R.drawable.character1));
+        list.add(getResources().getDrawable(R.drawable.character2));
+        list.add(getResources().getDrawable(R.drawable.character3));
+        list.add(getResources().getDrawable(R.drawable.character6));
         VideoEdit_StickerBottomsheet_RecyclerAdapter recyclerAdapter=new VideoEdit_StickerBottomsheet_RecyclerAdapter(list);
         recyclerAdapter.setOnStickerListener(this);
         recyclerView.setAdapter(recyclerAdapter);
@@ -93,7 +99,8 @@ public class VideoStickerFragment extends Fragment implements VideoEdit_StickerB
         addStickerView.setImageDrawable(drawable);
 
         //처음 아이템을 추가하였을때, 레이아웃에 아이템을추가
-        if(!addFlag)
+        //또는 사용자가 삭제버튼을 눌러서, 스티커뷰가 보여지지않을때, 레이아웃에 추가
+        if(!addFlag || !addStickerView.isShown())
         videoView_container.addView(addStickerView);
 
         //추가되었다면, flag를 true로 설정
