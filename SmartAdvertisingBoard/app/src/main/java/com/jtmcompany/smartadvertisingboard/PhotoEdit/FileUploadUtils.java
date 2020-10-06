@@ -15,7 +15,7 @@ import okhttp3.Response;
 
 //포토에디터에서 제작한광고를 서버에 파일업로드하는부분
 public class FileUploadUtils {
-    static final String SERVER_URL="";
+    static final String SERVER_URL="http://121.191.67.175:3000/api/photo";;
     public static void sendServer(File file){
         RequestBody requestBody=new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -30,12 +30,13 @@ public class FileUploadUtils {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                Log.d("tak55","에러");
                 e.printStackTrace();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-            Log.d("tak",response.body().string());
+            Log.d("tak55",response.body().string());
             }
         });
 
