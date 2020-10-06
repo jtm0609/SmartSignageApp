@@ -5,20 +5,23 @@ import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jtmcompany.smartadvertisingboard.DB.MyVideoDB;
+import com.jtmcompany.smartadvertisingboard.PhotoEdit.FileUploadUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class MyVideoActivity extends AppCompatActivity implements MyVideoRecyclerAdapter.myVideoClickListener {
+public class MyVideoActivity extends AppCompatActivity implements MyVideoRecyclerAdapter.myVideoWatchListener, MyVideoRecyclerAdapter.myVideoUploadListener {
     List<MyVideo_Model> list=new ArrayList<>();
     Realm mRealm;
     @Override
@@ -46,8 +49,10 @@ public class MyVideoActivity extends AppCompatActivity implements MyVideoRecycle
 
 
         MyVideoRecyclerAdapter recyclerAdapter=new MyVideoRecyclerAdapter(list);
-        recyclerAdapter.setMyVieoListener(this);
+        recyclerAdapter.setMyVieoWatchListener(this);
+        recyclerAdapter.setMyVideoUploadListener(this);
         recyclerView.setAdapter(recyclerAdapter);
+
 
 
     }
@@ -65,5 +70,12 @@ public class MyVideoActivity extends AppCompatActivity implements MyVideoRecycle
         Intent intent=new Intent(MyVideoActivity.this,VideoWatchActivity.class);
         intent.putExtra("videoPath",path);
         startActivity(intent);
+    }
+
+    @Override
+    public void onUpload(String path) {
+        File file=new File(path);
+        FileUploadUtils.sendServer(file);
+        Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
     }
 }

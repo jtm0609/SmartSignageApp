@@ -3,6 +3,7 @@ package com.jtmcompany.smartadvertisingboard;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,16 +15,25 @@ import java.util.List;
 
 public class MyVideoRecyclerAdapter extends RecyclerView.Adapter<MyVideoRecyclerAdapter.myViewHolder> {
     List<MyVideo_Model> list=new ArrayList<>();
-    myVideoClickListener listener;
+    myVideoWatchListener watchListener;
+    myVideoUploadListener uploadListener;
 
-    interface myVideoClickListener{
+
+
+    interface myVideoWatchListener{
         void onClick(String path);
     }
 
-    public void setMyVieoListener(myVideoClickListener myVideoClickListener){
-        this.listener=myVideoClickListener;
+    interface myVideoUploadListener{
+        void onUpload(String path);
+    }
+    public void setMyVieoWatchListener(myVideoWatchListener myVideoClickListener){
+        this.watchListener=myVideoClickListener;
     }
 
+    public void setMyVideoUploadListener(myVideoUploadListener myVideoUploadListener){
+        this.uploadListener=myVideoUploadListener;
+    }
     public MyVideoRecyclerAdapter(List<MyVideo_Model> list) {
         this.list = list;
     }
@@ -44,7 +54,13 @@ public class MyVideoRecyclerAdapter extends RecyclerView.Adapter<MyVideoRecycler
         holder.play_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onClick(model.getPath());
+                watchListener.onClick(model.getPath());
+            }
+        });
+        holder.upload_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadListener.onUpload(model.getPath());
             }
         });
 
@@ -61,12 +77,14 @@ public class MyVideoRecyclerAdapter extends RecyclerView.Adapter<MyVideoRecycler
         ImageView image;
         TextView title;
         ImageView play_bt;
+        Button upload_bt;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
             image=itemView.findViewById(R.id.advertise_img);
             title=itemView.findViewById(R.id.advertise_title);
             play_bt=itemView.findViewById(R.id.myVideoPlay);
+            upload_bt=itemView.findViewById(R.id.web_upload_bt);
         }
     }
 
