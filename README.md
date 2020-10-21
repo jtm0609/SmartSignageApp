@@ -26,3 +26,12 @@
 ![설계](https://user-images.githubusercontent.com/48284360/96730440-1e388a00-13f1-11eb-9ec2-b11ac97aea32.png)
 
 ## 스크린샷
+<div>
+<img width="200" src="https://user-images.githubusercontent.com/48284360/96737377-935b8d80-13f8-11eb-9be8-577fcd625c2c.jpg"> 
+<img width="200" src="https://user-images.githubusercontent.com/48284360/96737395-96567e00-13f8-11eb-9c6b-e91c0d5aec52.jpg">
+<img width="200" src="https://user-images.githubusercontent.com/48284360/96737404-99ea0500-13f8-11eb-9b3f-a5353806970c.jpg">
+<img width="200" src="https://user-images.githubusercontent.com/48284360/96737417-9c4c5f00-13f8-11eb-9593-cd45c2f7f9f9.jpg">
+<img width="200" src="https://user-images.githubusercontent.com/48284360/96737426-9f474f80-13f8-11eb-86c3-b99e723d15af.jpg">
+<img width="200" src="https://user-images.githubusercontent.com/48284360/96737431-a2424000-13f8-11eb-91e2-e2079ff1f70e.jpg">
+<img width="200" src="https://user-images.githubusercontent.com/48284360/96737441-a53d3080-13f8-11eb-910f-27b46dadc9dc.jpg">
+</div>
