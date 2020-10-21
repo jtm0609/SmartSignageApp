@@ -23,6 +23,6 @@
 * Rest API(OkHttp)통신을 통해 광고영상 서버에 전송
 
 ## 설계
-![캡처](https://user-images.githubusercontent.com/48284360/96730021-bb46f300-13f0-11eb-9c24-a33c86dae098.JPG)
+![설계](https://user-images.githubusercontent.com/48284360/96730440-1e388a00-13f1-11eb-9ec2-b11ac97aea32.png)
 
 ## 스크린샷
