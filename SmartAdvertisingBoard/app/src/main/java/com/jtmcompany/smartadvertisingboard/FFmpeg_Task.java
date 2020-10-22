@@ -1,6 +1,13 @@
 package com.jtmcompany.smartadvertisingboard;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.media.ExifInterface;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
@@ -263,13 +270,17 @@ public class FFmpeg_Task {
 
         //scale= 화질 , t= 초
         //transpose 회전
-        //카메라 사진은 회전해서 비디오로 만들어지는 문제가있음... 따라서 해상도가큰사진은 회전을 시켜주는 방향으로 구현함
+        //사진에따라 회전이되서 나오는경우가 있음 따라서 사진의 회전정보를 파악한다.
         String[] complexCommand;
-        //카메라사진
-        if(photo_x>1080 && photo_y>2280)
+
+        //사진의 회전정보파악 후 올바르게 사진다시 회전
+        int degree=getOrientation(selectPhotoPath);
+        Log.d("tak545","degree: "+degree);
+        if(degree==90) //90도 회전되었을때 (왼쪽으로)
             complexCommand= new String[]{"-loop", "1", "-i", selectPhotoPath, "-vcodec", "mpeg4", "-vf", "scale=922:1084,transpose=1", "-t", videoTime, Photo_VideoPath};
-            //스크린샷이나 해상도가낮은파일
-        else
+        else if(degree==270) //270도 회전되었을때 (왼쪽으로)
+            complexCommand= new String[]{"-loop", "1", "-i", selectPhotoPath, "-vcodec", "mpeg4", "-vf", "scale=922:1084,transpose=2", "-t", videoTime, Photo_VideoPath};
+        else //회전이 안되었을때
             complexCommand= new String[]{"-loop", "1", "-i", selectPhotoPath, "-vcodec", "mpeg4", "-vf", "scale=922:1084", "-t", videoTime, Photo_VideoPath};
 
 
@@ -422,6 +433,7 @@ public class FFmpeg_Task {
 
                         if (flag) {
                             deleteAllGif();
+                            notification();
                             //db저장
                             Realm.init(mContext);
                             Realm mRealm = Realm.getDefaultInstance();
@@ -436,9 +448,11 @@ public class FFmpeg_Task {
                         }
                         flag = true;
                     } else if (videoWorking) {
+
                         File file = new File(finalVideoPath);
                         //파일 이름변경
                         if (file.exists()){
+                            notification();
                             File renameFile=new File(moviesDir,"Video_Result1" + ".mp4");
                             int count=1;
                             while (renameFile.exists()) {
@@ -519,6 +533,59 @@ public class FFmpeg_Task {
                 file=new File(moviesDir,"add_"+count+".png");
             }
     }
+
+    //동영상이 제작되면 알림
+    private void notification(){
+        Notification.Builder builder = null;
+        NotificationManager notificationManager = null;
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            notificationManager= (NotificationManager) mContext.getSystemService(mContext.NOTIFICATION_SERVICE);
+            NotificationChannel notificationChannel=new NotificationChannel("channel_id","channel_name",NotificationManager.IMPORTANCE_HIGH);
+            notificationManager.createNotificationChannel(notificationChannel);
+            notificationChannel.setDescription("des");
+
+        }else{
+            builder=new Notification.Builder(mContext);
+        }
+        PendingIntent pendingIntent= PendingIntent.getActivity(mContext,0,new Intent(mContext,MyVideoActivity.class),0);
+        builder=new Notification.Builder(mContext, "channel_id")
+                .setContentTitle("모두의 광고")
+                .setContentText("동영상이 제작되었습니다.")
+                .setSmallIcon(R.drawable.tv)
+                .setContentIntent(pendingIntent);
+
+        notificationManager.notify(222,builder.build());
+
+    }
+
+    //이미지가 회전된이미지 인지 확인
+    public int getOrientation(String filePath){
+        int degree=0;
+        ExifInterface exif=null;
+        try{
+            exif=new ExifInterface(filePath);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(exif!=null){
+            int orientation=exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,-1);
+            if(orientation !=-1){
+                switch (orientation){
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        degree=90;
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        degree=180;
+                        break;
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        degree=270;
+                        break;
+                }
+            }
+        }
+        return degree;
+    }
+
 
 }
 
