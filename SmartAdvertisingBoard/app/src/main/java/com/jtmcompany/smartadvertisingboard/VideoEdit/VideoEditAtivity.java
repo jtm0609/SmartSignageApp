@@ -243,6 +243,18 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             if(select_Music_Uri!=null)
                 musicPath= getPathUtils.getPath(VideoEditAtivity.this, select_Music_Uri);
 
+            //*****구현이 필요한부분
+                for(int i=1; i<videoView_container.getChildCount(); i++){
+                    int itemWidth, itemHeight, startTime, endTime;
+                    double itemX,itemY;
+                    int id=videoView_container.getChildAt(i).getId();
+                    int addId=addItemList.get(i-1).getStickerView().getId();
+                    Log.d("tak4","id: "+id);
+                    Log.d("tak4","addid: "+addId);
+                }
+
+            //*****구현이 필요한부분
+
             positiveLisener=new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

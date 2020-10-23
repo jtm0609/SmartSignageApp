@@ -21,19 +21,24 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-public class MyVideoActivity extends AppCompatActivity implements MyVideoRecyclerAdapter.myVideoWatchListener, MyVideoRecyclerAdapter.myVideoUploadListener {
+public class MyVideoActivity extends AppCompatActivity implements MyVideoRecyclerAdapter.myVideoWatchListener, MyVideoRecyclerAdapter.myVideoUploadListener, MyVideoRecyclerAdapter.myVideoDeleteListener {
     List<MyVideo_Model> list=new ArrayList<>();
     Realm mRealm;
+    MyVideoRecyclerAdapter recyclerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_video);
+
+        Log.d("tag","test");
+
         //DB 데이터획득
         Realm.init(this);
         mRealm=Realm.getDefaultInstance();
         RealmResults<MyVideoDB> myVideos=mRealm.where(MyVideoDB.class).findAll();
         //DB에 있는데 이터 조회
         for(int i=0; i<myVideos.size(); i++){
+
             MyVideoDB myVideo=myVideos.get(i);
             Log.d("tak3",myVideo.videoPath);
             if(myVideo.videoPath!=null) {
@@ -48,12 +53,13 @@ public class MyVideoActivity extends AppCompatActivity implements MyVideoRecycle
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
-        MyVideoRecyclerAdapter recyclerAdapter=new MyVideoRecyclerAdapter(list);
+        recyclerAdapter=new MyVideoRecyclerAdapter(list);
         recyclerAdapter.setMyVieoWatchListener(this);
         recyclerAdapter.setMyVideoUploadListener(this);
+        recyclerAdapter.setMyVideoDeleteListener(this);
         recyclerView.setAdapter(recyclerAdapter);
 
-
+        LoginInfo_Activity.pd.dismiss();
 
     }
 
@@ -72,10 +78,30 @@ public class MyVideoActivity extends AppCompatActivity implements MyVideoRecycle
         startActivity(intent);
     }
 
+    //광고업로드
     @Override
     public void onUpload(String path) {
         File file=new File(path);
         FileUploadUtils.sendServer(file);
         Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
     }
-}
+
+    //광고삭제
+    @Override
+    public void onDelete(final String path, final int position) {
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                MyVideoDB vo=mRealm.where(MyVideoDB.class).equalTo("videoPath",path).findFirst();
+                if(vo!=null){
+                    vo.deleteFromRealm();
+                    Toast.makeText(MyVideoActivity.this, "삭제 되었습니다.", Toast.LENGTH_SHORT).show();
+
+                    list.remove(position);
+                    recyclerAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        }
+    }

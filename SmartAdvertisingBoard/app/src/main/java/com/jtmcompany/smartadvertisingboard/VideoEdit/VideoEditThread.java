@@ -78,8 +78,9 @@ public class VideoEditThread implements Runnable {
     public void addView_appear(final int start_time, final int end_time, final StickerView insert_stickerView) {
         Log.d("tak3", "start: " + start_time);
         Log.d("tak3", "end: " + end_time);
+        Log.d("tak3","cur: "+video.getCurrentPosition()/1000);
         if (video.isPlaying()) {
-            if (video.getCurrentPosition() / 1000 == start_time) {
+            if (video.getCurrentPosition() / 1000 >= start_time && video.getCurrentPosition()/1000<=end_time) {
                 insert_stickerView.setVisibility(View.VISIBLE);
                 Log.d("tak3", "1");
             }

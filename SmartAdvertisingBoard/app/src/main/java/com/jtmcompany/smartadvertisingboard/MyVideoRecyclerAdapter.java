@@ -17,7 +17,7 @@ public class MyVideoRecyclerAdapter extends RecyclerView.Adapter<MyVideoRecycler
     List<MyVideo_Model> list=new ArrayList<>();
     myVideoWatchListener watchListener;
     myVideoUploadListener uploadListener;
-
+    myVideoDeleteListener deleteListener;
 
 
     interface myVideoWatchListener{
@@ -27,12 +27,20 @@ public class MyVideoRecyclerAdapter extends RecyclerView.Adapter<MyVideoRecycler
     interface myVideoUploadListener{
         void onUpload(String path);
     }
+
+    interface myVideoDeleteListener{
+        void onDelete(String path,int position);
+    }
     public void setMyVieoWatchListener(myVideoWatchListener myVideoClickListener){
         this.watchListener=myVideoClickListener;
     }
 
     public void setMyVideoUploadListener(myVideoUploadListener myVideoUploadListener){
         this.uploadListener=myVideoUploadListener;
+    }
+
+    public void setMyVideoDeleteListener(myVideoDeleteListener myVideoDeleteListener){
+        this.deleteListener=myVideoDeleteListener;
     }
     public MyVideoRecyclerAdapter(List<MyVideo_Model> list) {
         this.list = list;
@@ -63,6 +71,12 @@ public class MyVideoRecyclerAdapter extends RecyclerView.Adapter<MyVideoRecycler
                 uploadListener.onUpload(model.getPath());
             }
         });
+        holder.delete_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteListener.onDelete(model.getPath(),position);
+            }
+        });
 
 
 
@@ -78,6 +92,7 @@ public class MyVideoRecyclerAdapter extends RecyclerView.Adapter<MyVideoRecycler
         TextView title;
         ImageView play_bt;
         Button upload_bt;
+        Button delete_bt;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,6 +100,7 @@ public class MyVideoRecyclerAdapter extends RecyclerView.Adapter<MyVideoRecycler
             title=itemView.findViewById(R.id.advertise_title);
             play_bt=itemView.findViewById(R.id.myVideoPlay);
             upload_bt=itemView.findViewById(R.id.web_upload_bt);
+            delete_bt=itemView.findViewById(R.id.delete_bt);
         }
     }
 

@@ -145,6 +145,12 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
 
                 start=slider.getLeftIndex()+VideoEditAtivity.trim_start;
                 end=slider.getRightIndex()+VideoEditAtivity.trim_start;
+
+                //비디오 엑티비티에서 complete버튼을 눌렀을때, 프레임아웃컨테이너의 자식들뷰와, addItemList의 뷰를 구분하기위해,
+                //setId를설정(id가같은것이면 뷰가같다는말임)
+                addItem.setId(VideoEditAtivity.addItemList.size()+1);
+
+
                 VideoEditAtivity.addItemList.add(new addItem_VO(itemPath,itemWidth,itemHeight,start,end,addItem,itemX,itemY));
                  //설정했으면 다시 비디오를 처음부터 시작
                 mVideoview.seekTo(VideoEditAtivity.trim_start*1000);
@@ -195,9 +201,9 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
 
                 }
 
-                handler.postDelayed(r,1000);
+                handler.postDelayed(r,100);
             }
-        },1000);
+        },100);
 
     }
 
@@ -206,7 +212,7 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
         Log.d("tak3","start: "+start_time);
         Log.d("tak3","end: "+end_time);
         if(mVideoview.isPlaying()) {
-            if (mVideoview.getCurrentPosition() / 1000 == start_time) {
+            if (mVideoview.getCurrentPosition() / 1000 >= start_time && mVideoview.getCurrentPosition()/1000<=end_time) {
                 addStickerView.setVisibility(View.VISIBLE);
                 Log.d("tak3", "1");
             }

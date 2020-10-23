@@ -1,6 +1,7 @@
 package com.jtmcompany.smartadvertisingboard;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -45,6 +46,7 @@ public class LoginInfo_Activity extends AppCompatActivity implements View.OnClic
     ImageView image_advertise;
     ImageView image_gif;
     private long backKeyClickTime=0;
+    public static ProgressDialog pd;
 
     //네이버
     final OAuthLogin mOAuthLoginInstance = OAuthLogin.getInstance();
@@ -125,8 +127,13 @@ public class LoginInfo_Activity extends AppCompatActivity implements View.OnClic
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id=item.getItemId();
                 if(id==R.id.menuitem1){ //내 비디오함
+                    pd=ProgressDialog.show(LoginInfo_Activity.this,"로딩중","광고를 가져오는중입니다...");
                     Intent intent=new Intent(LoginInfo_Activity.this,MyVideoActivity.class);
                     startActivity(intent);
+
+
+
+
 
                 }else if(id==R.id.menuitem2){ //설정
 

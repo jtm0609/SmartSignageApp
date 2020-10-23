@@ -138,9 +138,9 @@ Progress_Thtead progress_thtead;
                 }
 
 
-                handler.postDelayed(r,1000);
+                handler.postDelayed(r,100);
             }
-        },1000);
+        },100);
 
     }
 
