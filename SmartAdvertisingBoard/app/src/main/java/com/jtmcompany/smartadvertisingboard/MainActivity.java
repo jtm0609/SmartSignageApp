@@ -33,12 +33,13 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jtmcompany.smartadvertisingboard.Login.LoginActivity;
+import com.jtmcompany.smartadvertisingboard.MyVideo.MyVideoActivity;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.nhn.android.naverlogin.OAuthLogin;
 import com.nhn.android.naverlogin.data.OAuthLoginState;
 
-public class LoginInfo_Activity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle toggle;
@@ -127,8 +128,8 @@ public class LoginInfo_Activity extends AppCompatActivity implements View.OnClic
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id=item.getItemId();
                 if(id==R.id.menuitem1){ //내 비디오함
-                    pd=ProgressDialog.show(LoginInfo_Activity.this,"로딩중","광고를 가져오는중입니다...");
-                    Intent intent=new Intent(LoginInfo_Activity.this,MyVideoActivity.class);
+                    pd=ProgressDialog.show(MainActivity.this,"로딩중","광고를 가져오는중입니다...");
+                    Intent intent=new Intent(MainActivity.this, MyVideoActivity.class);
                     startActivity(intent);
 
 
@@ -138,19 +139,19 @@ public class LoginInfo_Activity extends AppCompatActivity implements View.OnClic
                 }else if(id==R.id.menuitem2){ //설정
 
                 }else if(id==R.id.menuitem5){ //로그아웃
-                    if(OAuthLoginState.OK.equals(mOAuthLoginInstance.getState(LoginInfo_Activity.this))){
-                        mOAuthLoginInstance.logout(LoginInfo_Activity.this);
-                        Toast.makeText(LoginInfo_Activity.this, "네이버 로그아웃", Toast.LENGTH_SHORT).show();
+                    if(OAuthLoginState.OK.equals(mOAuthLoginInstance.getState(MainActivity.this))){
+                        mOAuthLoginInstance.logout(MainActivity.this);
+                        Toast.makeText(MainActivity.this, "네이버 로그아웃", Toast.LENGTH_SHORT).show();
                         redirect_login();
                     }
                     else if(FirebaseAuth.getInstance().getCurrentUser()!=null) {
                         FirebaseAuth.getInstance().signOut();
-                        Toast.makeText(LoginInfo_Activity.this, "구글 로그아웃", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "구글 로그아웃", Toast.LENGTH_SHORT).show();
                         redirect_login();
                     }
                     else {
                         kakaoLogout();
-                        Toast.makeText(LoginInfo_Activity.this, "카카오 로그아웃", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "카카오 로그아웃", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -210,20 +211,20 @@ public class LoginInfo_Activity extends AppCompatActivity implements View.OnClic
                 .requestLogout(new LogoutResponseCallback() {
                     @Override
                     public void onSuccess(Long result) {
-                        //Toast.makeText(LoginInfo_Activity.this, "로그아웃 됬습니다.", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "로그아웃 됬습니다.", Toast.LENGTH_SHORT).show();
                         redirect_login();
                     }
 
                     @Override
                     public void onCompleteLogout() {
-                        //Toast.makeText(LoginInfo_Activity.this, "로그아웃 됬습니다.2", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "로그아웃 됬습니다.2", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
     public void redirect_login(){
 
-        Intent intent =new Intent(LoginInfo_Activity.this, LoginActivity.class);
+        Intent intent =new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }

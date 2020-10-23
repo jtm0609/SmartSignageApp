@@ -1,4 +1,4 @@
-package com.jtmcompany.smartadvertisingboard.PhotoEdit;
+package com.jtmcompany.smartadvertisingboard.Utils;
 
 import android.util.Log;
 
@@ -13,7 +13,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-//포토에디터에서 제작한광고를 서버에 파일업로드하는부분
+// 제작한광고를 서버에 파일업로드하는부분
 public class FileUploadUtils {
     static final String SERVER_URL="http://112.154.171.27:5000";
     public static void sendServer(File file){

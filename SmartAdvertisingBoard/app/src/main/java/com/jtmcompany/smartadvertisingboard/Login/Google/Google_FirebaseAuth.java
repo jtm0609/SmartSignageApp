@@ -23,7 +23,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
 import com.jtmcompany.smartadvertisingboard.Login.Http_Request_MyServerDB;
 import com.jtmcompany.smartadvertisingboard.Login.Network_Status_Check;
-import com.jtmcompany.smartadvertisingboard.LoginInfo_Activity;
+import com.jtmcompany.smartadvertisingboard.MainActivity;
 import com.jtmcompany.smartadvertisingboard.R;
 
 public class Google_FirebaseAuth {
@@ -61,7 +61,7 @@ public class Google_FirebaseAuth {
                             Log.d("tak4","로그인성공");
                             Toast.makeText(mContext, "로그인성공", Toast.LENGTH_SHORT).show();
                             Log.d("tak4","OnComplete: ");
-                            Intent intent = new Intent(mContext, LoginInfo_Activity.class);
+                            Intent intent = new Intent(mContext, MainActivity.class);
                             (mContext).startActivity(intent);
                             ((Activity) mContext).finish();
 

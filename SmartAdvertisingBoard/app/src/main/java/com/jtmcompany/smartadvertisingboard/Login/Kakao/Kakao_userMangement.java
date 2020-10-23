@@ -8,7 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.jtmcompany.smartadvertisingboard.Login.Http_Request_MyServerDB;
-import com.jtmcompany.smartadvertisingboard.LoginInfo_Activity;
+import com.jtmcompany.smartadvertisingboard.MainActivity;
 import com.kakao.auth.ApiErrorCode;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
@@ -55,7 +55,7 @@ public class Kakao_userMangement {
                 Log.d("tak","name: "+result.getNickname());
                 Log.d("tak","profile: "+result.getProfileImagePath());
                 Log.d("tak","id:  "+result.getId());
-                Intent intent=new Intent(mContext, LoginInfo_Activity.class);
+                Intent intent=new Intent(mContext, MainActivity.class);
                 intent.putExtra("name",result.getNickname());
                 intent.putExtra("profile",result.getProfileImagePath());
 

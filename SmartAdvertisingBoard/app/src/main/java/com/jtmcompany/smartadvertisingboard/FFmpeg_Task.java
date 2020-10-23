@@ -17,6 +17,7 @@ import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
 import com.jtmcompany.smartadvertisingboard.DB.MyVideoDB;
+import com.jtmcompany.smartadvertisingboard.MyVideo.MyVideoActivity;
 import com.jtmcompany.smartadvertisingboard.PhotoEdit.ItemInfo;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.addItem_VO;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VideoEditAtivity;
@@ -547,7 +548,7 @@ public class FFmpeg_Task {
         }else{
             builder=new Notification.Builder(mContext);
         }
-        PendingIntent pendingIntent= PendingIntent.getActivity(mContext,0,new Intent(mContext,MyVideoActivity.class),0);
+        PendingIntent pendingIntent= PendingIntent.getActivity(mContext,0,new Intent(mContext, MyVideoActivity.class),0);
         builder=new Notification.Builder(mContext, "channel_id")
                 .setContentTitle("모두의 광고")
                 .setContentText("동영상이 제작되었습니다.")

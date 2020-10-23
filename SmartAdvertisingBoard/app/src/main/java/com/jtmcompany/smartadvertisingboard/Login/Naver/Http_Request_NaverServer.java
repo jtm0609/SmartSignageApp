@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.jtmcompany.smartadvertisingboard.Login.Http_Request_MyServerDB;
-import com.jtmcompany.smartadvertisingboard.LoginInfo_Activity;
+import com.jtmcompany.smartadvertisingboard.MainActivity;
 import com.nhn.android.naverlogin.OAuthLogin;
 
 import org.json.JSONException;
@@ -62,7 +62,7 @@ public class Http_Request_NaverServer {
                     myServerDB.Request_Signup();
 
                     ((Activity)mcontext).finish();
-                    Intent intent=new Intent(mcontext, LoginInfo_Activity.class);
+                    Intent intent=new Intent(mcontext, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mcontext.startActivity(intent);
 
