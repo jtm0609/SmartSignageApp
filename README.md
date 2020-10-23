@@ -22,6 +22,8 @@
 * realm을 통해 만든 광고를 어플내에 저장하여 관리
 * Rest API(OkHttp)통신을 통해 광고영상 서버에 전송
 
+##라이브러리
+Glide, realm 등
 ## 설계
 ![설계](https://user-images.githubusercontent.com/48284360/96730440-1e388a00-13f1-11eb-9ec2-b11ac97aea32.png)
 
