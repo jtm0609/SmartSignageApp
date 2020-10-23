@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">SmartAdvertisingBoard</string>
     <string name="kakao_app_key">493b35b782ec321ebbf3874379d48970</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>

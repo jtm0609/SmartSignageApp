@@ -7,37 +7,39 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
     <application
-        android:requestLegacyExternalStorage="true"
-        android:name=".Kakao.GlobalApplication"
+        android:name=".Login.Kakao.GlobalApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/ic_tv"
+        android:label="스마트 사이니지 platform"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_tv_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".TestFFmpge">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Create_Advertise_Activity" />
+        <activity android:name=".VideoWatchActivity" />
+        <activity android:name=".MyVideoActivity" />
+        <activity android:name=".PhotoEdit.PhotoEditActivity" />
+        <activity android:name=".UploadActivity" />
+        <activity android:name=".VideoEdit.VideoEditAtivity" />
+        <activity android:name=".VideoEdit.Music.MusicList" />
         <activity
-            android:name=".SignupActivity"
+            android:name=".Login.SignupActivity"
             android:label=""
             android:theme="@style/SignUp" />
-        <activity android:name=".LoginActivity_Email" />
-        <activity android:name=".LoginInfo" />
-        <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".Login.LoginActivity_Email" />
+        <activity
+            android:name=".LoginInfo_Activity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Login.LoginActivity">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data

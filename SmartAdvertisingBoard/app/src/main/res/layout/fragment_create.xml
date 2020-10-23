@@ -5,7 +5,7 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/holo_green_dark"
+
         />
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/create_tablayout"

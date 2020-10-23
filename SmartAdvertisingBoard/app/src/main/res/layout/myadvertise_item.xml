@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+
+    >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/advertise_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="테스트 동영상"
+        android:textStyle="bold"
+        android:textSize="20sp"
+
+        android:textColor="@android:color/white"
+        />
+
+    <FrameLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/advertise_img"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:src="@mipmap/ic_launcher_round"
+            android:scaleType="centerCrop"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_gravity="center"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/myadvertise_play"
+            android:id="@+id/myVideoPlay"
+
+
+            />
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/web_upload_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="광고 업로드"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/delete_bt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="광고 삭제"
+            android:layout_weight="1"/>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
