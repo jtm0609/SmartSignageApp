@@ -36,7 +36,7 @@ import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.VideoEdit_Recycler
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Music.MusicList;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.EditorMenu_VO;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.addItem_VO;
-import com.jtmcompany.smartadvertisingboard.getPathUtils;
+import com.jtmcompany.smartadvertisingboard.Utils.getPathUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;

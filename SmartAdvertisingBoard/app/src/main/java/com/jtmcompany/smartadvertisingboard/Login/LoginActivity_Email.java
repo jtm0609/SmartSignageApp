@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jtmcompany.smartadvertisingboard.LoginInfo_Activity;
+import com.jtmcompany.smartadvertisingboard.MainActivity;
 import com.jtmcompany.smartadvertisingboard.R;
 
 public class LoginActivity_Email extends AppCompatActivity implements View.OnClickListener, TextWatcher {
@@ -51,7 +51,7 @@ Button email_login_bt;
                     pw_edit.setText("");
                 }else{
                     Toast.makeText(LoginActivity_Email.this, "로그인성공", Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(LoginActivity_Email.this, LoginInfo_Activity.class);
+                    Intent intent=new Intent(LoginActivity_Email.this, MainActivity.class);
                     startActivity(intent);
                     finish();
 

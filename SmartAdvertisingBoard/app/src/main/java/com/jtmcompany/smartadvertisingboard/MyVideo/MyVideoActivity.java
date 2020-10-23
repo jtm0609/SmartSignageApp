@@ -1,4 +1,4 @@
-package com.jtmcompany.smartadvertisingboard;
+package com.jtmcompany.smartadvertisingboard.MyVideo;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,7 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jtmcompany.smartadvertisingboard.DB.MyVideoDB;
-import com.jtmcompany.smartadvertisingboard.PhotoEdit.FileUploadUtils;
+import com.jtmcompany.smartadvertisingboard.MainActivity;
+import com.jtmcompany.smartadvertisingboard.Utils.FileUploadUtils;
+import com.jtmcompany.smartadvertisingboard.R;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class MyVideoActivity extends AppCompatActivity implements MyVideoRecycle
         toolbar=  findViewById(R.id.myVideoToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        
+
         Log.d("tag","test");
 
         //DB 데이터획득
@@ -78,7 +80,7 @@ public class MyVideoActivity extends AppCompatActivity implements MyVideoRecycle
         recyclerAdapter.setMyVideoDeleteListener(this);
         recyclerView.setAdapter(recyclerAdapter);
 
-        LoginInfo_Activity.pd.dismiss();
+        MainActivity.pd.dismiss();
 
     }
 

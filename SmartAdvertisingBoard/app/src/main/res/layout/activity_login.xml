@@ -7,9 +7,10 @@
     tools:context=".Login.LoginActivity"
     android:background="#292929">
     <TextView
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="모두의 광고"
+        android:text="스마트 사이니지 \nPlatform"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/icon"

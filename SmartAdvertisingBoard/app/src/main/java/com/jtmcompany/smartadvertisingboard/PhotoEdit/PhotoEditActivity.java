@@ -25,7 +25,7 @@ import com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEdit_BottomFragment.T
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerImageView;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerTextView;
-import com.jtmcompany.smartadvertisingboard.getPathUtils;
+import com.jtmcompany.smartadvertisingboard.Utils.getPathUtils;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;

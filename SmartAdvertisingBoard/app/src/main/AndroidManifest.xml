@@ -24,8 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VideoWatchActivity" />
-        <activity android:name=".MyVideoActivity" />
+        <activity android:name=".MyVideo.VideoWatchActivity" />
+        <activity android:name=".MyVideo.MyVideoActivity" />
         <activity android:name=".PhotoEdit.PhotoEditActivity" />
         <activity android:name=".UploadActivity" />
         <activity android:name=".VideoEdit.VideoEditAtivity" />
@@ -36,7 +36,7 @@
             android:theme="@style/SignUp" />
         <activity android:name=".Login.LoginActivity_Email" />
         <activity
-            android:name=".LoginInfo_Activity"
+            android:name=".MainActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".Login.LoginActivity">
 

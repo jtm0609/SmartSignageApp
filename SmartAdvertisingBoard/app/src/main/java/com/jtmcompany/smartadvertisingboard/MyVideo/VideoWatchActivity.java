@@ -1,4 +1,4 @@
-package com.jtmcompany.smartadvertisingboard;
+package com.jtmcompany.smartadvertisingboard.MyVideo;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -7,6 +7,8 @@ import android.widget.MediaController;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.jtmcompany.smartadvertisingboard.R;
 
 public class VideoWatchActivity extends AppCompatActivity {
 

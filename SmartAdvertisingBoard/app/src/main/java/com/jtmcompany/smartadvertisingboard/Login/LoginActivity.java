@@ -24,7 +24,7 @@ import com.jtmcompany.smartadvertisingboard.Login.Kakao.Kakao_sessionCallback;
 import com.jtmcompany.smartadvertisingboard.Login.Naver.NaverOAuthLoginHandler;
 import com.jtmcompany.smartadvertisingboard.Login.Naver.Naver_AuthInfo;
 import com.jtmcompany.smartadvertisingboard.Login.Naver.Naver_RefreshTokenTask;
-import com.jtmcompany.smartadvertisingboard.LoginInfo_Activity;
+import com.jtmcompany.smartadvertisingboard.MainActivity;
 import com.jtmcompany.smartadvertisingboard.R;
 import com.kakao.auth.Session;
 import com.kakao.usermgmt.LoginButton;
@@ -73,7 +73,7 @@ private long backClickTime=0;
 
         if(mAuthUser!=null){
             Log.d("tak4","userOK");
-            Intent intent=new Intent(LoginActivity.this, LoginInfo_Activity.class);
+            Intent intent=new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         }else{
@@ -109,7 +109,7 @@ private long backClickTime=0;
             Log.d("login_naver","state: "+mOAuthLoginModule.getState(this));
 
 
-            Intent intent=new Intent(LoginActivity.this, LoginInfo_Activity.class);
+            Intent intent=new Intent(LoginActivity.this, MainActivity.class);
 
             startActivity(intent);
             finish();
@@ -139,7 +139,7 @@ private long backClickTime=0;
             editor.putBoolean("Bt_OK",false);
             editor.commit();
             Log.d("tak3","kkoLogin");
-            Intent intent=new Intent(LoginActivity.this, LoginInfo_Activity.class);
+            Intent intent=new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
 

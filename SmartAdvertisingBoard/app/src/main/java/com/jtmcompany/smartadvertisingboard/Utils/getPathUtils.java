@@ -1,4 +1,4 @@
-package com.jtmcompany.smartadvertisingboard;
+package com.jtmcompany.smartadvertisingboard.Utils;
 
 import android.content.ContentUris;
 import android.content.Context;

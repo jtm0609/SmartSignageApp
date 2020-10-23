@@ -1,4 +1,4 @@
-package com.jtmcompany.smartadvertisingboard;
+package com.jtmcompany.smartadvertisingboard.MyVideo;
 
 import android.graphics.Bitmap;
 
