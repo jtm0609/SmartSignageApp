@@ -1,31 +1,23 @@
 package com.jtmcompany.smartadvertisingboard.VideoEdit;
 
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.fragment.app.FragmentManager;
 
 import com.jtmcompany.smartadvertisingboard.R;
-import com.jtmcompany.smartadvertisingboard.StickerView.StickerImageView;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerView;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.addItem_VO;
 import com.waynell.videorangeslider.RangeSlider;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.List;
 
 
@@ -39,8 +31,8 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
 
     private VideoView videoView;
     String itemPath;
-    int itemWidth,itemHeight,itemX,itemY,videoX,videoY,start,end;
-    int []location;
+    int start,end;
+
 
 
     protected SelectLocation_Fragment(VideoView videoview, Uri selectVideoUri, List list, StickerView tv, FrameLayout container) {
@@ -55,10 +47,7 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        location=new int[2];
-        videoView.getLocationOnScreen(location);
-        videoX=location[0];
-        videoY=location[1];
+
         // Inflate the layout for this fragment
         VideoEditAtivity.isFragmentClose=false;
         mVideoview.seekTo(VideoEditAtivity.trim_start*1000);
@@ -117,31 +106,6 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
                 progress_thtead.interrupt();
 
 
-                float itemRotation;
-                if(addItem instanceof StickerImageView){
-                    ImageView iv= (ImageView) addItem.getMainView();
-                    itemWidth=iv.getWidth();
-                    itemHeight=iv.getHeight();
-                    iv.getLocationOnScreen(location);
-
-                }else {
-                    View tv= (View) addItem.getMainView();
-                    itemWidth=tv.getWidth();
-                    itemHeight=tv.getHeight();
-                    tv.getLocationOnScreen(location);
-
-                }
-                itemX=location[0]-videoX;
-                itemY=location[1]-videoY;
-                itemRotation=addItem.getRotation();
-                Matrix rotateMatrix = new Matrix();
-                rotateMatrix.postRotate(itemRotation);
-                Log.d("tak12","width: "+itemWidth);
-                Log.d("tak12","height: "+itemHeight);
-                Log.d("tak12","rotation: "+itemRotation);
-                Bitmap bitmap=convertBitmap(addItem.getMainView(),itemWidth,itemHeight,rotateMatrix);
-                itemPath=saveImg(bitmap);
-
 
                 start=slider.getLeftIndex()+VideoEditAtivity.trim_start;
                 end=slider.getRightIndex()+VideoEditAtivity.trim_start;
@@ -151,7 +115,7 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
                 addItem.setId(VideoEditAtivity.addItemList.size()+1);
 
 
-                VideoEditAtivity.addItemList.add(new addItem_VO(itemPath,itemWidth,itemHeight,start,end,addItem,itemX,itemY));
+                VideoEditAtivity.addItemList.add(new addItem_VO(addItem,start,end));
                  //설정했으면 다시 비디오를 처음부터 시작
                 mVideoview.seekTo(VideoEditAtivity.trim_start*1000);
                 mVideoview.pause();
@@ -221,47 +185,12 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
                 Log.d("tak3", "2");
             }
         }else{
-            addStickerView.setVisibility(View.GONE);
+            addStickerView.setVisibility(View.VISIBLE);
         }
 
     }
 
-    //뷰 -> 비트맵으로 변환
-    private Bitmap convertBitmap (View v,int width,int height, Matrix rotateMatrix){
 
-        Bitmap be= Bitmap.createBitmap(width,height,
-                Bitmap.Config.ARGB_8888);
-        Canvas c=new Canvas(be);
-        v.draw(c);
-
-        Bitmap b=Bitmap.createBitmap(be,0,0,width,height,rotateMatrix,false);
-
-        return b;
-    }
-
-    //저장소에 쓰기
-    private String saveImg(Bitmap bitmap){
-        String path="";
-        try {
-            File moviesDir= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
-            File outputFile=new File(moviesDir,"add_1.png");
-            int num=1;
-            while(outputFile.exists()){
-                num++;
-                outputFile=new File(moviesDir,"add_"+num+".png");
-            }
-
-            FileOutputStream fos = new FileOutputStream(outputFile);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.flush();
-            fos.close();
-
-            path=outputFile.getAbsolutePath();
-        }catch (Exception e){
-            Toast.makeText(getContext(), "error", Toast.LENGTH_SHORT).show();
-        }
-        return path;
-    }
 
 
     protected class Progress_Thtead extends Thread{

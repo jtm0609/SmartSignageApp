@@ -11,7 +11,7 @@
         android:name=".Login.Kakao.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_tv"
-        android:label="모두의 광고"
+        android:label="스마트 사이니지 platform"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_tv_round"
         android:supportsRtl="true"

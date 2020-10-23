@@ -5,9 +5,12 @@ import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,11 +28,24 @@ public class MyVideoActivity extends AppCompatActivity implements MyVideoRecycle
     List<MyVideo_Model> list=new ArrayList<>();
     Realm mRealm;
     MyVideoRecyclerAdapter recyclerAdapter;
+    Toolbar toolbar;
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId()==android.R.id.home)
+            finish();
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_video);
-
+        toolbar=  findViewById(R.id.myVideoToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        
         Log.d("tag","test");
 
         //DB 데이터획득
@@ -41,10 +57,13 @@ public class MyVideoActivity extends AppCompatActivity implements MyVideoRecycle
 
             MyVideoDB myVideo=myVideos.get(i);
             Log.d("tak3",myVideo.videoPath);
-            if(myVideo.videoPath!=null) {
-                Bitmap bitmap = extractThumnail(myVideo.videoPath);
-                //썸네일, 비디오제목, 비디오경로
-                list.add(new MyVideo_Model(bitmap, myVideo.videoName, myVideo.videoPath));
+            if(myVideo.videoPath!=null ) {
+                File file=new File(myVideo.videoPath);
+                if(file.exists()) {
+                    Bitmap bitmap = extractThumnail(myVideo.videoPath);
+                    //썸네일, 비디오제목, 비디오경로
+                    list.add(new MyVideo_Model(bitmap, myVideo.videoName, myVideo.videoPath));
+                }
             }
         }
 

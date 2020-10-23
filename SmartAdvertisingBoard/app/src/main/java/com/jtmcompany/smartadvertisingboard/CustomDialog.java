@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
@@ -18,6 +19,7 @@ public class CustomDialog extends Dialog {
 
     private EditText titleET;
     private EditText timeET;
+    private LinearLayout timeLayout;
 
 
 
@@ -37,6 +39,9 @@ public class CustomDialog extends Dialog {
         return timeET;
     }
 
+    public LinearLayout getTimeLayout() {
+        return timeLayout;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +56,7 @@ public class CustomDialog extends Dialog {
         setContentView(R.layout.custom_dialog);
         titleET=findViewById(R.id.video_title);
         timeET=findViewById(R.id.video_time);
-
+        timeLayout=findViewById(R.id.timeSetting_layout);
 
 
         //세팅

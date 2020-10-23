@@ -89,7 +89,7 @@ public class VideoEditThread implements Runnable {
                 Log.d("tak3", "2");
             }
         } else {
-            insert_stickerView.setVisibility(View.GONE);
+            insert_stickerView.setVisibility(View.VISIBLE);
         }
 
 

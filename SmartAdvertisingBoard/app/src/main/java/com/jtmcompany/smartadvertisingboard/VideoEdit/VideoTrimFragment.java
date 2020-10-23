@@ -13,6 +13,7 @@ import android.widget.VideoView;
 import androidx.fragment.app.FragmentManager;
 
 import com.jtmcompany.smartadvertisingboard.R;
+import com.jtmcompany.smartadvertisingboard.StickerView.StickerView;
 import com.waynell.videorangeslider.RangeSlider;
 
 import java.util.List;
@@ -29,6 +30,19 @@ Progress_Thtead progress_thtead;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //잘라내기를하면, 화면에 추가했던 아이템들 정보들이 다사라짐(초기화)
+
+        if(!VideoEditAtivity.addItemList.isEmpty()) {
+            for(int i=0; i<VideoEditAtivity.addItemList.size(); i++){
+                StickerView removeStickerView=VideoEditAtivity.addItemList.get(i).getStickerView();
+                if(removeStickerView.getParent()!=null){
+                    ViewGroup myCanvas = ((ViewGroup)removeStickerView.getParent());
+                    myCanvas.removeView(removeStickerView);
+                }
+            }
+            VideoEditAtivity.addItemList.clear();
+        }
+
         VideoEditAtivity.isFragmentClose=false;
         mVideoview.seekTo(0);
 

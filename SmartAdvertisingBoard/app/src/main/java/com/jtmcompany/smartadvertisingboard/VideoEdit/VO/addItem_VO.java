@@ -28,6 +28,13 @@ public class addItem_VO {
         this.Y=Y;
 
     }
+
+    public addItem_VO(StickerView stickerView, int start, int end) {
+        this.stickerView = stickerView;
+        this.start = start;
+        this.end = end;
+    }
+
     public int getX() {
         return X;
     }

@@ -3,10 +3,13 @@ package com.jtmcompany.smartadvertisingboard.VideoEdit;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
@@ -28,12 +31,15 @@ import com.jtmcompany.smartadvertisingboard.CustomDialog;
 import com.jtmcompany.smartadvertisingboard.FFmpeg_Task;
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerImageView;
+import com.jtmcompany.smartadvertisingboard.StickerView.StickerView;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.VideoEdit_RecyclerAdapter;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Music.MusicList;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.EditorMenu_VO;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.addItem_VO;
 import com.jtmcompany.smartadvertisingboard.getPathUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +82,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     private View.OnClickListener positiveLisener,negativeLisener;
     private String musicPath;
     public static List<addItem_VO> addItemList;
+    public static List<addItem_VO> updateItemList;
     private ProgressBar progressBar;
     private TextView progressBar_startTv;
     private TextView progressBar_endTv;
@@ -88,6 +95,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_edit_ativity);
         addItemList=new ArrayList<>();
+        updateItemList=new ArrayList<>();
         isFragmentClose=true;
 
         video_play_bt=findViewById(R.id.video_play);
@@ -243,15 +251,73 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             if(select_Music_Uri!=null)
                 musicPath= getPathUtils.getPath(VideoEditAtivity.this, select_Music_Uri);
 
+            //비디오에 올려져있는 아이템에대한 정보(크기, 좌표, 시간등)를 리스트에담음
+            int[] location=new int[2];
+            videoView.getLocationOnScreen(location);
+            int videoX=location[0];
+            int videoY=location[1];
             //*****구현이 필요한부분
+            Log.d("tak14","chidCount: "+videoView_container.getChildCount());
+            Log.d("tak14","addItemSize: "+addItemList.size());
                 for(int i=1; i<videoView_container.getChildCount(); i++){
-                    int itemWidth, itemHeight, startTime, endTime;
-                    double itemX,itemY;
+                    int itemWidth=0, itemHeight=0, itemStartTime=0, itemEndTime=0;
+                    int itemX=0,itemY=0;
+                    float itemRotation;
+                    String itemPath="";
+                    StickerView addItem = null;
                     int id=videoView_container.getChildAt(i).getId();
-                    int addId=addItemList.get(i-1).getStickerView().getId();
-                    Log.d("tak4","id: "+id);
-                    Log.d("tak4","addid: "+addId);
+
+
+                    for(int j=0; j<addItemList.size(); j++){
+                        addItem=addItemList.get(j).getStickerView();
+                        //프래그먼트에서 설정했던 아이템들뷰의 id와 비디오위에 올려져있는 뷰의 id가같다면
+                        if(id==addItem.getId()){
+                            if(addItem instanceof StickerImageView){
+                                ImageView iv= (ImageView) addItem.getMainView();
+                                itemWidth=iv.getWidth();
+                                itemHeight=iv.getHeight();
+                                iv.getLocationOnScreen(location);
+
+                            }else {
+                                View tv= (View) addItem.getMainView();
+                                itemWidth=tv.getWidth();
+                                itemHeight=tv.getHeight();
+                                tv.getLocationOnScreen(location);
+
+                            }
+
+                            itemRotation=addItem.getRotation();
+                            Matrix rotateMatrix = new Matrix();
+                            rotateMatrix.postRotate(itemRotation);
+                            Log.d("tak12","width: "+itemWidth);
+                            Log.d("tak12","height: "+itemHeight);
+                            Log.d("tak12","rotation: "+itemRotation);
+                            Bitmap bitmap=convertBitmap(addItem.getMainView(),itemWidth,itemHeight,rotateMatrix);
+                            itemPath=saveImg(bitmap);
+
+                            itemX=location[0]-videoX;
+                            itemY=location[1]-videoY;
+                            //프래그먼트에서 설정했던 아이템의 시간정보를 가져옴
+                            itemStartTime=addItemList.get(j).getStart();
+                            itemEndTime=addItemList.get(j).getEnd();
+                            break;
+                        }
+
+                    }
+                    Log.d("tak14","itemPath: "+itemPath);
+                    Log.d("tak14","itemWidth: "+itemWidth);
+                    Log.d("tak14","itemHeight: "+itemHeight);
+                    Log.d("tak14","itemStartTime: "+itemStartTime);
+                    Log.d("tak14","itemEndTime: "+itemEndTime);
+                    Log.d("tak14","addItem: "+addItem);
+                    Log.d("tak14","itemX: "+itemX);
+                    Log.d("tak14","itemY: "+itemY);
+                    updateItemList.add(new addItem_VO(itemPath,itemWidth,itemHeight,itemStartTime,itemEndTime,addItem,itemX,itemY));
+
                 }
+                addItemList=new ArrayList<>();
+                addItemList.addAll(updateItemList);
+                updateItemList.clear();
 
             //*****구현이 필요한부분
 
@@ -279,7 +345,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             };
             customDialog=new CustomDialog(VideoEditAtivity.this,positiveLisener,negativeLisener);
             customDialog.show();
-            customDialog.getTimeET().setVisibility(View.GONE);
+            customDialog.getTimeLayout().setVisibility(View.GONE);
 
         }else if(view==back_bt){
             finish();
@@ -390,7 +456,42 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     }
 
 
+    //뷰 -> 비트맵으로 변환
+    private Bitmap convertBitmap (View v,int width,int height, Matrix rotateMatrix){
 
+        Bitmap be= Bitmap.createBitmap(width,height,
+                Bitmap.Config.ARGB_8888);
+        Canvas c=new Canvas(be);
+        v.draw(c);
+
+        Bitmap b=Bitmap.createBitmap(be,0,0,width,height,rotateMatrix,false);
+
+        return b;
+    }
+
+    //저장소에 쓰기
+    private String saveImg(Bitmap bitmap){
+        String path="";
+        try {
+            File moviesDir= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES);
+            File outputFile=new File(moviesDir,"add_1.png");
+            int num=1;
+            while(outputFile.exists()){
+                num++;
+                outputFile=new File(moviesDir,"add_"+num+".png");
+            }
+
+            FileOutputStream fos = new FileOutputStream(outputFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+            fos.close();
+
+            path=outputFile.getAbsolutePath();
+        }catch (Exception e){
+            Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+        }
+        return path;
+    }
 
 
 }
