@@ -42,7 +42,8 @@ Glide, Realm, FFMPEG, OKHTTP(RestAPI), 소셜 로그인OpenAPI(카카오,네이�
 <img width="200" src="https://user-images.githubusercontent.com/48284360/96737417-9c4c5f00-13f8-11eb-9593-cd45c2f7f9f9.jpg">
 <img width="200" src="https://user-images.githubusercontent.com/48284360/96737426-9f474f80-13f8-11eb-86c3-b99e723d15af.jpg">
 <img width="200" src="https://user-images.githubusercontent.com/48284360/96737431-a2424000-13f8-11eb-91e2-e2079ff1f70e.jpg">
-<img width="200" src="https://user-images.githubusercontent.com/48284360/96737441-a53d3080-13f8-11eb-910f-27b46dadc9dc.jpg">
+<img width="200" src="https://user-images.githubusercontent.com/48284360/97155780-345f9500-17b9-11eb-84b2-88a482427e4a.jpg">
+<img width="200" src="https://user-images.githubusercontent.com/48284360/97155794-36c1ef00-17b9-11eb-8742-8dd8e0f5e30c.jpg">
 </div>
 
 ## 한계
