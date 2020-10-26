@@ -24,7 +24,8 @@
 * Rest API(OkHttp)통신을 통해 광고영상 서버에 전송
 
 #### 간단한 회원관리 서버 개발(php)
-* php를 이용한 회원관리 서버개발(https://github.com/jtm0609/SignUp-Login-php)
+* php를 이용한 회원관리 서버개발(https://github.com/jtm0609/SignUp-Login-php)<br>
+  
 
 ## 라이브러리
 Glide, Realm, FFMPEG, OKHTTP(RestAPI), 소셜 로그인OpenAPI(카카오,네이버,구글)
