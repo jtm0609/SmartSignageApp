@@ -31,7 +31,8 @@
 Glide, Realm, FFMPEG, OKHTTP(RestAPI), 소셜 로그인OpenAPI(카카오,네이버,구글)
 
 ## 설계
-![설계](https://user-images.githubusercontent.com/48284360/96730440-1e388a00-13f1-11eb-9ec2-b11ac97aea32.png)
+![설계](https://user-images.githubusercontent.com/48284360/97154811-b77feb80-17b7-11eb-90fa-e517eaa570fa.png)
+
 
 ## 스크린샷
 <div>
