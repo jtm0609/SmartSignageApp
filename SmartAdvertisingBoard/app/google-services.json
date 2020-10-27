@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "766272623940",
+    "firebase_url": "https://smartadvertisingboard.firebaseio.com",
+    "project_id": "smartadvertisingboard",
+    "storage_bucket": "smartadvertisingboard.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766272623940:android:f46f7d16a8d711d0b3b311",
+        "android_client_info": {
+          "package_name": "com.jtmcompany.smartadvertisingboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766272623940-fq54k5hlnd8qn1vu2kaj2mcu8eaf41rs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jtmcompany.smartadvertisingboard",
+            "certificate_hash": "e7e49edf73685788b2f2118739945c3725ea169b"
+          }
+        },
+        {
+          "client_id": "766272623940-8nqb302si6gua2bagivo0aulbb1gjdpc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF3w-4IugLyLv0csJ88D04dorkskkw4u0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766272623940-8nqb302si6gua2bagivo0aulbb1gjdpc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

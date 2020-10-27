@@ -1,5 +1,6 @@
 import cv2, glob, dlib, requests
 
+
 age_list = ['(0, 2)','(4, 6)','(8, 12)','(15, 20)','(25, 32)','(38, 43)','(48, 53)','(60, 100)']
 gender_list = ['Male', 'Female']
 
@@ -18,6 +19,7 @@ capture.set(cv2.CAP_PROP_FRAME_WIDTH, 1000)
 capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 1000)
 
 #사용자의 성별연령 실시간으로 check
+
 while True:
   ret, frame = capture.read()
   faces=detector(frame)
@@ -25,7 +27,6 @@ while True:
     x1,y1,x2,y2=face.left(), face.top(), face.right(), face.bottom()
     #cv2.rectangle(frame,(x1,y1),(x2,y2),(0,0,255),thickness=2)
     face_img = frame[y1:y2, x1:x2].copy()
-
 
     blob = cv2.dnn.blobFromImage(face_img, scalefactor=1, size=(227, 227),
       mean=(78.4263377603, 87.7689143744, 114.895847746),

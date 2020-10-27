@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Login.LoginActivity"
+    android:background="#292929">
+    <TextView
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="스마트 사이니지 \nPlatform"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/icon"
+        android:textSize="40dp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/blackhansansregular" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:src="@drawable/tv"
+        app:layout_constraintBottom_toTopOf="@+id/email_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/email_login"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:text="이메일로 로그인"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/sns_login"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_background"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="16sp"
+
+        />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/sns_login">
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+
+        >
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/custom_naver_login"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:src="@drawable/naver_login"
+            android:clickable="true"
+            android:layout_marginBottom="10dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/background_rounding"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/custom_kakao_login"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:src="@drawable/kakao_login"
+            android:clickable="true"
+            android:layout_marginBottom="10dp"
+            android:scaleType="centerCrop"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/custom_google_login"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:src="@drawable/google_login"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+            android:background="?attr/selectableItemBackgroundBorderless" />
+
+    </LinearLayout>
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            >
+            <com.kakao.usermgmt.LoginButton
+                android:id="@+id/kakao_login"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:visibility="invisible"
+                />
+            <com.nhn.android.naverlogin.ui.view.OAuthLoginButton
+                android:id="@+id/naver_login"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                android:visibility="invisible"
+                />
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/google_login"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:visibility="invisible"
+                />
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

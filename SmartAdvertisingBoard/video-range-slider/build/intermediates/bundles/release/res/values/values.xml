@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RangeSlider"><attr format="dimension" name="lineHeight"/><attr format="dimension" name="thumbWidth"/><attr format="color" name="lineColor"/><attr format="color" name="maskColor"/><attr format="integer" name="tickCount"/><attr format="integer" name="leftThumbIndex"/><attr format="integer" name="rightThumbIndex"/><attr format="reference" name="leftThumbDrawable"/><attr format="reference" name="rightThumbDrawable"/></declare-styleable>
+</resources>

@@ -1,0 +1,14 @@
+prefix=D:/android-ndk-r15c-windows-x86_64/android-ndk-r15c/sources/ffmpeg-3.2.14/android/arm
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libavutil
+Description: FFmpeg utility library
+Version: 55.34.101
+Requires: 
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavutil 
+Libs.private: -lm
+Cflags: -I${includedir}
