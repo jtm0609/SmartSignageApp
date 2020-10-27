@@ -1,0 +1,24 @@
+.Nav__map__board {
+    margin: 0 auto;
+    top: 6%;
+    width: 100%;
+    height: 6%;
+    position: fixed;
+    background-color: white;
+}
+.title{
+    position: fixed;
+    width : 100%;
+    height : 6%;
+    background-color: black;
+    color: white;
+    font-size: 250%;
+    font-family: 'BenchNine', Arial, sans-serif;
+    opacity: 0.9;
+  }
+#map {
+    position: fixed;
+    top: 6%;
+    width: 100%;
+    height: 85%;
+}

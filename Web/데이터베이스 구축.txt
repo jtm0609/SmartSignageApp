@@ -1,0 +1,50 @@
+CREATE TABLE CANVAS (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	image VARCHAR(1024),
+	name VARCHAR(64),
+	birthday VARCHAR(64),
+	gender VARCHAR(64),
+	job VARCHAR(64)
+	
+) DEFAULT CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI;
+
+USE management;
+
+INSERT INTO CUSTOMER VALUE (1, 'https://placeimg.com/64/64/1','홍길동','940303','남자','대학생');
+INSERT INTO CUSTOMER VALUE (2, 'https://placeimg.com/64/64/2','홍길동','960518','남자','프로그래머');
+INSERT INTO CUSTOMER VALUE (3, 'https://placeimg.com/64/64/3','이순신','961222','남자','디자이너');
+
+USE DATAS;
+
+INSERT INTO AI VALUE (1, 'https://www.youtube.com/watch?v=sJeZECYYaDc','null','null','null','null','video','null');
+INSERT INTO AI VALUE (2, 'https://www.youtube.com/watch?v=ByR8gABTpqE','null','null','null','null','video','null');
+INSERT INTO AI VALUE (3, 'https://www.youtube.com/watch?v=FC7EssP_g80','null','null','null','null','video','null');
+INSERT INTO AI VALUE (4, 'https://www.youtube.com/watch?v=0kx2KBD34CM','null','null','null','null','video','null');
+INSERT INTO AI VALUE (5, 'https://www.youtube.com/watch?v=_md16sTcnPM','null','null','null','null','video','null');
+INSERT INTO AI VALUE (6, 'https://www.youtube.com/watch?v=_EfRa_ywkEw','null','null','null','null','video','null');
+INSERT INTO AI VALUE (7, 'https://www.youtube.com/watch?v=-Y9VtoPvtuM','null','null','null','null','video','null');
+INSERT INTO AI VALUE (8, 'https://www.youtube.com/watch?v=ZWue6i_LRZ4','null','null','null','null','video','null');
+INSERT INTO AI VALUE (9, 'https://www.youtube.com/watch?v=MHmKx-QFIr4','null','null','null','null','video','null');
+INSERT INTO AI VALUE (10, 'https://www.youtube.com/watch?v=mAjsF4UTg8g','null','null','null','null','video','null');
+
+
+CREATE TABLE CANVAS (
+	background VARCHAR(64),
+	src VARCHAR(1024),
+	width VARCHAR(64),
+	height VARCHAR(64),
+	scaleX VARCHAR(64),
+	scaleY VARCHAR(64),
+	top VARCHAR(64),
+	zLeft VARCHAR(64),
+	angle VARCHAR(64),
+	zType VARCHAR(64),
+	zText VARCHAR(64),
+	fontFamily VARCHAR(64),
+	fill VARCHAR(64),
+	stroke  VARCHAR(64),
+	strokeWidth VARCHAR(64),
+	textBackColor VARCHAR(64),
+	category VARCHAR(64)
+	
+) DEFAULT CHARACTER SET UTF8 COLLATE UTF8_GENERAL_CI;
