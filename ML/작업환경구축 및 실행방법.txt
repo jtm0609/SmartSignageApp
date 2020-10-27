@@ -1,0 +1,15 @@
+<<작업환경 구축>>
+1. 오픈소스 https://github.com/kairess/age_gender_estimation의
+모델과 테스트할 이미지, 파이썬파일을 다운
+2. 아나콘다프로그램을 설치,
+3. 콘다에서 pip install opencv-python
+4. 콘다에서 pip install cmake
+5.dlib라이브러리를 설치하고, 콘다에서 dlib폴더경로로 들어가 
+   1)python setup.py build
+   2)python setup.py install
+6. main.py가있는 해당경로로 이동하고 python main.py 실행
+
+오픈cv의 dnn클래스를 이용하여, 직접 딥러닝프레임워크를 사용하지않고,
+학습된 caffe모델을 불러와서 사용하였다.
+이미지파일을 불러와서 연령과 나이를 예측하는 코드와,
+비디오파일을 실행시켜 실시간으로 얼굴을 인식함과동시에 연령과 나이를 예측한다.

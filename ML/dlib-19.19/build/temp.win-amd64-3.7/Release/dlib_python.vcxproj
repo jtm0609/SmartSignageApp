@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B070B76A-16F1-382C-A01A-0A9D942E4D06}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>dlib_python</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\lib.win-amd64-3.7\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">dlib_python.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">dlib.cp37-win_amd64</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.pyd</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\lib.win-amd64-3.7\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">dlib_python.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">dlib.cp37-win_amd64</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.pyd</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\lib.win-amd64-3.7\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">dlib_python.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">dlib.cp37-win_amd64</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.pyd</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\lib.win-amd64-3.7\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">dlib_python.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">dlib.cp37-win_amd64</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.pyd</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\external\pybind11\include;C:\Users\jtm06\Anaconda3\include;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\..;C:\Users\jtm06\Anaconda3\Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;DLIB_NO_ABORT_ON_2ND_FATAL_ERROR;DLIB_JPEG_SUPPORT;DLIB_PNG_SUPPORT;DLIB_VERSION=19.19.0;CMAKE_INTDIR="Debug";dlib_python_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;DLIB_NO_ABORT_ON_2ND_FATAL_ERROR;DLIB_JPEG_SUPPORT;DLIB_PNG_SUPPORT;DLIB_VERSION=19.19.0;CMAKE_INTDIR=\"Debug\";dlib_python_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\external\pybind11\include;C:\Users\jtm06\Anaconda3\include;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\..;C:\Users\jtm06\Anaconda3\Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\external\pybind11\include;C:\Users\jtm06\Anaconda3\include;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\..;C:\Users\jtm06\Anaconda3\Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>C:\Users\jtm06\Anaconda3\libs\Python37.lib;dlib_build\Debug\dlib19.19.0_debug_64bit_msvc1921.lib;ws2_32.lib;winmm.lib;comctl32.lib;gdi32.lib;imm32.lib;C:\Users\jtm06\Anaconda3\Library\lib\sqlite3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release/Debug/dlib.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/lib.win-amd64-3.7/Debug/dlib.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\external\pybind11\include;C:\Users\jtm06\Anaconda3\include;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\..;C:\Users\jtm06\Anaconda3\Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;DLIB_NO_ABORT_ON_2ND_FATAL_ERROR;DLIB_JPEG_SUPPORT;DLIB_PNG_SUPPORT;DLIB_VERSION=19.19.0;CMAKE_INTDIR="Release";dlib_python_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;DLIB_NO_ABORT_ON_2ND_FATAL_ERROR;DLIB_JPEG_SUPPORT;DLIB_PNG_SUPPORT;DLIB_VERSION=19.19.0;CMAKE_INTDIR=\"Release\";dlib_python_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\external\pybind11\include;C:\Users\jtm06\Anaconda3\include;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\..;C:\Users\jtm06\Anaconda3\Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\external\pybind11\include;C:\Users\jtm06\Anaconda3\include;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\..;C:\Users\jtm06\Anaconda3\Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>C:\Users\jtm06\Anaconda3\libs\Python37.lib;dlib_build\Release\dlib19.19.0_release_64bit_msvc1921.lib;ws2_32.lib;winmm.lib;comctl32.lib;gdi32.lib;imm32.lib;C:\Users\jtm06\Anaconda3\Library\lib\sqlite3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release/Release/dlib.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/lib.win-amd64-3.7/dlib.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\external\pybind11\include;C:\Users\jtm06\Anaconda3\include;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\..;C:\Users\jtm06\Anaconda3\Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;DLIB_NO_ABORT_ON_2ND_FATAL_ERROR;DLIB_JPEG_SUPPORT;DLIB_PNG_SUPPORT;DLIB_VERSION=19.19.0;CMAKE_INTDIR="MinSizeRel";dlib_python_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;DLIB_NO_ABORT_ON_2ND_FATAL_ERROR;DLIB_JPEG_SUPPORT;DLIB_PNG_SUPPORT;DLIB_VERSION=19.19.0;CMAKE_INTDIR=\"MinSizeRel\";dlib_python_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\external\pybind11\include;C:\Users\jtm06\Anaconda3\include;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\..;C:\Users\jtm06\Anaconda3\Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\external\pybind11\include;C:\Users\jtm06\Anaconda3\include;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\..;C:\Users\jtm06\Anaconda3\Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>C:\Users\jtm06\Anaconda3\libs\Python37.lib;dlib_build\MinSizeRel\dlib19.19.0_minsizerel_64bit_msvc1921.lib;ws2_32.lib;winmm.lib;comctl32.lib;gdi32.lib;imm32.lib;C:\Users\jtm06\Anaconda3\Library\lib\sqlite3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release/MinSizeRel/dlib.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/lib.win-amd64-3.7/MinSizeRel/dlib.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\external\pybind11\include;C:\Users\jtm06\Anaconda3\include;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\..;C:\Users\jtm06\Anaconda3\Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;DLIB_NO_ABORT_ON_2ND_FATAL_ERROR;DLIB_JPEG_SUPPORT;DLIB_PNG_SUPPORT;DLIB_VERSION=19.19.0;CMAKE_INTDIR="RelWithDebInfo";dlib_python_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;DLIB_NO_ABORT_ON_2ND_FATAL_ERROR;DLIB_JPEG_SUPPORT;DLIB_PNG_SUPPORT;DLIB_VERSION=19.19.0;CMAKE_INTDIR=\"RelWithDebInfo\";dlib_python_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\external\pybind11\include;C:\Users\jtm06\Anaconda3\include;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\..;C:\Users\jtm06\Anaconda3\Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\external\pybind11\include;C:\Users\jtm06\Anaconda3\include;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\..;C:\Users\jtm06\Anaconda3\Library\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>C:\Users\jtm06\Anaconda3\libs\Python37.lib;dlib_build\RelWithDebInfo\dlib19.19.0_relwithdebinfo_64bit_msvc1921.lib;ws2_32.lib;winmm.lib;comctl32.lib;gdi32.lib;imm32.lib;C:\Users\jtm06\Anaconda3\Library\lib\sqlite3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release/RelWithDebInfo/dlib.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/lib.win-amd64-3.7/RelWithDebInfo/dlib.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/jtm06/age_gender_estimation/dlib-19.19/tools/python/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\bin\cmake.exe -SC:/Users/jtm06/age_gender_estimation/dlib-19.19/tools/python -BC:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release --check-stamp-file C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeCInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeCXXInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeGenericSystem.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeInitializeConfigs.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeLanguageInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeRCInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeSystemSpecificInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Compiler\MSVC-C.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Compiler\MSVC-CXX.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows-MSVC-C.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows-MSVC.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\WindowsPaths.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeCCompiler.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeCXXCompiler.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeRCCompiler.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeSystem.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\cmake_utils\tell_visual_studio_to_use_static_runtime.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/jtm06/age_gender_estimation/dlib-19.19/tools/python/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\bin\cmake.exe -SC:/Users/jtm06/age_gender_estimation/dlib-19.19/tools/python -BC:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release --check-stamp-file C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeCInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeCXXInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeGenericSystem.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeInitializeConfigs.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeLanguageInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeRCInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeSystemSpecificInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Compiler\MSVC-C.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Compiler\MSVC-CXX.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows-MSVC-C.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows-MSVC.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\WindowsPaths.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeCCompiler.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeCXXCompiler.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeRCCompiler.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeSystem.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\cmake_utils\tell_visual_studio_to_use_static_runtime.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/jtm06/age_gender_estimation/dlib-19.19/tools/python/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\bin\cmake.exe -SC:/Users/jtm06/age_gender_estimation/dlib-19.19/tools/python -BC:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release --check-stamp-file C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeCInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeCXXInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeGenericSystem.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeInitializeConfigs.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeLanguageInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeRCInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeSystemSpecificInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Compiler\MSVC-C.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Compiler\MSVC-CXX.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows-MSVC-C.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows-MSVC.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\WindowsPaths.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeCCompiler.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeCXXCompiler.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeRCCompiler.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeSystem.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\cmake_utils\tell_visual_studio_to_use_static_runtime.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/jtm06/age_gender_estimation/dlib-19.19/tools/python/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\bin\cmake.exe -SC:/Users/jtm06/age_gender_estimation/dlib-19.19/tools/python -BC:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release --check-stamp-file C:/Users/jtm06/age_gender_estimation/dlib-19.19/build/temp.win-amd64-3.7/Release/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeCInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeCXXInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeCommonLanguageInclude.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeGenericSystem.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeInitializeConfigs.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeLanguageInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeRCInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeSystemSpecificInformation.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Compiler\MSVC-C.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Compiler\MSVC-CXX.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows-MSVC-C.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows-MSVC.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\Windows.cmake;C:\Users\jtm06\Anaconda3\Lib\site-packages\cmake\data\share\cmake-3.17\Modules\Platform\WindowsPaths.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeCCompiler.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeCXXCompiler.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeRCCompiler.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\3.17.1\CMakeSystem.cmake;C:\Users\jtm06\age_gender_estimation\dlib-19.19\dlib\cmake_utils\tell_visual_studio_to_use_static_runtime.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\dlib.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\matrix.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\vector.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\svm_c_trainer.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\svm_rank_trainer.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\decision_functions.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\other.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\basic.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\cca.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\sequence_segmenter.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\svm_struct.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\image.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\image2.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\image3.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\image4.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\rectangles.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\object_detection.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\shape_predictor.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\correlation_tracker.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\face_recognition.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\cnn_face_detector.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\global_optimization.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\image_dataset_metadata.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\numpy_returns.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\line.cpp" />
+    <ClCompile Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\tools\python\src\gui.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\ZERO_CHECK.vcxproj">
+      <Project>{57BB9B42-F962-3E6E-8EC3-8159D1CF971A}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\jtm06\age_gender_estimation\dlib-19.19\build\temp.win-amd64-3.7\Release\dlib_build\dlib.vcxproj">
+      <Project>{F604EED7-9C07-33DB-A455-C75F52608A1A}</Project>
+      <Name>dlib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

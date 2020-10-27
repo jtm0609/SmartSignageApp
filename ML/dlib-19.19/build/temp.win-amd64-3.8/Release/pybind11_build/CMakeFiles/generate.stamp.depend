@@ -1,0 +1,14 @@
+# CMake generation dependency list for this directory.
+C:/Users/jtm06/Downloads/SmartAdvertisingBoardApp-master/SmartAdvertisingBoardApp-master/ML/dlib-19.19/dlib/external/pybind11/CMakeLists.txt
+C:/Users/jtm06/Downloads/SmartAdvertisingBoardApp-master/SmartAdvertisingBoardApp-master/ML/dlib-19.19/dlib/external/pybind11/tools/FindPythonLibsNew.cmake
+C:/Users/jtm06/Downloads/SmartAdvertisingBoardApp-master/SmartAdvertisingBoardApp-master/ML/dlib-19.19/dlib/external/pybind11/tools/pybind11Tools.cmake
+C:/Users/jtm06/anaconda3/Lib/site-packages/cmake/data/share/cmake-3.18/Modules/CMakeCheckCompilerFlagCommonPatterns.cmake
+C:/Users/jtm06/anaconda3/Lib/site-packages/cmake/data/share/cmake-3.18/Modules/CMakePackageConfigHelpers.cmake
+C:/Users/jtm06/anaconda3/Lib/site-packages/cmake/data/share/cmake-3.18/Modules/CMakeParseArguments.cmake
+C:/Users/jtm06/anaconda3/Lib/site-packages/cmake/data/share/cmake-3.18/Modules/CheckCXXCompilerFlag.cmake
+C:/Users/jtm06/anaconda3/Lib/site-packages/cmake/data/share/cmake-3.18/Modules/CheckCXXSourceCompiles.cmake
+C:/Users/jtm06/anaconda3/Lib/site-packages/cmake/data/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake
+C:/Users/jtm06/anaconda3/Lib/site-packages/cmake/data/share/cmake-3.18/Modules/FindPackageMessage.cmake
+C:/Users/jtm06/anaconda3/Lib/site-packages/cmake/data/share/cmake-3.18/Modules/FindPythonInterp.cmake
+C:/Users/jtm06/anaconda3/Lib/site-packages/cmake/data/share/cmake-3.18/Modules/GNUInstallDirs.cmake
+C:/Users/jtm06/anaconda3/Lib/site-packages/cmake/data/share/cmake-3.18/Modules/WriteBasicConfigVersionFile.cmake

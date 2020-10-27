@@ -1,0 +1,6 @@
+C:/Users/jtm06/Downloads/SmartAdvertisingBoardApp-master/SmartAdvertisingBoardApp-master/ML/dlib-19.19/build/temp.win-amd64-3.8/Release/CMakeFiles/dlib_python.dir
+C:/Users/jtm06/Downloads/SmartAdvertisingBoardApp-master/SmartAdvertisingBoardApp-master/ML/dlib-19.19/build/temp.win-amd64-3.8/Release/CMakeFiles/ALL_BUILD.dir
+C:/Users/jtm06/Downloads/SmartAdvertisingBoardApp-master/SmartAdvertisingBoardApp-master/ML/dlib-19.19/build/temp.win-amd64-3.8/Release/CMakeFiles/ZERO_CHECK.dir
+C:/Users/jtm06/Downloads/SmartAdvertisingBoardApp-master/SmartAdvertisingBoardApp-master/ML/dlib-19.19/build/temp.win-amd64-3.8/Release/pybind11_build/CMakeFiles/ALL_BUILD.dir
+C:/Users/jtm06/Downloads/SmartAdvertisingBoardApp-master/SmartAdvertisingBoardApp-master/ML/dlib-19.19/build/temp.win-amd64-3.8/Release/dlib_build/CMakeFiles/dlib.dir
+C:/Users/jtm06/Downloads/SmartAdvertisingBoardApp-master/SmartAdvertisingBoardApp-master/ML/dlib-19.19/build/temp.win-amd64-3.8/Release/dlib_build/CMakeFiles/ALL_BUILD.dir

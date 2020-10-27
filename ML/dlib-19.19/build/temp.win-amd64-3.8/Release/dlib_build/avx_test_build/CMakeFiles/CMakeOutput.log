@@ -1,0 +1,56 @@
+Determining if the include file sys/types.h exists passed with the following output:
+Change Dir: C:/Users/jtm06/Downloads/SmartAdvertisingBoardApp-master/SmartAdvertisingBoardApp-master/ML/dlib-19.19/build/temp.win-amd64-3.8/Release/dlib_build/avx_test_build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_09864.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && .NET Framework용 Microsoft (R) Build Engine 버전 16.1.76+g14b0a930a7
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Microsoft (R) C/C++ 최적화 컴파일러 버전 19.21.27702.2(x64)
+  CheckIncludeFile.c
+  Copyright (c) Microsoft Corporation. All rights reserved.
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_09864.dir\Debug\\" /Fd"cmTC_09864.dir\Debug\vc142.pdb" /Gd /TC /errorReport:queue "C:\Users\jtm06\Downloads\SmartAdvertisingBoardApp-master\SmartAdvertisingBoardApp-master\ML\dlib-19.19\build\temp.win-amd64-3.8\Release\dlib_build\avx_test_build\CMakeFiles\CMakeTmp\CheckIncludeFile.c"
+  cmTC_09864.vcxproj -> C:\Users\jtm06\Downloads\SmartAdvertisingBoardApp-master\SmartAdvertisingBoardApp-master\ML\dlib-19.19\build\temp.win-amd64-3.8\Release\dlib_build\avx_test_build\CMakeFiles\CMakeTmp\Debug\cmTC_09864.exe
+
+
+
+Determining if the include file stdint.h exists passed with the following output:
+Change Dir: C:/Users/jtm06/Downloads/SmartAdvertisingBoardApp-master/SmartAdvertisingBoardApp-master/ML/dlib-19.19/build/temp.win-amd64-3.8/Release/dlib_build/avx_test_build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_460a0.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && .NET Framework용 Microsoft (R) Build Engine 버전 16.1.76+g14b0a930a7
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Microsoft (R) C/C++ 최적화 컴파일러 버전 19.21.27702.2(x64)
+  CheckIncludeFile.c
+  Copyright (c) Microsoft Corporation. All rights reserved.
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_460a0.dir\Debug\\" /Fd"cmTC_460a0.dir\Debug\vc142.pdb" /Gd /TC /errorReport:queue "C:\Users\jtm06\Downloads\SmartAdvertisingBoardApp-master\SmartAdvertisingBoardApp-master\ML\dlib-19.19\build\temp.win-amd64-3.8\Release\dlib_build\avx_test_build\CMakeFiles\CMakeTmp\CheckIncludeFile.c"
+  cmTC_460a0.vcxproj -> C:\Users\jtm06\Downloads\SmartAdvertisingBoardApp-master\SmartAdvertisingBoardApp-master\ML\dlib-19.19\build\temp.win-amd64-3.8\Release\dlib_build\avx_test_build\CMakeFiles\CMakeTmp\Debug\cmTC_460a0.exe
+
+
+
+Determining if the include file stddef.h exists passed with the following output:
+Change Dir: C:/Users/jtm06/Downloads/SmartAdvertisingBoardApp-master/SmartAdvertisingBoardApp-master/ML/dlib-19.19/build/temp.win-amd64-3.8/Release/dlib_build/avx_test_build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_9efd2.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && .NET Framework용 Microsoft (R) Build Engine 버전 16.1.76+g14b0a930a7
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Microsoft (R) C/C++ 최적화 컴파일러 버전 19.21.27702.2(x64)
+  CheckIncludeFile.c
+  Copyright (c) Microsoft Corporation. All rights reserved.
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_9efd2.dir\Debug\\" /Fd"cmTC_9efd2.dir\Debug\vc142.pdb" /Gd /TC /errorReport:queue "C:\Users\jtm06\Downloads\SmartAdvertisingBoardApp-master\SmartAdvertisingBoardApp-master\ML\dlib-19.19\build\temp.win-amd64-3.8\Release\dlib_build\avx_test_build\CMakeFiles\CMakeTmp\CheckIncludeFile.c"
+  cmTC_9efd2.vcxproj -> C:\Users\jtm06\Downloads\SmartAdvertisingBoardApp-master\SmartAdvertisingBoardApp-master\ML\dlib-19.19\build\temp.win-amd64-3.8\Release\dlib_build\avx_test_build\CMakeFiles\CMakeTmp\Debug\cmTC_9efd2.exe
+
+
+
+Determining size of void* passed with the following output:
+Change Dir: C:/Users/jtm06/Downloads/SmartAdvertisingBoardApp-master/SmartAdvertisingBoardApp-master/ML/dlib-19.19/build/temp.win-amd64-3.8/Release/dlib_build/avx_test_build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/MSBuild/Current/Bin/MSBuild.exe cmTC_50191.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=16.0 /v:m && .NET Framework용 Microsoft (R) Build Engine 버전 16.1.76+g14b0a930a7
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Microsoft (R) C/C++ 최적화 컴파일러 버전 19.21.27702.2(x64)
+  SIZE_OF_VOID_PTR.c
+  Copyright (c) Microsoft Corporation. All rights reserved.
+  cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_50191.dir\Debug\\" /Fd"cmTC_50191.dir\Debug\vc142.pdb" /Gd /TC /errorReport:queue "C:\Users\jtm06\Downloads\SmartAdvertisingBoardApp-master\SmartAdvertisingBoardApp-master\ML\dlib-19.19\build\temp.win-amd64-3.8\Release\dlib_build\avx_test_build\CMakeFiles\CheckTypeSize\SIZE_OF_VOID_PTR.c"
+  cmTC_50191.vcxproj -> C:\Users\jtm06\Downloads\SmartAdvertisingBoardApp-master\SmartAdvertisingBoardApp-master\ML\dlib-19.19\build\temp.win-amd64-3.8\Release\dlib_build\avx_test_build\CMakeFiles\CMakeTmp\Debug\cmTC_50191.exe
+
+
+

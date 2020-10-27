@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\jtm06\Downloads\SmartAdvertisingBoardApp-master\SmartAdvertisingBoardApp-master\ML\dlib-19.19\build\temp.win-amd64-3.8\Release\CMakeFiles\b82656bb692be62561547687a26e0d12\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{C1494AB6-AC1C-3CFB-BC6C-1DDD8ECC15C5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
