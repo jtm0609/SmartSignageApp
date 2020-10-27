@@ -1,0 +1,14 @@
+서버구축
+
+package.json 작성
+
+.gitignore 복붙
+
+npm install nodemon
+npm install -g nodemon
+npm install express 
+npm install -g express
+npm install -g body-parser
+npm install -g axios
+npm install -g multer
+npm install -g mysql
