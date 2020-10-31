@@ -59,8 +59,71 @@ while True:
     cv2.imwrite("img/"+"capture.jpg",resize_img)
     print(age)
     print(gender)
+
+    ##서버측에서 요구한 사항
+    if gender=='Male'  :
+        #0~6세 남자
+      if age_list.index(age)==0 and age_list.index(age)==1:
+        data=0
+
+        #8~12세 남자
+      elif age_list.index(age)==2:
+        data=1
+        
+        #15~20세 남자
+      elif age_list.index(age)==3:
+        data=2
+
+        #25~32세 남자
+      elif age_list.index(age)==4:
+        data=3
+
+        #38~43세 남자
+      elif age_list.index(age)==5:
+        data=4
+
+        #48~53세 남자
+      elif age_list.index(age)==6:
+        data=5
+
+        #60~100세 남자
+      elif age_list.index(age)==7:
+        data=6
+
+    elif gender=='Female' :
+          #0~6세 여자
+      if age_list.index(age)==0 and age_list.index(age)==1:
+        data=7
+
+        #8~12세 여자
+      elif age_list.index(age)==2:
+        data=8
+        
+        #15~20세 여자
+      elif age_list.index(age)==3:
+        data=9
+
+        #25~32세 여자
+      elif age_list.index(age)==4:
+        data=10
+
+        #38~43세 여자
+      elif age_list.index(age)==5:
+        data=11
+
+        #48~53세 여자
+      elif age_list.index(age)==6:
+        data=12
+
+        #60~100세 여자
+      elif age_list.index(age)==7:
+        data=13
+
+    
+    print(data)
+
     #성별연령 데이터를 서버로보냄
-    r=requests.post('http://benhong.cafe24.com/php/api/Post.php',{'gender':gender,'age':age}).text
+    r=requests.post('http://localhost:4050/index',{'data':daa}).text
     print(r)
     break
 
