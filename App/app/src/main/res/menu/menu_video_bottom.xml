@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/video_trim"
+        android:title="잘라내기"
+        android:icon="@drawable/trim" />
+
+    <item android:id="@+id/video_text"
+        android:title="텍스트"
+
+        android:icon="@drawable/text"/>
+
+    <item android:id="@+id/video_sticker"
+        android:title="스티커"
+        android:icon="@drawable/sticker"/>
+
+    <item android:id="@+id/video_music"
+        android:title="배경음악"
+        android:icon="@drawable/music"/>
+
+
+
+
+
+</menu>

@@ -123,7 +123,7 @@ while True:
     print(data)
 
     #성별연령 데이터를 서버로보냄
-    r=requests.post('http://localhost:4050/index',{'data':daa}).text
+    r=requests.post('http://localhost:4050/index',{'data':data}).text
     print(r)
     break
 
