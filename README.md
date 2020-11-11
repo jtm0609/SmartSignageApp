@@ -27,7 +27,7 @@
 * php를 이용한 회원관리 서버개발(https://github.com/jtm0609/SignUp-Login-php)<br>
   
 
-## 라이브러리
+## 기술 스택
 Glide, Realm, FFMPEG, OKHTTP(RestAPI), 소셜 로그인OpenAPI(카카오,네이버,구글)
 
 ## 설계
