@@ -21,7 +21,7 @@
 * 에디터를 동영상광고, 포토 광고로 구분
 * 앱에서 만든 동영상을 ffmpeg라이브러리를 통해 동영상파일로 변환
 * realm을 통해 만든 광고를 어플내에 저장하여 관리
-* Rest API(OkHttp)통신을 통해 광고영상 서버에 전송<br><br><br>
+* Rest API(OkHttp)통신을 통해 광고영상 서버에 전송<br>
 
 #### 간단한 회원관리 서버 개발(php)
 * php를 이용한 회원관리 서버개발(https://github.com/jtm0609/SignUp-Login-php)<br><br><br>
