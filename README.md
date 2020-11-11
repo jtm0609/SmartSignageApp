@@ -31,7 +31,8 @@
 Glide, Realm, FFMPEG, OKHTTP(RestAPI), 소셜 로그인OpenAPI(카카오,네이버,구글)
 
 ## 시스템 아키텍처
-![설계](https://user-images.githubusercontent.com/48284360/97154811-b77feb80-17b7-11eb-90fa-e517eaa570fa.png)
+![졸잡 앱 설계2](https://user-images.githubusercontent.com/48284360/98843107-da83ee00-248d-11eb-8887-89430c2e1e22.png)
+
 
 
 ## 스크린샷
