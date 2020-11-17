@@ -15,7 +15,7 @@ import android.widget.VideoView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jtmcompany.smartadvertisingboard.R;
@@ -55,18 +55,19 @@ public class VideoStickerFragment extends Fragment implements VideoEdit_StickerB
         addStickerView=new StickerImageView(getContext());
 
         RecyclerView recyclerView=view.findViewById(R.id.sticker_item_recycler);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        //LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
+        //linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        GridLayoutManager gridLayout=new GridLayoutManager(getContext(),3);
+        recyclerView.setLayoutManager(gridLayout);
         //GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),3);
         //recyclerView.setLayoutManager(gridLayoutManager);
 
 
-        list.add(getResources().getDrawable(R.drawable.character4));
-        list.add(getResources().getDrawable(R.drawable.character5));
         list.add(getResources().getDrawable(R.drawable.character1));
         list.add(getResources().getDrawable(R.drawable.character2));
         list.add(getResources().getDrawable(R.drawable.character3));
+        list.add(getResources().getDrawable(R.drawable.character4));
+        list.add(getResources().getDrawable(R.drawable.character5));
         list.add(getResources().getDrawable(R.drawable.character6));
         VideoEdit_StickerBottomsheet_RecyclerAdapter recyclerAdapter=new VideoEdit_StickerBottomsheet_RecyclerAdapter(list);
         recyclerAdapter.setOnStickerListener(this);

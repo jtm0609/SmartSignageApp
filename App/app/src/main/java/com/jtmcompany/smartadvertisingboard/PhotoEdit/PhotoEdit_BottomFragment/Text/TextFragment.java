@@ -3,15 +3,14 @@ package com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEdit_BottomFragment.
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerTextView;
@@ -35,7 +34,7 @@ public class TextFragment extends Fragment implements TextRecyclerAdapter.TextSe
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_text, container, false);
         recyclerView=view.findViewById(R.id.text_recycler);
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),3);
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),2);
         list.add(getResources().getDrawable(R.drawable.text1));
         list.add(getResources().getDrawable(R.drawable.text2));
         list.add(getResources().getDrawable(R.drawable.text3));

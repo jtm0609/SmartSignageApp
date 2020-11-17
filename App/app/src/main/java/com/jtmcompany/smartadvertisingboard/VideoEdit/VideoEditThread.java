@@ -66,9 +66,9 @@ public class VideoEditThread implements Runnable {
                         addView_appear(start_time, end_time, VideoEditAtivity.addItemList.get(i).getStickerView());
                     }
                 }
-                handler.postDelayed(VideoEditThread.this, 100);
+                handler.postDelayed(VideoEditThread.this, 10);
             }
-        }, 100);
+        }, 10);
     }
 
 
@@ -89,6 +89,7 @@ public class VideoEditThread implements Runnable {
                 Log.d("tak3", "2");
             }
         } else {
+            if(insert_stickerView!=null)
             insert_stickerView.setVisibility(View.VISIBLE);
         }
 

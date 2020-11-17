@@ -16,7 +16,7 @@ import android.widget.VideoView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jtmcompany.smartadvertisingboard.R;
@@ -67,9 +67,10 @@ public class VideoTextFragment extends Fragment implements VideoEdit_TextBottoms
 
 
         });
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        //LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
+        //linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),2);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
         list.add(getResources().getDrawable(R.drawable.text1));
         list.add(getResources().getDrawable(R.drawable.text2));

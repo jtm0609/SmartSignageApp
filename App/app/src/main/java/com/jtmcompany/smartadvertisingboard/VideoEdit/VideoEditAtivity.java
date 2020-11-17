@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Point;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -32,11 +34,11 @@ import com.jtmcompany.smartadvertisingboard.FFmpeg_Task;
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerImageView;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerView;
+import com.jtmcompany.smartadvertisingboard.Utils.getPathUtils;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Adapter.VideoEdit_RecyclerAdapter;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.Music.MusicList;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.EditorMenu_VO;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.addItem_VO;
-import com.jtmcompany.smartadvertisingboard.Utils.getPathUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -88,7 +90,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
     private TextView progressBar_endTv;
     private long backKeyClickTime=0;
     private VideoEditThread videoEditThread;
-
+    private int width,height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,8 +150,15 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         fragmentManager=getSupportFragmentManager();
     }
 
+
+
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
+        Display display =getWindowManager().getDefaultDisplay();
+        Point size=new Point();
+        display.getSize(size);
+
+
         if(isMusicSelected) {
             mediaPlayer.setVolume(0, 0);
         }
@@ -248,6 +257,17 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             }
 
         }else if(view==complete_bt){
+            //비디오의 넓이, 높이
+            width=videoView.getWidth();
+            height=videoView.getHeight();
+
+            //해상도가 2로 떨어지지않으면 ffmpeg 작업 에서 오류가 나기떄문에 짝수로 맞춰준다.
+            if(width%2!=0) width++;
+            if(height%2!=0) height++;
+
+            //현재비디오뷰의 크기와 높이
+            Log.d("tak17", String.valueOf(videoView.getWidth()));
+            Log.d("tak17", String.valueOf(videoView.getHeight()));
             if(select_Music_Uri!=null)
                 musicPath= getPathUtils.getPath(VideoEditAtivity.this, select_Music_Uri);
 
@@ -256,6 +276,8 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             videoView.getLocationOnScreen(location);
             int videoX=location[0];
             int videoY=location[1];
+            Log.d("tak14", String.valueOf(videoX));
+            Log.d("tak14", String.valueOf(videoY));
             //*****구현이 필요한부분
             Log.d("tak14","chidCount: "+videoView_container.getChildCount());
             Log.d("tak14","addItemSize: "+addItemList.size());
@@ -312,6 +334,9 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
                     Log.d("tak14","addItem: "+addItem);
                     Log.d("tak14","itemX: "+itemX);
                     Log.d("tak14","itemY: "+itemY);
+                    Log.d("tak14","width: "+width);
+                    Log.d("tak14","height: "+height);
+                    if(addItemList.size()!=0)
                     updateItemList.add(new addItem_VO(itemPath,itemWidth,itemHeight,itemStartTime,itemEndTime,addItem,itemX,itemY));
 
                 }
@@ -324,12 +349,15 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             positiveLisener=new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     String videoTitle=customDialog.getTitleET().getText().toString();
 
                     if(videoTitle.equals(""))
                         Toast.makeText(VideoEditAtivity.this, "빈칸을 채워주세요.", Toast.LENGTH_SHORT).show();
                     else{
-                        FFmpeg_Task ffmpeg_task=new FFmpeg_Task(VideoEditAtivity.this,videoPath,musicPath,addItemList,videoTitle);
+
+
+                        FFmpeg_Task ffmpeg_task=new FFmpeg_Task(VideoEditAtivity.this,videoPath,musicPath,addItemList,videoTitle,width,height);
                         ffmpeg_task.loadFFMpegBinary();
                         ffmpeg_task.executeCutVideoCommand(trim_start, trim_end);
                         finish();
@@ -340,6 +368,7 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
             negativeLisener=new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //addItemList.clear();
                     customDialog.dismiss();
                 }
             };
@@ -402,6 +431,9 @@ public class VideoEditAtivity extends AppCompatActivity implements VideoEdit_Rec
         if(addItemList!=null)
             addItemList.clear();
         Log.d("tak12","onDestroy");
+
+        //static변수는 프로세스를 종료하지않는이상 죽지않으니 0으로초기화시켜준다
+        trim_start=0; trim_end=0; music_trim_start=0; music_trim_end=0;
     }
 
     //갤러리에서 이미지를골랐을때 비디오콘테이너에 추가한다.

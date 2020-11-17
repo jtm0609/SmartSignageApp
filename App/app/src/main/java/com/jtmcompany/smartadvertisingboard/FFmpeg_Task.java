@@ -37,6 +37,7 @@ public class FFmpeg_Task {
     private String trimVideoPath,trimMusicPath,musicVideoPath,imageVideoPath;
     File moviesDir;
     private List<addItem_VO> addItemList;
+    int width,height;
 
 
     //포토에디터 매개변수
@@ -55,12 +56,14 @@ public class FFmpeg_Task {
 
 
     //비디오
-    public FFmpeg_Task(Context mContext, String selectVideoPath, String selectMusicPath, List<addItem_VO> list ,String videoTitle) {
+    public FFmpeg_Task(Context mContext, String selectVideoPath, String selectMusicPath, List<addItem_VO> list ,String videoTitle,int width, int height) {
         this.mContext = mContext;
         this.selectVideoPath=selectVideoPath;
         this.selectMusicPath=selectMusicPath;
         this.addItemList=list;
         this.videoTitle=videoTitle;
+        this.width=width;
+        this.height=height;
     }
 
     //포토
@@ -119,7 +122,8 @@ public class FFmpeg_Task {
         trimVideoPath=dest.getAbsolutePath();
 
         //1. 동영상 trim
-        String[] complexCommand = {"-ss", "" + startsMs, "-y", "-i", selectVideoPath, "-t", "" + (endMs - startsMs), "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050","-vf","scale=720:1280" ,trimVideoPath};
+        String[] complexCommand = {"-ss", "" + startsMs, "-y", "-i", selectVideoPath, "-t", "" + (endMs - startsMs), "-vcodec", "mpeg4", "-b:v", "2097152", "-b:a", "48000", "-ac", "2", "-ar", "22050","-vf","scale="+width+":"+height,trimVideoPath};
+
         execFFmpegBinary(complexCommand);
 
 
@@ -203,7 +207,9 @@ public class FFmpeg_Task {
         //scale과 overlay 명령어 설정
         //video의 해상도설정
         //String scale_str="[0:v]scale=922:1084[p1]";
-        String scale_str="[0:v]scale=720:1280[p1]";
+        String scale_str="[0:v]scale="+width+":"+height+"[p1]";
+        Log.d("tak18","넓이: "+width);
+        Log.d("tak18","높이: "+height);
 
         String overlay_str="";
         String filterComplex_info="";

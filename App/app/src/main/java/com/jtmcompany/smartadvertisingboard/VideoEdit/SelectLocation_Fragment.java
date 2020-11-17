@@ -165,9 +165,9 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
 
                 }
 
-                handler.postDelayed(r,100);
+                handler.postDelayed(r,10);
             }
-        },100);
+        },10);
 
     }
 

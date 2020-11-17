@@ -44,6 +44,7 @@ public class TextRecyclerAdapter extends RecyclerView.Adapter<TextRecyclerAdapte
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
         holder.imageView.setImageDrawable(list.get(position));
+        holder.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

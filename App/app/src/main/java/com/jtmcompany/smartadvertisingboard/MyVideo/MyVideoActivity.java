@@ -104,7 +104,7 @@ public class MyVideoActivity extends AppCompatActivity implements MyVideoRecycle
     public void onUpload(String path) {
         File file=new File(path);
         FileUploadUtils.sendServer(file);
-        Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "전송했습니다.", Toast.LENGTH_SHORT).show();
     }
 
     //광고삭제

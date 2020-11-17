@@ -38,6 +38,7 @@ public class FileUploadUtils {
             public void onResponse(Call call, Response response) throws IOException {
             Log.d("tak55",response.body().string());
             Log.d("tak55","동영상 업로드 완료");
+
             }
         });
 

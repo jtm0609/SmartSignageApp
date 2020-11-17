@@ -3,18 +3,16 @@ package com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEdit_BottomFragment.
 
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.jtmcompany.smartadvertisingboard.PhotoEdit.PhotoEdit_BottomFragment.GifRecyclerAdapter;
@@ -63,7 +61,7 @@ public class MotionFragment extends Fragment implements GifRecyclerAdapter.Motio
         textRecyclerAdapter.MotionSetOnClickListener(new MotionTextRecyclerAdapter.MotionTextSelectListener() {
             @Override
             public void onItemClick(View v, int position) {
-                Toast.makeText(getContext(), ""+position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), ""+position, Toast.LENGTH_SHORT).show();
                 Uri_list.clear();
                 if(position==0){
                     Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy1"));

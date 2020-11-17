@@ -6,11 +6,11 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="11"
-8-->C:\Users\jtm06\AndroidStudioProjects\graduation\SmartAdvertisingBoard\video-range-slider\src\main\AndroidManifest.xml
+8-->C:\Users\jtm06\AndroidStudioProjects\graduation\App\video-range-slider\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="24" />
-9-->C:\Users\jtm06\AndroidStudioProjects\graduation\SmartAdvertisingBoard\video-range-slider\src\main\AndroidManifest.xml
+9-->C:\Users\jtm06\AndroidStudioProjects\graduation\App\video-range-slider\src\main\AndroidManifest.xml
 10
 11    <application />
-11-->C:\Users\jtm06\AndroidStudioProjects\graduation\SmartAdvertisingBoard\video-range-slider\src\main\AndroidManifest.xml:2:5-19
+11-->C:\Users\jtm06\AndroidStudioProjects\graduation\App\video-range-slider\src\main\AndroidManifest.xml:2:5-19
 12
 13</manifest>

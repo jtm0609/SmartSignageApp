@@ -1,7 +1,7 @@
 import cv2, glob, dlib, requests
 
 
-age_list = ['(0, 2)','(4, 6)','(8, 12)','(15, 20)','(25, 32)','(38, 43)','(48, 53)','(60, 100)']
+age_list = ['(20, 29)','(20, 29)','(20, 29)','(20, 29)','(30, 39)','(30, 39)','(40, 49)','(50, 59)']
 gender_list = ['Male', 'Female']
 
 detector = dlib.get_frontal_face_detector()
@@ -62,75 +62,48 @@ while True:
 
     ##서버측에서 요구한 사항
     if gender=='Male'  :
-        #0~6세 남자
-      if age_list.index(age)==0 and age_list.index(age)==1:
-        data=0
-
-        #8~12세 남자
-      elif age_list.index(age)==2:
+        #20대 남자
+      if age_list.index(age)==0 or age_list.index(age)==1 or age_list.index(age)==2 or age_list.index(age)==3:
         data=1
-        
-        #15~20세 남자
-      elif age_list.index(age)==3:
-        data=2
 
-        #25~32세 남자
-      elif age_list.index(age)==4:
+        #30대 남자
+      elif age_list.index(age)==4 or age_list.index(age)==5:
+        data=2
+        
+        #40대 남자
+      elif age_list.index(age)==6:
         data=3
 
-        #38~43세 남자
-      elif age_list.index(age)==5:
+        #50대 남자
+      elif age_list.index(age)==7:
         data=4
 
-        #48~53세 남자
-      elif age_list.index(age)==6:
+        
+    
+    elif gender=='Female' :
+          #20대 여자
+      if age_list.index(age)==0 or age_list.index(age)==1 or age_list.index(age)==2 or age_list.index(age)==3:
         data=5
 
-        #60~100세 남자
-      elif age_list.index(age)==7:
+        #30대 여자
+      elif age_list.index(age)==4 or age_list.index(age)==5:
         data=6
-
-    elif gender=='Female' :
-          #0~6세 여자
-      if age_list.index(age)==0 and age_list.index(age)==1:
+        
+        #40대 여자
+      elif age_list.index(age)==6:
         data=7
 
-        #8~12세 여자
-      elif age_list.index(age)==2:
-        data=8
-        
-        #15~20세 여자
-      elif age_list.index(age)==3:
-        data=9
-
-        #25~32세 여자
-      elif age_list.index(age)==4:
-        data=10
-
-        #38~43세 여자
-      elif age_list.index(age)==5:
-        data=11
-
-        #48~53세 여자
-      elif age_list.index(age)==6:
-        data=12
-
-        #60~100세 여자
+        #50대 여자
       elif age_list.index(age)==7:
-        data=13
+        data=8
 
-    
     print(data)
 
     #성별연령 데이터를 서버로보냄
     r=requests.post('http://localhost:4050/index',{'data':data}).text
     print(r)
-    break
 
-#일시멈춤-> esc누르면 종료
-k=cv2.waitKey(0)
-if k==27:
-  cv2.destroyAllWindows()      
+
 
 #capture.release()
 
