@@ -37,14 +37,16 @@ Java, Android, Glide, Realm, FFMPEG, OKHTTP(RestAPI), 소셜 로그인OpenAPI(�
 
 ## 스크린샷
 <div>
+<img width="200" src="https://user-images.githubusercontent.com/48284360/99533562-73b08880-29e9-11eb-8bb7-b2eb8607f185.jpg">   
 <img width="200" src="https://user-images.githubusercontent.com/48284360/96737377-935b8d80-13f8-11eb-9be8-577fcd625c2c.jpg"> 
-<img width="200" src="https://user-images.githubusercontent.com/48284360/96737395-96567e00-13f8-11eb-9c6b-e91c0d5aec52.jpg">
-<img width="200" src="https://user-images.githubusercontent.com/48284360/96737404-99ea0500-13f8-11eb-9b3f-a5353806970c.jpg">
-<img width="200" src="https://user-images.githubusercontent.com/48284360/96737417-9c4c5f00-13f8-11eb-9593-cd45c2f7f9f9.jpg">
-<img width="200" src="https://user-images.githubusercontent.com/48284360/96737426-9f474f80-13f8-11eb-86c3-b99e723d15af.jpg">
-<img width="200" src="https://user-images.githubusercontent.com/48284360/96737431-a2424000-13f8-11eb-91e2-e2079ff1f70e.jpg">
-<img width="200" src="https://user-images.githubusercontent.com/48284360/97155794-36c1ef00-17b9-11eb-8742-8dd8e0f5e30c.jpg">
-<img width="200" src="https://user-images.githubusercontent.com/48284360/97155780-345f9500-17b9-11eb-84b2-88a482427e4a.jpg">
+  
+<img width="200" src="https://user-images.githubusercontent.com/48284360/99533583-7ca15a00-29e9-11eb-8070-1e1340d78bb9.jpg">
+<img width="200" src="https://user-images.githubusercontent.com/48284360/99533596-7f9c4a80-29e9-11eb-8257-cfdcfb10dab5.jpg">
+<img width="200" src="https://user-images.githubusercontent.com/48284360/99533603-80cd7780-29e9-11eb-8b8a-924d9a722b27.jpg">
+<img width="200" src="https://user-images.githubusercontent.com/48284360/99533606-81fea480-29e9-11eb-9f9a-b426bac01036.jpg">
+<img width="200" src="https://user-images.githubusercontent.com/48284360/99533613-832fd180-29e9-11eb-9751-be64c3a412fd.jpg">
+<img width="200" src="https://user-images.githubusercontent.com/48284360/99533615-83c86800-29e9-11eb-8478-f4e38ba889c9.jpg">
+<img width="200" src="https://user-images.githubusercontent.com/48284360/99533618-84f99500-29e9-11eb-9b84-0ec0ad12cb53.jpg">
 
 </div>
 <br>
