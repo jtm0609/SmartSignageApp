@@ -36,13 +36,14 @@ Java, Android, Glide, Realm, FFMPEG, OKHTTP(RestAPI), 소셜 로그인OpenAPI(�
 
 
 ## 스크린샷
+#### 메인화면
 <div>
 <img width="200" src="https://user-images.githubusercontent.com/48284360/99533562-73b08880-29e9-11eb-8bb7-b2eb8607f185.jpg">   
 <img width="200" src="https://user-images.githubusercontent.com/48284360/96737377-935b8d80-13f8-11eb-9be8-577fcd625c2c.jpg"> <br>
   </div>
   
 #### 동영상 에디터
-#### 
+
   <div>
 <img width="200" src="https://user-images.githubusercontent.com/48284360/99533583-7ca15a00-29e9-11eb-8070-1e1340d78bb9.jpg">
 <img width="200" src="https://user-images.githubusercontent.com/48284360/99533596-7f9c4a80-29e9-11eb-8257-cfdcfb10dab5.jpg">
