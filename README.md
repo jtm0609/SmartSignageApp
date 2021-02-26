@@ -34,7 +34,7 @@
 * Realm
 * FFMPEG
 * OKHTTP,
-* Login API(KAKAO, NAVER, Google)<br><br><br>
+* Login API (KAKAO, NAVER, Google)<br><br><br>
 
 ## 시스템 아키텍처
 ![졸잡 앱 설계2](https://user-images.githubusercontent.com/48284360/98843107-da83ee00-248d-11eb-8887-89430c2e1e22.png)<br><br><br>
