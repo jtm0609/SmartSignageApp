@@ -28,8 +28,7 @@
   
 
 ## 기술 스택
-* Java
-* Android
+* Android (Java)
 * Glide 
 * Realm
 * FFMPEG
