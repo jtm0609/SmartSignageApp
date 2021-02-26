@@ -26,16 +26,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class VideoStickerFragment extends Fragment implements VideoEdit_StickerBottomsheet_RecyclerAdapter.stickerClickListener {
+public class VideoStickerFragment extends Fragment implements VideoEdit_StickerBottomsheet_RecyclerAdapter.stickerClickListener, View.OnClickListener {
 
-    private ImageView stickerInsert_bt;
-    private ImageView stickerExit_bt;
-    FrameLayout videoView_container;
-    VideoView mVideoview;
-    Uri mVideoSelectUri;
-    List<Bitmap> mlist=new ArrayList<>();
+    private ImageView stickerInsertBt;
+    private ImageView stickerExitBt;
+    private FrameLayout videoView_container;
+    private VideoView mVideoview;
+    private Uri mVideoSelectUri;
+    private List<Bitmap> mlist=new ArrayList<>();
     private boolean addFlag=false;
     private StickerImageView addStickerView;
+    List<Drawable> list = new ArrayList<>();
 
     public VideoStickerFragment(FrameLayout videoView_container, VideoView videoView, Uri uri, List list) {
         this.videoView_container = videoView_container;
@@ -50,48 +51,34 @@ public class VideoStickerFragment extends Fragment implements VideoEdit_StickerB
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_video_sticker, container, false);
 
-        List<Drawable> list = new ArrayList<>();
+        stickerInsertBt=view.findViewById(R.id.sticker_insert);
+        stickerExitBt=view.findViewById(R.id.sticker_exit);
 
         addStickerView=new StickerImageView(getContext());
 
+        //리싸이클러뷰 설정
         RecyclerView recyclerView=view.findViewById(R.id.sticker_item_recycler);
-        //LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
-        //linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         GridLayoutManager gridLayout=new GridLayoutManager(getContext(),3);
         recyclerView.setLayoutManager(gridLayout);
-        //GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),3);
-        //recyclerView.setLayoutManager(gridLayoutManager);
+        addListItem();
+        VideoEdit_StickerBottomsheet_RecyclerAdapter recyclerAdapter=new VideoEdit_StickerBottomsheet_RecyclerAdapter(list);
+        recyclerAdapter.setOnStickerListener(this);
+        recyclerView.setAdapter(recyclerAdapter);
 
+        stickerExitBt.setOnClickListener(this); //취소 버튼
 
+        stickerInsertBt.setOnClickListener(this); // V 버튼
+
+        return view;
+    }
+
+    public void addListItem(){
         list.add(getResources().getDrawable(R.drawable.character1));
         list.add(getResources().getDrawable(R.drawable.character2));
         list.add(getResources().getDrawable(R.drawable.character3));
         list.add(getResources().getDrawable(R.drawable.character4));
         list.add(getResources().getDrawable(R.drawable.character5));
         list.add(getResources().getDrawable(R.drawable.character6));
-        VideoEdit_StickerBottomsheet_RecyclerAdapter recyclerAdapter=new VideoEdit_StickerBottomsheet_RecyclerAdapter(list);
-        recyclerAdapter.setOnStickerListener(this);
-        recyclerView.setAdapter(recyclerAdapter);
-
-        stickerInsert_bt=view.findViewById(R.id.sticker_insert);
-        stickerExit_bt=view.findViewById(R.id.sticker_exit);
-        //취소버튼
-        stickerExit_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().remove(VideoStickerFragment.this).commit();
-
-                Log.d("tak3","취소");
-
-                //레이아웃에 아이템을 추가했다면
-                if(addFlag) {
-                    videoView_container.removeView(addStickerView);
-                }
-            }
-        });
-
-        return view;
     }
 
 
@@ -107,20 +94,28 @@ public class VideoStickerFragment extends Fragment implements VideoEdit_StickerB
         //추가되었다면, flag를 true로 설정
         addFlag=true;
 
-        // V 버튼
-        stickerInsert_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().remove(VideoStickerFragment.this).commit();
 
-                SelectLocation_Fragment selectLocation_fragment =new SelectLocation_Fragment(mVideoview,mVideoSelectUri,mlist,addStickerView,videoView_container);
-                fragmentManager.beginTransaction().add(R.id.con, selectLocation_fragment).commit();
-
-
-            }
-        });
 
     }
 
+    @Override
+    public void onClick(View view) {
+        if(view==stickerExitBt){
+            Log.d("tak3","취소");
+            FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction().remove(VideoStickerFragment.this).commit();
+
+            //레이아웃에 아이템을 추가했다면
+            if(addFlag) {
+                videoView_container.removeView(addStickerView);
+            }
+        }
+        else if(view==stickerInsertBt){
+            FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+            fragmentManager.beginTransaction().remove(VideoStickerFragment.this).commit();
+
+            SelectLocation_Fragment selectLocation_fragment =new SelectLocation_Fragment(mVideoview,mVideoSelectUri,mlist,addStickerView,videoView_container);
+            fragmentManager.beginTransaction().add(R.id.con, selectLocation_fragment).commit();
+        }
+    }
 }

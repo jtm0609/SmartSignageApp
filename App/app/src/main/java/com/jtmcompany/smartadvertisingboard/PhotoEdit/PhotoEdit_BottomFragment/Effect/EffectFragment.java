@@ -35,19 +35,9 @@ public class EffectFragment extends Fragment implements GifRecyclerAdapter.Motio
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_effect, container, false);
-
         recyclerView=view.findViewById(R.id.effect_recycler);
 
-        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect1"));
-        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect2"));
-        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect3"));
-        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect4"));
-        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect5"));
-        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect6"));
-        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect7"));
-        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect8"));
-        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect9"));
-
+        addListItem();
 
         gifRecyclerAdapter=new GifRecyclerAdapter(list,getContext());
         recyclerView.setAdapter(gifRecyclerAdapter);
@@ -58,6 +48,17 @@ public class EffectFragment extends Fragment implements GifRecyclerAdapter.Motio
         return view;
     }
 
+    void addListItem(){
+        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect1"));
+        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect2"));
+        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect3"));
+        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect4"));
+        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect5"));
+        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect6"));
+        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect7"));
+        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect8"));
+        list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/effect9"));
+    }
 
     @Override
     public void onClick(View v, int position, Uri gif_uri) {

@@ -2,22 +2,18 @@ package com.jtmcompany.smartadvertisingboard.VideoEdit.VO;
 
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerView;
 
-public class addItem_VO {
+public class addItemVO {
     private StickerView stickerView;
 
 
-
     private String path;
-    private int start;
-    private int end;
-    private int width;
-    private int height;
-    private int X;
-    private int Y;
+    private int start,end;
+    private int width,height;
+    private int X,Y;
 
 
 
-    public addItem_VO(String path, int width, int height, int start_time, int end_time, StickerView stickerView, int X, int Y) {
+    public addItemVO(String path, int width, int height, int start_time, int end_time, StickerView stickerView, int X, int Y) {
         this.path = path;
         this.start = start_time;
         this.end = end_time;
@@ -29,7 +25,7 @@ public class addItem_VO {
 
     }
 
-    public addItem_VO(StickerView stickerView, int start, int end) {
+    public addItemVO(StickerView stickerView, int start, int end) {
         this.stickerView = stickerView;
         this.start = start;
         this.end = end;

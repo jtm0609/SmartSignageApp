@@ -3,11 +3,11 @@ package com.jtmcompany.smartadvertisingboard.VideoEdit.Music;
 import android.net.Uri;
 
 public class MusicData {
-    Uri musicImg;
-    String musicTitle;
-    String musicSinger;
-    String albumId;
-    String musicId;
+    private Uri musicImg;
+    public String musicTitle;
+    private String musicSinger;
+    private String albumId;
+    private String musicId;
 
     public Uri getMusicImg() {
         return musicImg;

@@ -23,9 +23,9 @@ import java.util.ArrayList;
 public class MusicList extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private static final int RESULT_OK_MUSIC = 300;
-    ListView musicListView;
-    MusicListViewAdapter adapter;
-    ArrayList<MusicData> list=new ArrayList<>();
+    private ListView musicListView;
+    private MusicListViewAdapter adapter;
+    private ArrayList<MusicData> list=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +87,6 @@ public class MusicList extends AppCompatActivity implements AdapterView.OnItemCl
         );
 
         if(cursor!=null){
-
-
-
             while(cursor.moveToNext()){
                 try{
                     //Music이라면(mp3라면)

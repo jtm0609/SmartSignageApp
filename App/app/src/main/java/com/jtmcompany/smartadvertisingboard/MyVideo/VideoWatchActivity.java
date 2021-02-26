@@ -18,9 +18,11 @@ public class VideoWatchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_watch);
         videoView=findViewById(R.id.myVideo);
+
         Intent intent=getIntent();
         String videoPath=intent.getStringExtra("videoPath");
         videoView.setVideoPath(videoPath);
+
         //비디오의 재생, 일시정지등을 할 수있는 컨트롤바 설정
         videoView.setMediaController(new MediaController(this));
 

@@ -16,8 +16,8 @@ import java.util.List;
 
 public class VideoEdit_StickerBottomsheet_RecyclerAdapter extends RecyclerView.Adapter<VideoEdit_StickerBottomsheet_RecyclerAdapter.ViewHolder> {
 
-    List<Drawable> mImages=new ArrayList<>();
-    stickerClickListener mListener;
+    private List<Drawable> mImages=new ArrayList<>();
+    private stickerClickListener mListener;
 
     public interface stickerClickListener{
         void stickerOnClick(int position,Drawable drawable);

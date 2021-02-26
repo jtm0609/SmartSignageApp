@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyVideoRecyclerAdapter extends RecyclerView.Adapter<MyVideoRecyclerAdapter.myViewHolder> {
-    List<MyVideo_Model> list=new ArrayList<>();
+    List<MyVideoModel> list=new ArrayList<>();
     myVideoWatchListener watchListener;
     myVideoUploadListener uploadListener;
     myVideoDeleteListener deleteListener;
@@ -44,7 +44,7 @@ public class MyVideoRecyclerAdapter extends RecyclerView.Adapter<MyVideoRecycler
     public void setMyVideoDeleteListener(myVideoDeleteListener myVideoDeleteListener){
         this.deleteListener=myVideoDeleteListener;
     }
-    public MyVideoRecyclerAdapter(List<MyVideo_Model> list) {
+    public MyVideoRecyclerAdapter(List<MyVideoModel> list) {
         this.list = list;
     }
 
@@ -57,23 +57,23 @@ public class MyVideoRecyclerAdapter extends RecyclerView.Adapter<MyVideoRecycler
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, final int position) {
-        final MyVideo_Model model=list.get(position);
-        holder.image.setImageBitmap(model.getImg());
-        holder.title.setText(model.getTitle());
+        final MyVideoModel model=list.get(position);
+        holder.thumnailIv.setImageBitmap(model.getImg());
+        holder.titleTv.setText(model.getTitle());
 
-        holder.play_bt.setOnClickListener(new View.OnClickListener() {
+        holder.playIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 watchListener.onClick(model.getPath());
             }
         });
-        holder.upload_bt.setOnClickListener(new View.OnClickListener() {
+        holder.uploadBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 uploadListener.onUpload(model.getPath());
             }
         });
-        holder.delete_bt.setOnClickListener(new View.OnClickListener() {
+        holder.deleteBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 deleteListener.onDelete(model.getPath(),position);
@@ -90,19 +90,19 @@ public class MyVideoRecyclerAdapter extends RecyclerView.Adapter<MyVideoRecycler
     }
 
     class myViewHolder extends RecyclerView.ViewHolder{
-        ImageView image;
-        TextView title;
-        ImageView play_bt;
-        Button upload_bt;
-        Button delete_bt;
+        ImageView thumnailIv;
+        ImageView playIv;
+        TextView titleTv;
+        Button uploadBt;
+        Button deleteBt;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
-            image=itemView.findViewById(R.id.advertise_img);
-            title=itemView.findViewById(R.id.advertise_title);
-            play_bt=itemView.findViewById(R.id.myVideoPlay);
-            upload_bt=itemView.findViewById(R.id.web_upload_bt);
-            delete_bt=itemView.findViewById(R.id.delete_bt);
+            thumnailIv=itemView.findViewById(R.id.advertise_img);
+            titleTv=itemView.findViewById(R.id.advertise_title);
+            playIv=itemView.findViewById(R.id.myVideoPlay);
+            uploadBt=itemView.findViewById(R.id.web_upload_bt);
+            deleteBt=itemView.findViewById(R.id.delete_bt);
         }
     }
 

@@ -16,10 +16,10 @@ import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
 import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
-import com.jtmcompany.smartadvertisingboard.DB.MyVideoDB;
+import com.jtmcompany.smartadvertisingboard.RealmDB.MyVideoDB;
 import com.jtmcompany.smartadvertisingboard.MyVideo.MyVideoActivity;
 import com.jtmcompany.smartadvertisingboard.PhotoEdit.ItemInfo;
-import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.addItem_VO;
+import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.addItemVO;
 import com.jtmcompany.smartadvertisingboard.VideoEdit.VideoEditAtivity;
 
 import java.io.File;
@@ -36,7 +36,7 @@ public class FFmpeg_Task {
     private ExecuteBinaryResponseHandler handler;
     private String trimVideoPath,trimMusicPath,musicVideoPath,imageVideoPath;
     File moviesDir;
-    private List<addItem_VO> addItemList;
+    private List<addItemVO> addItemList;
     int width,height;
 
 
@@ -56,7 +56,7 @@ public class FFmpeg_Task {
 
 
     //비디오
-    public FFmpeg_Task(Context mContext, String selectVideoPath, String selectMusicPath, List<addItem_VO> list ,String videoTitle,int width, int height) {
+    public FFmpeg_Task(Context mContext, String selectVideoPath, String selectMusicPath, List<addItemVO> list , String videoTitle, int width, int height) {
         this.mContext = mContext;
         this.selectVideoPath=selectVideoPath;
         this.selectMusicPath=selectMusicPath;

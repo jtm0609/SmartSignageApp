@@ -17,11 +17,10 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class Http_Request_MyServerDB  {
-    private String mName;
-    private String mEmail;
-    private String mpw;
+    private String mName,mEmail,mpw;
     private String SERVER_URL;
     private Handler mhandler;
+
     //SNS 회원가입할때 요청됨
     public Http_Request_MyServerDB(String name, String email, String pw) {
         mName=name;
@@ -42,7 +41,6 @@ public class Http_Request_MyServerDB  {
         mpw=pw;
     }
 
-
     public String Request_Signup() {
                 try{
                     SERVER_URL="http://15.164.163.214/index.php";
@@ -57,7 +55,6 @@ public class Http_Request_MyServerDB  {
                     e.printStackTrace();
                 }
 
-
         return null;
     }
 
@@ -69,11 +66,7 @@ public class Http_Request_MyServerDB  {
             String posData = "email=" + mEmail+ "&" + "pw="+mpw;
             Request_MyServer(url, posData);
 
-
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        } catch (MalformedURLException e) { e.printStackTrace(); }
        return null;
     }
 
@@ -117,7 +110,6 @@ public class Http_Request_MyServerDB  {
                 }
             };
             thread.start();
-
 
         return null;
     }

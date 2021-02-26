@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrimRecyclerAdapter extends RecyclerView.Adapter<TrimRecyclerAdapter.Viewholder> {
-    List<Bitmap> mbitmaps=new ArrayList<>();
-    int mItemWidth;
+    private List<Bitmap> mbitmaps=new ArrayList<>();
+    private int mItemWidth;
 
     public TrimRecyclerAdapter(List<Bitmap> bitmaps, int itemwidth) {
         this.mbitmaps = bitmaps;

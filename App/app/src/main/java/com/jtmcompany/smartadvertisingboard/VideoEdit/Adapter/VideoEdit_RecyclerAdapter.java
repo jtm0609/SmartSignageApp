@@ -10,16 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jtmcompany.smartadvertisingboard.R;
-import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.EditorMenu_VO;
+import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.EditorMenuVO;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VideoEdit_RecyclerAdapter extends RecyclerView.Adapter<VideoEdit_RecyclerAdapter.ViewHolder>{
-    List<EditorMenu_VO> editor_list=new ArrayList<>();
-    OnClickEditor_ModelListener mListener;
+    private List<EditorMenuVO> editor_list=new ArrayList<>();
+    private OnClickEditor_ModelListener mListener;
     public interface OnClickEditor_ModelListener{
-        public void OnClickedEditor_Model(int position);
+        public void OnClickedEditorItem(int position);
     }
 
     public void setOnClickedListener(OnClickEditor_ModelListener listener){
@@ -27,7 +27,7 @@ public class VideoEdit_RecyclerAdapter extends RecyclerView.Adapter<VideoEdit_Re
     }
 
 
-    public VideoEdit_RecyclerAdapter(List<EditorMenu_VO> editor_list) {
+    public VideoEdit_RecyclerAdapter(List<EditorMenuVO> editor_list) {
         this.editor_list = editor_list;
     }
 
@@ -41,7 +41,7 @@ public class VideoEdit_RecyclerAdapter extends RecyclerView.Adapter<VideoEdit_Re
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        EditorMenu_VO editor_model=editor_list.get(position);
+        EditorMenuVO editor_model=editor_list.get(position);
         holder.imageView.setImageDrawable(editor_model.getImage());
         holder.textView.setText(editor_model.getText());
     }
@@ -62,7 +62,7 @@ public class VideoEdit_RecyclerAdapter extends RecyclerView.Adapter<VideoEdit_Re
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    mListener.OnClickedEditor_Model(getAdapterPosition());
+                    mListener.OnClickedEditorItem(getAdapterPosition());
                 }
             });
         }

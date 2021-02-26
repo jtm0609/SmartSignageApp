@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GifRecyclerAdapter extends RecyclerView.Adapter<GifRecyclerAdapter.Viewholder> {
-List<Uri> list= new ArrayList<>();
-Context context;
-MotionStickerListener mMotionStickerListener=null;
+private List<Uri> list= new ArrayList<>();
+private Context context;
+private MotionStickerListener mMotionStickerListener=null;
     public interface MotionStickerListener{
         void onClick(View v, int position, Uri gif_uri);
     }

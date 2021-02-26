@@ -26,23 +26,21 @@ import java.util.List;
 
 public class ThumnailView extends Fragment implements  View.OnTouchListener {
     static List<Bitmap> thumnail_list = new ArrayList<>();
-    VideoView mVideoview;
-    Uri mSelectUri;
+    protected VideoView mVideoview;
+    protected Uri mSelectUri;
 
     static TrimRecyclerAdapter recyclerAdapter;
-    RelativeLayout trim_layout;
-    Button videoPlay_bt;
-    Button videoPause_bt;
-    SeekBar indicator_seek;
-    boolean isPlaying;
-    boolean isTrim_OK;
-    TextView startTime_tv;
-    TextView endTime_tv;
-    RangeSlider slider;
+    protected RelativeLayout trimLayout;
+    protected Button videoPlayBt, videoPauseBt;
+    protected SeekBar indicatorSeekbar;
+    protected boolean isPlaying;
+    protected boolean isTrimOK;
+    protected TextView startTimeTv,endTimeTv;
+    protected RangeSlider slider;
     protected static Boolean is_Running;
-    Runnable r;
-    Handler handler=new Handler();
-
+    protected Runnable r;
+    protected Handler handler=new Handler();
+    protected RecyclerView recyclerView;
 
     protected ThumnailView(VideoView videoview, Uri selectVideoUri, List list) {
         mVideoview = videoview;
@@ -53,22 +51,33 @@ public class ThumnailView extends Fragment implements  View.OnTouchListener {
     }
 
 
-    protected void init(View view){
+    protected void copyParentMember(View view){ //부모가 초기화한 멤버변수들을 그대로 복사해서 전달해줌
         is_Running=true;
-        trim_layout=view.findViewById(R.id.trim_layout);
-        indicator_seek = view.findViewById(R.id.trim_indicator);
-        startTime_tv=view.findViewById(R.id.trim_video_currentTime);
-        endTime_tv=view.findViewById(R.id.trim_video_endTime);
+        initView(view);
+
+        recyclerViewSetting(); //리싸이클러뷰 설정
+
+
+        //인디케이터 시크바설정
+        indicatorSeekbar.setOnTouchListener(this);
+        indicatorSeekbar.setMax(mVideoview.getDuration()/1000);
+
+    }
+
+    public void initView(View view){
+        trimLayout=view.findViewById(R.id.trim_layout);
+        indicatorSeekbar = view.findViewById(R.id.trim_indicator);
+        startTimeTv=view.findViewById(R.id.trim_video_currentTime);
+        endTimeTv=view.findViewById(R.id.trim_video_endTime);
         slider = (RangeSlider)view.findViewById(R.id.range_slider);
+        recyclerView = view.findViewById(R.id.range_rv_recycler);
 
-        indicator_seek.setOnTouchListener(this);
+    }
 
-        //<<리싸이클러뷰>>
-        RecyclerView recyclerView = view.findViewById(R.id.range_rv_recycler);
+    public void recyclerViewSetting(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-
 
         //각 썸네일 크기정의
         final int itemCount = 8;
@@ -79,11 +88,6 @@ public class ThumnailView extends Fragment implements  View.OnTouchListener {
 
         recyclerAdapter = new TrimRecyclerAdapter(thumnail_list, itemWidth);
         recyclerView.setAdapter(recyclerAdapter);
-        //<<리싸이클러뷰>>
-
-        //인디케이터 시크바설정
-        indicator_seek.setMax(mVideoview.getDuration()/1000);
-
     }
 
 

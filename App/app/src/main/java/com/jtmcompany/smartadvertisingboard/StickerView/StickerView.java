@@ -27,8 +27,6 @@ import java.util.Calendar;
 
 public abstract class StickerView extends FrameLayout implements DialogInterface.OnClickListener {
 
-
-
     public static final String TAG = "com.knef.stickerView";
     private BorderView iv_border;
     private ImageView iv_scale;
@@ -64,12 +62,10 @@ public abstract class StickerView extends FrameLayout implements DialogInterface
     }
 
 
-
     public StickerView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context);
     }
-
 
 
 
@@ -195,8 +191,6 @@ public abstract class StickerView extends FrameLayout implements DialogInterface
         return getMainView().getRotationY() == -180f;
     }
 
-
-
     public abstract View getMainView();
 
 
@@ -210,7 +204,6 @@ public abstract class StickerView extends FrameLayout implements DialogInterface
         public boolean onTouch(View view, MotionEvent event) {
 
             if(view.getTag().equals("text") || view.getTag().equals("img")) {
-
 
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
@@ -360,9 +353,7 @@ public abstract class StickerView extends FrameLayout implements DialogInterface
                         Log.v(TAG, "iv_scale action up");
                         Log.d("tak12","view width: "+StickerView.this.getMainView().getWidth());
                         break;
-
                 }
-
             }
             return true;
 
@@ -377,10 +368,7 @@ public abstract class StickerView extends FrameLayout implements DialogInterface
 
 
 
-
-
     @Override
-
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
     }
@@ -428,10 +416,8 @@ public abstract class StickerView extends FrameLayout implements DialogInterface
         return iv_flip;
     }
 
-
     protected void onScaling(boolean scaleUp){}
     protected void onRotating(){}
-
 
 
 

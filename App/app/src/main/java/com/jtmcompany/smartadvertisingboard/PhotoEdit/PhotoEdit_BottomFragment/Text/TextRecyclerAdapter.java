@@ -19,8 +19,6 @@ public class TextRecyclerAdapter extends RecyclerView.Adapter<TextRecyclerAdapte
 
     List<Drawable> list= new ArrayList<>();
     TextSelectListener textSelectListener;
-
-
     public interface TextSelectListener{
         void Onclick(int position);
     }

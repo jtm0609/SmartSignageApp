@@ -33,41 +33,55 @@ import com.nhn.android.naverlogin.data.OAuthLoginState;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-OAuthLogin mOAuthLoginModule;
-NaverOAuthLoginHandler mNaverHandler;
-Naver_RefreshTokenTask naver_refreshTokenTask;
-Kakao_sessionCallback kakao_sessionCallback;
-LoginButton kakao_login_bt;
-Google_FirebaseAuth google_firebaseAuth;
+private OAuthLogin mOAuthLoginModule;
+private NaverOAuthLoginHandler mNaverHandler;
+private Naver_RefreshTokenTask naver_refreshTokenTask;
+private Kakao_sessionCallback kakao_sessionCallback;
+private LoginButton hiden_KakaoLoginBt;
+private Google_FirebaseAuth google_firebaseAuth;
 
-ImageView custom_naver_login_bt;
-ImageView custom_kakao_login_bt;
-ImageView custom_google_login_bt;
-Button email_login_bt;
-
+private ImageView naverLoginBt;
+private ImageView kakaoLoginBt;
+private ImageView googleLoginBt;
+private Button emailLoginBt;
+private GradientDrawable gradientDrawable;
 
 private FirebaseUser mAuthUser;
 
 private int GOOGLE_RC_SIGN_IN=9001;
-
-private long backClickTime=0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        GradientDrawable gradientDrawable=(GradientDrawable)getDrawable(R.drawable.background_rounding);
+        gradientDrawable=(GradientDrawable)getDrawable(R.drawable.background_rounding);
 
-        email_login_bt=findViewById(R.id.email_login);
-        email_login_bt.setOnClickListener(this);
+        initView();
+
+        emailLoginBt.setOnClickListener(this);
+
+        googleLoginSetting(); //구글 로그인 설정
+        naverLoginSetting(); //네이버 로그인 설정
+        kakaoLoginSetting(); //카카오 로그인 설정
 
 
+    }
+
+    protected void initView(){
+        emailLoginBt=findViewById(R.id.email_login); //이메일 로그인
+        googleLoginBt=findViewById(R.id.custom_google_login); //구글 로그인
+        naverLoginBt=findViewById(R.id.custom_naver_login); //네이버 로그인
+        kakaoLoginBt=findViewById(R.id.custom_kakao_login); //카카오 로그인
+        hiden_KakaoLoginBt=findViewById(R.id.kakao_login);
+    }
+
+    //구글 로그인
+    protected void googleLoginSetting(){
         //구글 로그인
-        custom_google_login_bt=findViewById(R.id.custom_google_login);
-        custom_google_login_bt.setBackground(gradientDrawable);
-        custom_google_login_bt.setClipToOutline(true);
-        custom_google_login_bt.setOnClickListener(this);
+        googleLoginBt.setBackground(gradientDrawable);
+        googleLoginBt.setClipToOutline(true);
+        googleLoginBt.setOnClickListener(this);
         mAuthUser=FirebaseAuth.getInstance().getCurrentUser();
         google_firebaseAuth=new Google_FirebaseAuth(this);
 
@@ -79,15 +93,15 @@ private long backClickTime=0;
         }else{
             Log.d("tak4","userNO");
         }
+    }
 
+    //네이버 로그인
+    protected void naverLoginSetting(){
+        naverLoginBt.setBackground(gradientDrawable);
+        naverLoginBt.setClipToOutline(true);
+        naverLoginBt.setOnClickListener(this);
 
-        //네이버 로그인버튼 작업 & 버튼리스너등록
-        custom_naver_login_bt=findViewById(R.id.custom_naver_login);
-        custom_naver_login_bt.setBackground(gradientDrawable);
-        custom_naver_login_bt.setClipToOutline(true);
-        custom_naver_login_bt.setOnClickListener(this);
         //naver_login_bt.setOAuthLoginHandler(mNaverHandler);
-
         //네이버 핸들러, refresh토큰작업, 네이버로그인모듈 초기화작업
         mNaverHandler=new NaverOAuthLoginHandler(this);
         naver_refreshTokenTask=new Naver_RefreshTokenTask(this);
@@ -103,29 +117,29 @@ private long backClickTime=0;
             Log.d("login_naver","token: "+mOAuthLoginModule.getAccessToken(this));
         }
 
-        //네이버 access토큰이있는상태임
+        //네이버 access토큰이있는상태라면->자동 로그인
         if(OAuthLoginState.OK.equals(mOAuthLoginModule.getState(this))){
             Log.d("login_naver","naverLogin");
             Log.d("login_naver","state: "+mOAuthLoginModule.getState(this));
 
-
             Intent intent=new Intent(LoginActivity.this, MainActivity.class);
-
             startActivity(intent);
             finish();
 
         }
+    }
 
+    //카카오 로그인
+    protected void kakaoLoginSetting(){
         //KakaoSDK.init(new GlobalApplication.KakaoSDKAdapter());
         //카카오 세션콜백 초기화 및 세션에 콜백등록
         kakao_sessionCallback=new Kakao_sessionCallback(this);
         Session session=Session.getCurrentSession();
         session.addCallback(kakao_sessionCallback);
-        custom_kakao_login_bt=findViewById(R.id.custom_kakao_login);
-        kakao_login_bt=findViewById(R.id.kakao_login);
-        custom_kakao_login_bt.setBackground(gradientDrawable);
-        custom_kakao_login_bt.setClipToOutline(true);
-        custom_kakao_login_bt.setOnClickListener(this);
+
+        kakaoLoginBt.setBackground(gradientDrawable);
+        kakaoLoginBt.setClipToOutline(true);
+        kakaoLoginBt.setOnClickListener(this);
 
         //카카오버튼으로 로그인했을때를 위해 설정
         SharedPreferences sharedPreferences= getSharedPreferences("kakaoBtLogin",MODE_PRIVATE);
@@ -151,8 +165,8 @@ private long backClickTime=0;
             editor.commit();
 
         }
-
     }
+
 
 
     @Override
@@ -162,16 +176,18 @@ private long backClickTime=0;
         Session.getCurrentSession().removeCallback(kakao_sessionCallback);
     }
 
-    // 카카오톡|스토리 간편로그인 실행 결과를 받아서 SDK로 전달
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        // 카카오톡|스토리 간편로그인 실행 결과를 받아서 SDK로 전달
         if(Session.getCurrentSession().handleActivityResult(requestCode,resultCode,data)){
             Log.d("tak","reaquestCode: "+requestCode);
             Log.d("tak","resultCode: "+resultCode);
             Log.d("tak","data: "+data);
             return;
+
+            //구글 로그인 결과
         }else if(requestCode==GOOGLE_RC_SIGN_IN){
             Task<GoogleSignInAccount> task=GoogleSignIn.getSignedInAccountFromIntent(data);
             try{
@@ -189,26 +205,21 @@ private long backClickTime=0;
 
     @Override
     public void onClick(View v) {
-        if(v==custom_naver_login_bt){
+        if(v==naverLoginBt){
             mOAuthLoginModule.startOauthLoginActivity(LoginActivity.this,mNaverHandler);
-        }else if(v==custom_kakao_login_bt){
-            kakao_login_bt.performClick();
-        }else if(v==custom_google_login_bt){
+        }else if(v==kakaoLoginBt){
+            hiden_KakaoLoginBt.performClick();
+        }else if(v==googleLoginBt){
             google_firebaseAuth.signIn();
-        }else if(v==email_login_bt){
+        }else if(v==emailLoginBt){
             if(Network_Status_Check.getConnectivityStatus(LoginActivity.this)==3){
                 Toast.makeText(LoginActivity.this, "네트워크 연결을 확인해주세요!", Toast.LENGTH_SHORT).show();
             }else {
                 Intent intent = new Intent(LoginActivity.this, LoginActivity_Email.class);
                 startActivity(intent);
             }
-
-
         }
-
-
-
-        }
-
     }
+
+}
 

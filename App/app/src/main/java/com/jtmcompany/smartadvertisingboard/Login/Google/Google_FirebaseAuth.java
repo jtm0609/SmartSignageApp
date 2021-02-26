@@ -27,11 +27,11 @@ import com.jtmcompany.smartadvertisingboard.MainActivity;
 import com.jtmcompany.smartadvertisingboard.R;
 
 public class Google_FirebaseAuth {
-    Context mContext;
+    private Context mContext;
     private GoogleSignInClient mGoogleSignInClient;
     private int GOOGLE_RC_SIGN_IN=9001;
     private FirebaseAuth mAuth;
-    FirebaseUser user;
+    private FirebaseUser user;
 
     public Google_FirebaseAuth(Context mContext) {
         this.mContext = mContext;
@@ -88,7 +88,6 @@ public class Google_FirebaseAuth {
                                 http_request_myServerDB.Request_Signup();
 
                             }
-
 
                         } else {
                             //실패

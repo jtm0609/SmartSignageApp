@@ -14,7 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jtmcompany.smartadvertisingboard.DB.MyVideoDB;
+import com.jtmcompany.smartadvertisingboard.RealmDB.MyVideoDB;
 import com.jtmcompany.smartadvertisingboard.MainActivity;
 import com.jtmcompany.smartadvertisingboard.Utils.FileUploadUtils;
 import com.jtmcompany.smartadvertisingboard.R;
@@ -27,7 +27,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class MyVideoActivity extends AppCompatActivity implements MyVideoRecyclerAdapter.myVideoWatchListener, MyVideoRecyclerAdapter.myVideoUploadListener, MyVideoRecyclerAdapter.myVideoDeleteListener {
-    List<MyVideo_Model> list=new ArrayList<>();
+    List<MyVideoModel> list=new ArrayList<>();
     Realm mRealm;
     MyVideoRecyclerAdapter recyclerAdapter;
     Toolbar toolbar;
@@ -64,7 +64,7 @@ public class MyVideoActivity extends AppCompatActivity implements MyVideoRecycle
                 if(file.exists()) {
                     Bitmap bitmap = extractThumnail(myVideo.videoPath);
                     //썸네일, 비디오제목, 비디오경로
-                    list.add(new MyVideo_Model(bitmap, myVideo.videoName, myVideo.videoPath));
+                    list.add(new MyVideoModel(bitmap, myVideo.videoName, myVideo.videoPath));
                 }
             }
         }

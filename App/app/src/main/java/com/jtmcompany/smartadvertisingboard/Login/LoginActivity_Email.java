@@ -20,46 +20,31 @@ import com.jtmcompany.smartadvertisingboard.MainActivity;
 import com.jtmcompany.smartadvertisingboard.R;
 
 public class LoginActivity_Email extends AppCompatActivity implements View.OnClickListener, TextWatcher {
-TextView signup_bt;
-EditText id_edit;
-EditText pw_edit;
-Button email_login_bt;
+private TextView signup_bt;
+private EditText idEt, pwEt;
+private Button emailLoginBt;
+private Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login__email);
-        id_edit=findViewById(R.id.login_id);
-        pw_edit=findViewById(R.id.login_pw);
-        id_edit.addTextChangedListener(this);
-        pw_edit.addTextChangedListener(this);
-        email_login_bt=findViewById(R.id.email_login_bt);
-        email_login_bt.setOnClickListener(this);
+        initView();
 
-        signup_bt=findViewById(R.id.email_signup);
+        idEt.addTextChangedListener(this);
+        pwEt.addTextChangedListener(this);
+        emailLoginBt.setOnClickListener(this);
         signup_bt.setOnClickListener(this);
+
+        handler=new MyHandler();
     }
-        Handler handler=new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            if(msg.what==1){
-                String response_value=String.valueOf(msg.obj);
-                Log.d("tak",response_value);
-                if(response_value.equals("로그인실패")){
-                    Toast.makeText(LoginActivity_Email.this, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                    id_edit.setText("");
-                    pw_edit.setText("");
-                }else{
-                    Toast.makeText(LoginActivity_Email.this, "로그인성공", Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(LoginActivity_Email.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
 
-                }
+    void initView(){
+        idEt=findViewById(R.id.login_id);
+        pwEt=findViewById(R.id.login_pw);
+        emailLoginBt=findViewById(R.id.email_login_bt);
+        signup_bt=findViewById(R.id.email_signup);
+    }
 
-            }
-        }
-    };
 
     @Override
     public void onClick(View view) {
@@ -67,23 +52,21 @@ Button email_login_bt;
     {Intent intent=new Intent(this, SignupActivity.class);
         startActivity(intent);
         finish();
-    }else if(view==email_login_bt){
-        Http_Request_MyServerDB http_request_myServerDB=new Http_Request_MyServerDB(handler,id_edit.getText().toString(),pw_edit.getText().toString());
+    }else if(view==emailLoginBt){
+        Http_Request_MyServerDB http_request_myServerDB=new Http_Request_MyServerDB(handler,idEt.getText().toString(),pwEt.getText().toString());
        http_request_myServerDB.Request_Login();
-
-    }
-
+        }
     }
 
 
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-    if(!id_edit.getText().toString().equals("")&&
-    !pw_edit.getText().toString().equals("")){
-        email_login_bt.setEnabled(true);
+    if(!idEt.getText().toString().equals("")&&
+    !pwEt.getText().toString().equals("")){
+        emailLoginBt.setEnabled(true);
     }else{
-        email_login_bt.setEnabled(false);
+        emailLoginBt.setEnabled(false);
         }
     }
 
@@ -91,4 +74,27 @@ Button email_login_bt;
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
     @Override
     public void afterTextChanged(Editable editable) { }
+
+
+    public class MyHandler extends Handler{
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            super.handleMessage(msg);
+            if(msg.what==1){
+                String response_value=String.valueOf(msg.obj);
+                Log.d("tak",response_value);
+                if(response_value.equals("로그인실패")){
+                    Toast.makeText(LoginActivity_Email.this, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                    idEt.setText("");
+                    pwEt.setText("");
+                }else{
+                    Toast.makeText(LoginActivity_Email.this, "로그인성공", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(LoginActivity_Email.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        }
+    }
 }

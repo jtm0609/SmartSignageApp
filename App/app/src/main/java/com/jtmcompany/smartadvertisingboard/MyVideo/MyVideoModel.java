@@ -2,14 +2,13 @@ package com.jtmcompany.smartadvertisingboard.MyVideo;
 
 import android.graphics.Bitmap;
 
-public class MyVideo_Model {
+public class MyVideoModel {
     private Bitmap img;
     private String title;
     private String path;
 
 
-
-    public MyVideo_Model(Bitmap img, String title, String path) {
+    public MyVideoModel(Bitmap img, String title, String path) {
         this.img = img;
         this.title = title;
         this.path=path;
@@ -23,8 +22,6 @@ public class MyVideo_Model {
     public Bitmap getImg() {
         return img;
     }
-
-
     public String getTitle() {
         return title;
     }

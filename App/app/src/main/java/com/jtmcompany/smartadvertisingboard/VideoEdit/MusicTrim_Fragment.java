@@ -22,18 +22,15 @@ import com.jtmcompany.smartadvertisingboard.R;
 
 
 public class MusicTrim_Fragment extends Fragment implements RangeSeekBar.SeekBarChangeListener, View.OnClickListener {
-Uri selectMusicUri;
-RangeSeekBar rangeSeekBar;
-MediaPlayer mediaPlayer;
-Handler handler=new Handler();
-Runnable r;
-Button music_play_bt;
-Button music_stop_bt;
-ImageView music_check_bt;
-ImageView music_exit_bt;
-TextView seekvar_tvLeft;
-TextView seekbar_tvRight;
-FragmentManager fragmentManager;
+private Uri selectMusicUri;
+private RangeSeekBar rangeSeekBar;
+private MediaPlayer mediaPlayer;
+private Handler handler=new Handler();
+private Runnable r;
+private Button musicPlayBt,musicStopBt;
+private ImageView musicCheckBt,musicExitBt;
+private TextView seekvarLeftTv,seekbarRightTv;
+private FragmentManager fragmentManager;
     public MusicTrim_Fragment(Uri selectMusicUri) {
         this.selectMusicUri = selectMusicUri;
     }
@@ -45,19 +42,13 @@ FragmentManager fragmentManager;
         View view= inflater.inflate(R.layout.fragment_video_music_trim_, container, false);
 
 
-        music_check_bt=view.findViewById(R.id.music_check);
-        music_exit_bt=view.findViewById(R.id.musio_exit);
-        seekvar_tvLeft=view.findViewById(R.id.tvLeft);
-        seekbar_tvRight=view.findViewById(R.id.tvRight);
-        music_play_bt=view.findViewById(R.id.music_play_bt);
-        music_stop_bt=view.findViewById(R.id.music_stop_bt);
-        rangeSeekBar=view.findViewById(R.id.music_seekbar);
+        initView(view);
 
 
-        music_check_bt.setOnClickListener(this);
-        music_exit_bt.setOnClickListener(this);
-        music_play_bt.setOnClickListener(this);
-        music_stop_bt.setOnClickListener(this);
+        musicCheckBt.setOnClickListener(this);
+        musicExitBt.setOnClickListener(this);
+        musicPlayBt.setOnClickListener(this);
+        musicStopBt.setOnClickListener(this);
         rangeSeekBar.setSeekBarChangeListener(this);
 
 
@@ -81,12 +72,12 @@ FragmentManager fragmentManager;
                 handler.postDelayed(r, 1000);
 
                 if(!mediaPlayer.isPlaying()){
-                    music_play_bt.setVisibility(View.VISIBLE);
-                    music_stop_bt.setVisibility(View.GONE);
+                    musicPlayBt.setVisibility(View.VISIBLE);
+                    musicStopBt.setVisibility(View.GONE);
 
                 }else if(mediaPlayer.isPlaying()) {
-                    music_stop_bt.setVisibility(View.VISIBLE);
-                    music_play_bt.setVisibility(View.GONE);
+                    musicStopBt.setVisibility(View.VISIBLE);
+                    musicPlayBt.setVisibility(View.GONE);
                 }
             }
         },1000);
@@ -94,25 +85,34 @@ FragmentManager fragmentManager;
 
         return view;
     }
+    public void initView(View view){
+        musicCheckBt=view.findViewById(R.id.music_check);
+        musicExitBt=view.findViewById(R.id.musio_exit);
+        seekvarLeftTv=view.findViewById(R.id.tvLeft);
+        seekbarRightTv=view.findViewById(R.id.tvRight);
+        musicPlayBt=view.findViewById(R.id.music_play_bt);
+        musicStopBt=view.findViewById(R.id.music_stop_bt);
+        rangeSeekBar=view.findViewById(R.id.music_seekbar);
+    }
 
     @Override
     public void onValueChanged(int i, int i1) {
         mediaPlayer.seekTo((int)i*1000);
 
-        seekvar_tvLeft.setText(toTime(i));
-        seekbar_tvRight.setText(toTime(i1));
+        seekvarLeftTv.setText(toTime(i));
+        seekbarRightTv.setText(toTime(i1));
 
     }
 
     @Override
     public void onClick(View view) {
-        if(view==music_play_bt)
+        if(view==musicPlayBt)
         mediaPlayer.start();
 
-        else if(view==music_stop_bt)
+        else if(view==musicStopBt)
             mediaPlayer.pause();
 
-        else if(view==music_check_bt){
+        else if(view==musicCheckBt){
             int videoDuration=VideoEditAtivity.trim_end-VideoEditAtivity.trim_start;
             int musicDuration=rangeSeekBar.getMaxThumbValue()-rangeSeekBar.getMinThumbValue();
             if(videoDuration>=musicDuration) {
@@ -128,7 +128,7 @@ FragmentManager fragmentManager;
             }
 
         }
-        else if(view==music_exit_bt){
+        else if(view==musicExitBt){
             fragmentManager.beginTransaction().remove(MusicTrim_Fragment.this).commit();
         }
     }

@@ -21,8 +21,8 @@ public class Text_RecyclerAdapter extends RecyclerView.Adapter<Text_RecyclerAdap
            public void textOnClick(int position);
        }
 
-       List<Drawable> mImages= new ArrayList<>();
-       textClickListener mListener;
+       private List<Drawable> mImages= new ArrayList<>();
+       private textClickListener mListener;
 
        public void setOnTextListener(textClickListener listener){
            mListener=listener;

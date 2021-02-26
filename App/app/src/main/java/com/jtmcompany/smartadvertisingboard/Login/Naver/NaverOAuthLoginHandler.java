@@ -17,7 +17,6 @@ private Http_Request_NaverServer naverHttp;
         mOAuthLoginModule=OAuthLogin.getInstance();
         naverHttp=new Http_Request_NaverServer(context);
     }
-
         @Override
         public void run(boolean success) {
             if(success){
@@ -32,14 +31,9 @@ private Http_Request_NaverServer naverHttp;
                 Log.d("login_naver","OAuthState: "+mOAuthLoginModule.getState(mcontext));
                 if((mOAuthLoginModule.getState(mcontext).toString().equals("OK"))){
                     Log.d("login_naver","naverhandler");
-
-
-
                     Log.d("login_naver","run");
 
                     naverHttp.naverMember_Info();
-
-
                 }
 
             }else{

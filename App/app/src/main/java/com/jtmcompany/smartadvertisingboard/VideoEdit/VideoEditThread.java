@@ -11,12 +11,12 @@ import android.widget.VideoView;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerView;
 
 public class VideoEditThread implements Runnable {
-    VideoView video;
-    ImageView playBt, stopBt;
-    Handler handler = new Handler();
-    ProgressBar progressBar;
-    TextView startTv;
-    TextView endTv;
+    private VideoView video;
+    private ImageView playBt, stopBt;
+    private Handler handler = new Handler();
+    private ProgressBar progressBar;
+    private TextView startTv;
+    private TextView endTv;
 
     public Handler getHandler() {
         return handler;
@@ -76,17 +76,12 @@ public class VideoEditThread implements Runnable {
 
 
     public void addView_appear(final int start_time, final int end_time, final StickerView insert_stickerView) {
-        Log.d("tak3", "start: " + start_time);
-        Log.d("tak3", "end: " + end_time);
-        Log.d("tak3","cur: "+video.getCurrentPosition()/1000);
         if (video.isPlaying()) {
             if (video.getCurrentPosition() / 1000 >= start_time && video.getCurrentPosition()/1000<=end_time) {
                 insert_stickerView.setVisibility(View.VISIBLE);
-                Log.d("tak3", "1");
             }
             if (video.getCurrentPosition() / 1000 > end_time || video.getCurrentPosition() / 1000 < start_time) {
                 insert_stickerView.setVisibility(View.GONE);
-                Log.d("tak3", "2");
             }
         } else {
             if(insert_stickerView!=null)

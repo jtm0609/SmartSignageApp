@@ -10,19 +10,11 @@ import android.view.View;
 import android.widget.ImageView;
 
 public class StickerImageView extends StickerView {
-
-
-
     private String owner_id;
-
     private ImageView iv_main;
-
     private Uri uri;
-
     public StickerImageView(Context context) {
-
         super(context);
-
     }
 
     public Uri getUri() {
@@ -32,39 +24,30 @@ public class StickerImageView extends StickerView {
     public StickerImageView(Context context, Uri uri) {
         super(context);
         this.uri=uri;
-
     }
 
 
 
     public StickerImageView(Context context, AttributeSet attrs) {
-
         super(context, attrs);
-
     }
 
 
 
     public StickerImageView(Context context, AttributeSet attrs, int defStyle) {
-
         super(context, attrs, defStyle);
-
     }
 
 
 
     public void setOwnerId(String owner_id){
-
         this.owner_id = owner_id;
-
     }
 
 
 
     public String getOwnerId(){
-
         return this.owner_id;
-
     }
 
 
@@ -72,16 +55,11 @@ public class StickerImageView extends StickerView {
     @Override
     public View getMainView() {
         setImg_TAG();
-
         if(this.iv_main == null) {
-
             this.iv_main = new ImageView(getContext());
             this.iv_main.setScaleType(ImageView.ScaleType.FIT_XY);
-
         }
-
         return iv_main;
-
     }
 
     public void setImageBitmap(Bitmap bmp){
@@ -91,15 +69,12 @@ public class StickerImageView extends StickerView {
 
 
     public void setImageResource(int res_id){
-
         this.iv_main.setImageResource(res_id);
-
     }
 
 
 
     public void setImageDrawable(Drawable drawable){ this.iv_main.setImageDrawable(drawable); }
-
 
 
     public Bitmap getImageBitmap(){ return ((BitmapDrawable)this.iv_main.getDrawable()).getBitmap() ; }

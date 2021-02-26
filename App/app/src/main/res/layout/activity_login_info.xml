@@ -44,7 +44,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="스마트 사이니지 platform"
+                android:text="스마트 사이니지"
                 android:textColor="@android:color/white"
                 android:textSize="30sp"
                 android:gravity="center"

@@ -16,7 +16,7 @@ import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 
 public class Kakao_userMangement {
-    Context mContext;
+    private Context mContext;
 
     public Kakao_userMangement(Context mcontext) {
         this.mContext = mcontext;
@@ -45,7 +45,6 @@ public class Kakao_userMangement {
                     //로그인 도중 세션이 비정상적인 이유로 닫혔을 때
                     Toast.makeText(mContext, "세션이 닫혔습니다. 다시 시도해주세요", Toast.LENGTH_SHORT).show();
                     Log.d("tak", "세션 닫힘");
-
             }
 
             @Override

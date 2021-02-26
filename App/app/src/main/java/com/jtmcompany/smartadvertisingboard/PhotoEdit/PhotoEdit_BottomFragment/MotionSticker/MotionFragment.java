@@ -24,8 +24,8 @@ import java.util.List;
 
 
 public class MotionFragment extends Fragment implements GifRecyclerAdapter.MotionStickerListener {
-    RecyclerView text_recyclerView;
-    RecyclerView gif_recyclerView;
+    RecyclerView categoryRecyclerView;
+    RecyclerView itemRecyclerView;
 
     List<Uri> Uri_list=new ArrayList<>();
     List<String> text_list=new ArrayList<>();
@@ -41,9 +41,8 @@ public class MotionFragment extends Fragment implements GifRecyclerAdapter.Motio
                              Bundle savedInstanceState) {
 
         View view= inflater.inflate(R.layout.fragment_motion, container, false);
-        text_recyclerView=view.findViewById(R.id.motion_text_recycler);
-        gif_recyclerView=view.findViewById(R.id.motion_recycler);
-
+        categoryRecyclerView=view.findViewById(R.id.motion_text_recycler);
+        itemRecyclerView=view.findViewById(R.id.motion_recycler);
 
         text_list.add("전체");
         text_list.add("행복한");
@@ -54,8 +53,8 @@ public class MotionFragment extends Fragment implements GifRecyclerAdapter.Motio
         MotionTextRecyclerAdapter textRecyclerAdapter=new MotionTextRecyclerAdapter(text_list);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        text_recyclerView.setLayoutManager(linearLayoutManager);
-        text_recyclerView.setAdapter(textRecyclerAdapter);
+        categoryRecyclerView.setLayoutManager(linearLayoutManager);
+        categoryRecyclerView.setAdapter(textRecyclerAdapter);
 
         //text 클릭 리싸이클러
         textRecyclerAdapter.MotionSetOnClickListener(new MotionTextRecyclerAdapter.MotionTextSelectListener() {
@@ -64,122 +63,72 @@ public class MotionFragment extends Fragment implements GifRecyclerAdapter.Motio
                 //Toast.makeText(getContext(), ""+position, Toast.LENGTH_SHORT).show();
                 Uri_list.clear();
                 if(position==0){
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy1"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy2"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy3"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy4"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy5"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy6"));
-
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad1"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad2"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad3"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad4"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad5"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad6"));
-
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love1"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love2"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love3"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love4"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love5"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love6"));
-
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute1"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute2"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute3"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute4"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute5"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute6"));
-
+                   addListItem();
                 }
-
                 else if(position==1){
-
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy1"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy2"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy3"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy4"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy5"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy6"));
-
-
+                    addListHappyItem();
                 } else if(position==2){
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad1"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad2"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad3"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad4"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad5"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad6"));
-
-
-
+                    addListSadItem();
                 } else if(position==3){
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love1"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love2"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love3"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love4"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love5"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love6"));
-
+                    addListLoveItem();
                 } else if(position==4){
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute1"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute2"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute3"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute4"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute5"));
-                    Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute6"));
+                    addListCuteItem();
                 }
-
-
                     //갱신
-                    gifRecyclerAdapter.notifyDataSetChanged();
+                gifRecyclerAdapter.notifyDataSetChanged();
             }
         });
 
-
-
         //처음 보일때 전체가 보여야함
+        addListItem();
+
+        gifRecyclerAdapter =new GifRecyclerAdapter(Uri_list,getActivity());
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),3);
+        itemRecyclerView.setLayoutManager(gridLayoutManager);
+        itemRecyclerView.setAdapter(gifRecyclerAdapter);
+
+        //gif 클릭  리싸이클러
+        gifRecyclerAdapter.setMotionStickerListener(this);
+
+        return view;
+    }
+    void addListItem(){
+        addListHappyItem();
+        addListSadItem();
+        addListLoveItem();
+        addListCuteItem();
+    }
+    void addListHappyItem(){
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy1"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy2"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy3"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy4"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy5"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/happy6"));
-
-        Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad1"));
-        Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad2"));
-        Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad3"));
-        Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad4"));
-        Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad5"));
-        Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad6"));
-
+    }
+    void addListLoveItem(){
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love1"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love2"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love3"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love4"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love5"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/love6"));
-
+    }
+    void addListCuteItem(){
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute1"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute2"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute3"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute4"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute5"));
         Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/cute6"));
-
-        gifRecyclerAdapter =new GifRecyclerAdapter(Uri_list,getActivity());
-        GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(),3);
-        gif_recyclerView.setLayoutManager(gridLayoutManager);
-        gif_recyclerView.setAdapter(gifRecyclerAdapter);
-
-        //gif 클릭  리싸이클러
-        gifRecyclerAdapter.setMotionStickerListener(this);
-
-
-
-
-        return view;
+    }
+    void addListSadItem(){
+        Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad1"));
+        Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad2"));
+        Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad3"));
+        Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad4"));
+        Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad5"));
+        Uri_list.add(Uri.parse("android.resource://com.jtmcompany.smartadvertisingboard/raw/sad6"));
     }
 
     @Override

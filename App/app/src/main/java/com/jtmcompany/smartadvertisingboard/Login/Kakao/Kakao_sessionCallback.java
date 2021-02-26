@@ -10,8 +10,8 @@ import com.kakao.auth.ISessionCallback;
 import com.kakao.util.exception.KakaoException;
 
 public class Kakao_sessionCallback implements ISessionCallback {
-    Context mContext;
-    Kakao_userMangement userManagement;
+    private Context mContext;
+    private Kakao_userMangement userManagement;
 
     public Kakao_sessionCallback(Context mContext) {
         this.mContext = mContext;

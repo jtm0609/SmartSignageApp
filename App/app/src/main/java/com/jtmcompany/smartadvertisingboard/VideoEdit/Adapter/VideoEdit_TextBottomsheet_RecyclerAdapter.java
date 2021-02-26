@@ -19,7 +19,7 @@ public class VideoEdit_TextBottomsheet_RecyclerAdapter  extends RecyclerView.Ada
 
 
 
-    List<Drawable> mImages=new ArrayList<>();
+    private List<Drawable> mImages=new ArrayList<>();
     public interface textClickListener{
         public void textOnClick(int position);
     }

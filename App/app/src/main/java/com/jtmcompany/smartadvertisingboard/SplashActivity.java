@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.jtmcompany.smartadvertisingboard.Login.LoginActivity;
 
+//SplashActivity -> MainActivity-> UploadAcitivity -> Photo or Video Activity
 public class SplashActivity extends AppCompatActivity {
 
     @Override

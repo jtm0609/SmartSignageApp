@@ -15,13 +15,13 @@ import androidx.fragment.app.FragmentManager;
 
 import com.jtmcompany.smartadvertisingboard.R;
 import com.jtmcompany.smartadvertisingboard.StickerView.StickerView;
-import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.addItem_VO;
+import com.jtmcompany.smartadvertisingboard.VideoEdit.VO.addItemVO;
 import com.waynell.videorangeslider.RangeSlider;
 
 import java.util.List;
 
 
-public class SelectLocation_Fragment extends ThumnailView implements View.OnClickListener {
+public class SelectLocation_Fragment extends ThumnailView implements View.OnClickListener, RangeSlider.OnRangeChangeListener {
     private ImageView trim_OK_bt;
     private ImageView trim_EXIT_bt;
     private Progress_Thtead progress_thtead;
@@ -46,66 +46,63 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         // Inflate the layout for this fragment
         VideoEditAtivity.isFragmentClose=false;
         mVideoview.seekTo(VideoEditAtivity.trim_start*1000);
 
         View view= inflater.inflate(R.layout.fragment_select_location_, container, false);
-        trim_OK_bt=view.findViewById(R.id.trim_check);
-        trim_EXIT_bt=view.findViewById(R.id.trim_exit);
-        videoPlay_bt = view.findViewById(R.id.videoTrim_play);
-        videoPause_bt=view.findViewById(R.id.videoTrim_pause);
-        trim_EXIT_bt.setOnClickListener(this);
-        trim_OK_bt.setOnClickListener(this);
-        videoPlay_bt.setOnClickListener(this);
-        videoPause_bt.setOnClickListener(this);
-        init(view);
+        initView(view);
+        listnerSetting();
+
+        copyParentMember(view);
 
         slider.setTickCount(VideoEditAtivity.trim_end-VideoEditAtivity.trim_start);
-        indicator_seek.setMax(VideoEditAtivity.trim_end-VideoEditAtivity.trim_start);
-        //슬라이더가변하면 시작,끝 텍스트 변경
-        slider.setRangeChangeListener(new RangeSlider.OnRangeChangeListener() {
-            @Override
-            public void onRangeChange(RangeSlider view, int leftPinIndex, int rightPinIndex) {
-                mVideoview.seekTo((leftPinIndex+VideoEditAtivity.trim_start)*1000);
-                endTime_tv.setText(getTime(slider.getRightIndex()));
-                startTime_tv.setText(getTime(mVideoview.getCurrentPosition()/1000-VideoEditAtivity.trim_start));
-                indicator_seek.setProgress(leftPinIndex);
-            }
-        });
+        indicatorSeekbar.setMax(VideoEditAtivity.trim_end-VideoEditAtivity.trim_start);
+
         videoHandleListener();
         fragmentManager=getActivity().getSupportFragmentManager();
         return view;
     }
 
+    public void initView(View view){
+        trim_OK_bt=view.findViewById(R.id.trim_check);
+        trim_EXIT_bt=view.findViewById(R.id.trim_exit);
+        videoPlayBt = view.findViewById(R.id.videoTrim_play);
+        videoPauseBt=view.findViewById(R.id.videoTrim_pause);
+    }
+
+    public void listnerSetting(){
+        trim_EXIT_bt.setOnClickListener(this);
+        trim_OK_bt.setOnClickListener(this);
+        videoPlayBt.setOnClickListener(this);
+        videoPauseBt.setOnClickListener(this);
+        slider.setRangeChangeListener(this); //슬라이더가변하면 시작,끝 텍스트 변경
+    }
+
     @Override
     public void onClick(View view) {
-        if(view==videoPlay_bt){
+        if(view==videoPlayBt){
             mVideoview.start();
             isPlaying=true;
             progress_thtead=new Progress_Thtead();
             progress_thtead.start();
-            videoPlay_bt.setVisibility(View.GONE);
-            videoPause_bt.setVisibility(View.VISIBLE);
+            videoPlayBt.setVisibility(View.GONE);
+            videoPauseBt.setVisibility(View.VISIBLE);
 
         }
-        else if(view==videoPause_bt){
+        else if(view==videoPauseBt){
             mVideoview.pause();
             isPlaying=false;
             progress_thtead.interrupt();
-            videoPause_bt.setVisibility(View.GONE);
-            videoPlay_bt.setVisibility(View.VISIBLE);
+            videoPauseBt.setVisibility(View.GONE);
+            videoPlayBt.setVisibility(View.VISIBLE);
 
         }
         else if(view==trim_OK_bt){
             fragmentManager.beginTransaction().remove(SelectLocation_Fragment.this).commit();
-            isTrim_OK=true;
+            isTrimOK=true;
             if(progress_thtead!=null)
                 progress_thtead.interrupt();
-
-
 
                 start=slider.getLeftIndex()+VideoEditAtivity.trim_start;
                 end=slider.getRightIndex()+VideoEditAtivity.trim_start;
@@ -114,8 +111,7 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
                 //setId를설정(id가같은것이면 뷰가같다는말임)
                 addItem.setId(VideoEditAtivity.addItemList.size()+1);
 
-
-                VideoEditAtivity.addItemList.add(new addItem_VO(addItem,start,end));
+                VideoEditAtivity.addItemList.add(new addItemVO(addItem,start,end));
                  //설정했으면 다시 비디오를 처음부터 시작
                 mVideoview.seekTo(VideoEditAtivity.trim_start*1000);
                 mVideoview.pause();
@@ -152,8 +148,8 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
                 if(mVideoview.getCurrentPosition()/1000>=slider.getRightIndex()+VideoEditAtivity.trim_start){
                     mVideoview.seekTo((slider.getLeftIndex()+VideoEditAtivity.trim_start)*1000);
                     mVideoview.pause();
-                    videoPause_bt.setVisibility(View.GONE);
-                    videoPlay_bt.setVisibility(View.VISIBLE);
+                    videoPauseBt.setVisibility(View.GONE);
+                    videoPlayBt.setVisibility(View.VISIBLE);
 
                 }
 
@@ -190,7 +186,13 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
 
     }
 
-
+    @Override
+    public void onRangeChange(RangeSlider view, int leftPinIndex, int rightPinIndex) {
+        mVideoview.seekTo((leftPinIndex+VideoEditAtivity.trim_start)*1000);
+        endTimeTv.setText(getTime(slider.getRightIndex()));
+        startTimeTv.setText(getTime(mVideoview.getCurrentPosition()/1000-VideoEditAtivity.trim_start));
+        indicatorSeekbar.setProgress(leftPinIndex);
+    }
 
 
     protected class Progress_Thtead extends Thread{
@@ -200,7 +202,7 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
             super.run();
             try {
                 while (mVideoview.isPlaying()) {
-                    indicator_seek.setProgress(mVideoview.getCurrentPosition() / 1000-VideoEditAtivity.trim_start);
+                    indicatorSeekbar.setProgress(mVideoview.getCurrentPosition() / 1000-VideoEditAtivity.trim_start);
                     Log.d("tak4", "" + mVideoview.getCurrentPosition() / 1000);
                     sleep(100);
 

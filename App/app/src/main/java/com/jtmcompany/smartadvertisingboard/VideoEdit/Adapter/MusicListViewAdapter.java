@@ -23,14 +23,14 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import java.util.ArrayList;
 
 public class MusicListViewAdapter extends ArrayAdapter<MusicData> {
-    ArrayList<MusicData> item;
-    Context mContext;
-    ImageLoader loader;
+    private ArrayList<MusicData> itemList;
+    private Context mContext;
+    private ImageLoader loader;
 
     public MusicListViewAdapter(@NonNull Context context, int resource, ArrayList<MusicData> item) {
         super(context, resource);
         this.mContext=context;
-        this.item=item;
+        this.itemList=item;
 
         //이미지 로더 init
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(mContext)
@@ -46,13 +46,13 @@ public class MusicListViewAdapter extends ArrayAdapter<MusicData> {
     }
 
     public void setAdapterList(ArrayList<MusicData> list){
-        item=list;
+        itemList=list;
         notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return item.size();
+        return itemList.size();
     }
 
     @NonNull
@@ -74,7 +74,7 @@ public class MusicListViewAdapter extends ArrayAdapter<MusicData> {
         }else{
             holder=(ViewHolder)convertView.getTag();
         }
-        final MusicData data=item.get(position);
+        final MusicData data=itemList.get(position);
         if(data!=null){
             if(data.getMusicImg()!=null){
                 DisplayImageOptions options=new DisplayImageOptions.Builder()

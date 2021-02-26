@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sticker_RecyclerAdapter extends RecyclerView.Adapter<Sticker_RecyclerAdapter.MyViewHolder> {
-    List<Drawable> drawables=new ArrayList<>();
-    stickerClickListener mListener;
+    private List<Drawable> drawables=new ArrayList<>();
+    private stickerClickListener mListener;
 
     public interface stickerClickListener{
         void OnStickerClicked(int position,Drawable drawable);

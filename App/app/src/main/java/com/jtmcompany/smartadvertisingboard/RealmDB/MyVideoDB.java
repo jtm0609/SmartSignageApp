@@ -1,4 +1,4 @@
-package com.jtmcompany.smartadvertisingboard.DB;
+package com.jtmcompany.smartadvertisingboard.RealmDB;
 
 import io.realm.RealmObject;
 

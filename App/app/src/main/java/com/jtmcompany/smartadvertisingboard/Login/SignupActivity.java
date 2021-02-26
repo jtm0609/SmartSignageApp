@@ -19,73 +19,43 @@ import android.widget.Toast;
 
 import com.jtmcompany.smartadvertisingboard.R;
 
-public class SignupActivity extends AppCompatActivity implements TextWatcher {
-EditText name_edit;
-EditText email_edit;
-EditText pw_edit;
-EditText pw2_edit;
-Button signup_bt;
+public class SignupActivity extends AppCompatActivity implements TextWatcher, View.OnClickListener {
+private EditText nameEt,emailEt,pwEt,pw2Et;
+private Button signupBt;
+private Handler handler;
+private Toolbar mtoolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        name_edit=findViewById(R.id.email_login_name);
-        email_edit=findViewById(R.id.email_login_email);
-        pw_edit=findViewById(R.id.email_login_pw);
-        pw2_edit=findViewById(R.id.email_login_pw2);
-        signup_bt=findViewById(R.id.email_signup);
+        initView();
+        handler=new MyHandler();
 
-        name_edit.addTextChangedListener(this);
-        email_edit.addTextChangedListener(this);
-        pw_edit.addTextChangedListener(this);
-        pw2_edit.addTextChangedListener(this);
-        
-        Toolbar mtoolbar=findViewById(R.id.toolbar);
+        //리스너설정
+        nameEt.addTextChangedListener(this);
+        emailEt.addTextChangedListener(this);
+        pwEt.addTextChangedListener(this);
+        pw2Et.addTextChangedListener(this);
+        signupBt.setOnClickListener(this);
+
+        //툴바설정
         setSupportActionBar(mtoolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-        signup_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(pw_edit.getText().toString().equals(pw2_edit.getText().toString())){
-
-                    Http_Request_MyServerDB http_request_myServerDB=new Http_Request_MyServerDB(handler,name_edit.getText().toString(),email_edit.getText().toString(),pw_edit.getText().toString());
-                    http_request_myServerDB.Request_Signup();
-
-                }else{
-                    Toast.makeText(SignupActivity.this, "비밀번호와 비밀번호확인이 다릅니다.", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
     }
 
-    Handler handler=new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            super.handleMessage(msg);
-            if(msg.what==1){
-                String response_value=String.valueOf(msg.obj);
-                Log.d("tak",response_value);
-                if(response_value.equals("기존사용자")){
-                    Toast.makeText(SignupActivity.this, "입력하신 이메일로 가입한 사용자가있습니다.", Toast.LENGTH_SHORT).show();
-                    email_edit.setText("");
-                    pw_edit.setText("");
-                    pw2_edit.setText("");
-                    name_edit.setText("");
-                }else{
-                    Intent intent=new Intent(SignupActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
-                    Toast.makeText(SignupActivity.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
-                }
 
-            }
-        }
-    };
+
+
+    public void initView(){
+        nameEt=findViewById(R.id.email_login_name);
+        emailEt=findViewById(R.id.email_login_email);
+        pwEt=findViewById(R.id.email_login_pw);
+        pw2Et=findViewById(R.id.email_login_pw2);
+        signupBt=findViewById(R.id.email_signup);
+        mtoolbar=findViewById(R.id.toolbar);
+    }
 
 
     @Override
@@ -100,17 +70,55 @@ Button signup_bt;
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        if(!name_edit.getText().toString().equals("") &&
-                !email_edit.getText().toString().equals("") &&
-                !pw_edit.getText().toString().equals("") &&
-                !pw2_edit.getText().toString().equals("")) {
-            signup_bt.setEnabled(true);
+        if(!nameEt.getText().toString().equals("") &&
+                !emailEt.getText().toString().equals("") &&
+                !pwEt.getText().toString().equals("") &&
+                !pw2Et.getText().toString().equals("")) {
+            signupBt.setEnabled(true);
         }
         else
-            signup_bt.setEnabled(false);
+            signupBt.setEnabled(false);
     }
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
     @Override
     public void afterTextChanged(Editable editable) { }
+
+    @Override
+    public void onClick(View v) {
+        if (v == signupBt) {
+            if (pwEt.getText().toString().equals(pw2Et.getText().toString())) {
+
+                Http_Request_MyServerDB http_request_myServerDB = new Http_Request_MyServerDB(handler, nameEt.getText().toString(), emailEt.getText().toString(), pwEt.getText().toString());
+                http_request_myServerDB.Request_Signup();
+
+            } else {
+                Toast.makeText(SignupActivity.this, "비밀번호와 비밀번호확인이 다릅니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public class MyHandler extends Handler{
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if(msg.what==1){
+                String response_value=String.valueOf(msg.obj);
+                Log.d("tak",response_value);
+                if(response_value.equals("기존사용자")){
+                    Toast.makeText(SignupActivity.this, "입력하신 이메일로 가입한 사용자가있습니다.", Toast.LENGTH_SHORT).show();
+                    emailEt.setText("");
+                    pwEt.setText("");
+                    pw2Et.setText("");
+                    nameEt.setText("");
+                }else{
+                    Intent intent=new Intent(SignupActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                    Toast.makeText(SignupActivity.this, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }
+    }
 }

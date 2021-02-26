@@ -22,8 +22,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Http_Request_NaverServer {
-    Context mcontext;
-    OAuthLogin mOAuthLoginModule;
+    private Context mcontext;
+    private OAuthLogin mOAuthLoginModule;
 
     public Http_Request_NaverServer(Context mcontext) {
         this.mcontext = mcontext;
@@ -50,12 +50,12 @@ public class Http_Request_NaverServer {
                     JSONObject response=root.getJSONObject("response");
                     String name=response.getString("name");
                     Log.d("login_naver","name: "+name);
+
                     //로그인 API로부터 받은 JSON의 이름과 이미지 URI을 쉐어드프리퍼런스에 STRING값으로 저장함
                     SharedPreferences sharedPreferences=mcontext.getSharedPreferences("loginUser",mcontext.MODE_PRIVATE);
                     SharedPreferences.Editor editor=sharedPreferences.edit();
                     editor.putString("name",name+"(네이버 로그인)");
                     editor.commit();
-
 
 
                     Http_Request_MyServerDB myServerDB=new Http_Request_MyServerDB(name,"email",null);
@@ -89,7 +89,6 @@ public class Http_Request_NaverServer {
             int responseCode=con.getResponseCode();
             Log.d("login_naver","responseCode: "+responseCode);
             if(responseCode==HttpURLConnection.HTTP_OK){
-                Log.d("login_naver","HTTP_OK");
                 BufferedReader in= new BufferedReader(new InputStreamReader(con.getInputStream()));
                 StringBuffer responseBody=new StringBuffer();
                 String inputLine;

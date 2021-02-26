@@ -11,19 +11,14 @@ import android.provider.MediaStore;
 
 public class getPathUtils {
 
-
-
     //content:// 형식으로 되있는 uri로부터 파일의 실제 경로 구하기
     public static String getPath(final Context context, final Uri uri) {
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
         // DocumentProvider
 
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
-
             // ExternalStorageProvider
-
             if (isExternalStorageDocument(uri)) {
-
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
@@ -31,22 +26,17 @@ public class getPathUtils {
 
                 if ("primary".equalsIgnoreCase(type)) {
                     return Environment.getExternalStorageDirectory() + "/" + split[1];
-
                 }
                 // TODO handle non-primary volumes
             }
 
-
             // DownloadsProvider
             else if (isDownloadsDocument(uri)) {
-
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(
-
                         Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
 
                 return getDataColumn(context, contentUri, null, null);
-
             }
 
             // MediaProvider
@@ -87,9 +77,7 @@ public class getPathUtils {
 
     private static boolean isExternalStorageDocument(Uri uri) {
         return "com.android.externalstorage.documents".equals(uri.getAuthority());
-
     }
-
 
 
     /**
@@ -110,7 +98,6 @@ public class getPathUtils {
     }
 
     private static String getDataColumn(Context context, Uri uri, String selection,
-
                                  String[] selectionArgs) {
         Cursor cursor = null;
         final String column = "_data";
