@@ -52,9 +52,10 @@ public class SelectLocation_Fragment extends ThumnailView implements View.OnClic
 
         View view= inflater.inflate(R.layout.fragment_select_location_, container, false);
         initView(view);
+        copyParentMember(view);
         listnerSetting();
 
-        copyParentMember(view);
+
 
         slider.setTickCount(VideoEditAtivity.trim_end-VideoEditAtivity.trim_start);
         indicatorSeekbar.setMax(VideoEditAtivity.trim_end-VideoEditAtivity.trim_start);

@@ -80,7 +80,9 @@ public class MyVideoActivity extends AppCompatActivity implements MyVideoRecycle
         recyclerAdapter.setMyVideoDeleteListener(this);
         recyclerView.setAdapter(recyclerAdapter);
 
-        MainActivity.pd.dismiss();
+        if(MainActivity.pd!=null)
+            if(MainActivity.pd.isShowing())
+                MainActivity.pd.dismiss();
 
     }
 

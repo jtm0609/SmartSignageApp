@@ -53,8 +53,7 @@ public class ThumnailView extends Fragment implements  View.OnTouchListener {
 
     protected void copyParentMember(View view){ //부모가 초기화한 멤버변수들을 그대로 복사해서 전달해줌
         is_Running=true;
-        initView(view);
-
+        init(view);
         recyclerViewSetting(); //리싸이클러뷰 설정
 
 
@@ -64,19 +63,24 @@ public class ThumnailView extends Fragment implements  View.OnTouchListener {
 
     }
 
-    public void initView(View view){
+    public void init(View view){
+        recyclerView = view.findViewById(R.id.range_rv_recycler);
         trimLayout=view.findViewById(R.id.trim_layout);
         indicatorSeekbar = view.findViewById(R.id.trim_indicator);
         startTimeTv=view.findViewById(R.id.trim_video_currentTime);
         endTimeTv=view.findViewById(R.id.trim_video_endTime);
         slider = (RangeSlider)view.findViewById(R.id.range_slider);
-        recyclerView = view.findViewById(R.id.range_rv_recycler);
+
 
     }
 
     public void recyclerViewSetting(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        if(recyclerView==null){
+            Log.d("tak7","recycler null");
+        }
+
         recyclerView.setLayoutManager(linearLayoutManager);
 
         //각 썸네일 크기정의
