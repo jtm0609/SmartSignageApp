@@ -51,7 +51,7 @@
 #### 동영상 에디터
 
   <div>
-<img width="200" src="https://user-images.githubusercontent.com/48284360/99533583-7ca15a00-29e9-11eb-8070-1e1340d78bb9.jpg">
+<img width="200" src="https://user-images.githubusercontent.com/48284360/111029089-129c3d00-843e-11eb-83cf-2d47e6f4e096.png">
 <img width="200" src="https://user-images.githubusercontent.com/48284360/99533596-7f9c4a80-29e9-11eb-8257-cfdcfb10dab5.jpg">
 <img width="200" src="https://user-images.githubusercontent.com/48284360/99533603-80cd7780-29e9-11eb-8b8a-924d9a722b27.jpg">
 <img width="200" src="https://user-images.githubusercontent.com/48284360/99533606-81fea480-29e9-11eb-9f9a-b426bac01036.jpg">
