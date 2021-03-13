@@ -9,12 +9,10 @@
 서비스 또한 탑재한 사이니지 플랫폼을 고안하였습니다. <br><br>
 
 ### 프로젝트 기간
-2020.04.01 ~ 2020 10.01<br><br><br>
+2020.04.01 ~ 2020 10.01<br><br>
 
-### 역할 배정
-웹개발 2명, 앱개발 1명, 서버개발1명<br><br><br>
 
-### 본인 역할
+### 역할
 
 #### 광고 제작을 위한 모바일앱 개발(Java)
 * SNS 로그인기능 구현 (네이버, 카카오, 구글 API활용)
@@ -24,7 +22,7 @@
 * Rest API(OkHttp)통신을 통해 광고영상 서버에 전송<br>
 
 #### 간단한 회원관리 서버 개발(php)
-* php를 이용한 회원관리 서버개발(https://github.com/jtm0609/SignUp-Login-php)<br><br><br>
+* php를 이용한 회원관리 서버개발(https://github.com/jtm0609/SignUp-Login-php)<br><br><br><br>
   
 
 ## 기술 스택
@@ -37,7 +35,7 @@
 * Login API(KAKAO, NAVER, Google)<br><br><br>
 
 ## 시스템 아키텍처
-![졸잡 앱 설계2](https://user-images.githubusercontent.com/48284360/98843107-da83ee00-248d-11eb-8887-89430c2e1e22.png)<br><br><br>
+![졸잡 앱 설계2](https://user-images.githubusercontent.com/48284360/98843107-da83ee00-248d-11eb-8887-89430c2e1e22.png)<br><br><br><br>
 
 
 
