@@ -13,7 +13,6 @@
 
 
 ### 역할
-
 #### 광고 제작을 위한 모바일앱 개발(Java)
 * SNS 로그인기능 구현 (네이버, 카카오, 구글 API활용)
 * 에디터를 동영상광고, 포토 광고로 구분
@@ -22,9 +21,10 @@
 * Rest API(OkHttp)통신을 통해 광고영상 서버에 전송<br>
 
 #### 간단한 회원관리 서버 개발(php)
-* php를 이용한 회원관리 서버개발(https://github.com/jtm0609/SignUp-Login-php)<br><br><br><br>
-  
-
+* php를 이용한 회원관리 서버개발(https://github.com/jtm0609/SignUp-Login-php)<br><br>
+ 
+ 
+ 
 ## 기술 스택
 * Android(Java)
 * MVC
@@ -34,9 +34,13 @@
 * OKHTTP
 * Login API(KAKAO, NAVER, Google)<br><br><br>
 
+
+## 프로젝트 사이트맵
+ ![프로젝트 사이트맵](https://user-images.githubusercontent.com/48284360/118118339-c1053400-b427-11eb-920c-211e0c0a4bef.png)
+<br><br><br>
+
 ## 시스템 아키텍처
 ![졸잡 앱 설계2](https://user-images.githubusercontent.com/48284360/98843107-da83ee00-248d-11eb-8887-89430c2e1e22.png)<br><br><br><br>
-
 
 
 ## 스크린샷
