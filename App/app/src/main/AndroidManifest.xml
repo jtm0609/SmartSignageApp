@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".Login.Kakao.GlobalApplication"
+        android:name=".login.Kakao.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_tv"
         android:label="스마트 사이니지"
@@ -17,28 +17,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MyVideo.VideoWatchActivity" />
-        <activity android:name=".MyVideo.MyVideoActivity" />
-        <activity android:name=".PhotoEdit.PhotoEditActivity" />
-        <activity android:name=".UploadActivity" />
-        <activity android:name=".VideoEdit.VideoEditAtivity" />
-        <activity android:name=".VideoEdit.Music.MusicList" />
+        <activity android:name=".myvideo.VideoWatchActivity" />
+        <activity android:name=".myvideo.MyVideoActivity" />
+        <activity android:name=".photoedit.PhotoEditActivity" />
+        <activity android:name=".ui.UploadActivity" />
+        <activity android:name=".videoedit.ui.VideoEditAtivity" />
+        <activity android:name=".videoedit.ui.MusicActivity" />
         <activity
-            android:name=".Login.SignupActivity"
+            android:name=".login.ui.SignupActivity"
             android:label=""
             android:theme="@style/SignUp" />
-        <activity android:name=".Login.LoginActivity_Email" />
+        <activity android:name=".login.ui.EmailLoginActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.SelectEditActivity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Login.LoginActivity">
+        <activity android:name=".login.ui.LoginActivity">
 
         </activity>
 

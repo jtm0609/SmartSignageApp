@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PhotoEdit.PhotoEdit_BottomFragment.Text.TextFragment"
+    tools:context=".photoedit.text.TextFragment"
     android:id="@+id/text_recycler">
 
 

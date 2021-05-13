@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoEdit.Music.MusicList"
+    tools:context=".videoedit.ui.MusicActivity"
     android:orientation="vertical"
     android:background="#79cf9f">
 <androidx.appcompat.widget.Toolbar

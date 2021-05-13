@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".VideoEdit.VideoEditAtivity"
+    tools:context=".videoedit.ui.VideoEditAtivity"
     android:id="@+id/con"
     android:background="#191919"
     >
@@ -63,8 +63,8 @@
         <VideoView
 
             android:id="@+id/video_eidt_video"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
 
             android:layout_gravity="center"
 

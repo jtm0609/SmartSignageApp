@@ -4,7 +4,7 @@
     android:id="@+id/effect_recycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PhotoEdit.PhotoEdit_BottomFragment.Effect.EffectFragment"
+    tools:context=".photoedit.effect.EffectFragment"
     >
 
 </androidx.recyclerview.widget.RecyclerView>
